@@ -30,56 +30,7 @@ export const defaultProfileData = {
     { name: "Log Analysis & Cybersecurity (picoCTF)", category: "Security", level: 82 },
     { name: "Technical Writing & Documentation", category: "Soft Skills", level: 85 }
   ],
-  projects: [
-    {
-      id: 1,
-      title: "IoT-Based Smart Trash Can System",
-      category: "IoT & Hardware",
-      description: "Sistem Tempat Sampah Pintar otomatis berbasis mikrokontroler ESP32 Wroom, sensor ultrasonik, dan motor servo. Dilengkapi backend PHP & MySQL untuk pencatatan data real-time serta dokumentasi standar akademik Harvard.",
-      tags: ["ESP32", "C++", "PHP", "MySQL", "IoT"],
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-      demoUrl: "https://github.com/DaffaAlbani",
-      githubUrl: "https://github.com/DaffaAlbani"
-    },
-    {
-      id: 2,
-      title: "Database & Web Application Systems",
-      category: "Backend Development",
-      description: "Pengembangan arsitektur backend aplikasi web menggunakan Laravel framework, perancangan skema SQL kompleks, serta pemodelan Entity-Relationship Diagram (ERD) untuk efisiensi manajemen data.",
-      tags: ["Laravel", "PHP", "MySQL", "ERD", "GitHub"],
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
-      demoUrl: "https://github.com/DaffaAlbani",
-      githubUrl: "https://github.com/DaffaAlbani"
-    }
-  ],
-  certificates: [
-    {
-      id: 1,
-      title: "Cybersecurity Training – picoCTF Classroom",
-      issuer: "picoCTF / Cybersecurity Training",
-      date: "2025",
-      credentialUrl: "https://picoctf.org",
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      id: 2,
-      title: "Associate Degree (D3) in Information Technology",
-      issuer: "Universitas Brawijaya - Fakultas Vokasi",
-      date: "2024 - Present",
-      credentialUrl: "https://vokasi.ub.ac.id",
-      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
-    }
-  ],
-  experiences: [
-    {
-      role: "Active Member / Staff",
-      company: "Student Executive Board (BEM) - Universitas Brawijaya",
-      period: "2024 - Present",
-      description: "Berkolaborasi dalam tim lintas fungsi untuk mengelola program kerja kampus dan inisiatif mahasiswa.",
-      achievements: [
-        "Menyusun draf surat komitmen resmi, proposal kegiatan, dan laporan internal organisasi",
-        "Mengkoordinasi pelaksanaan acara kemahasiswaan tingkat fakultas"
-      ]
-    }
-  ]
+  projects: [],
+  certificates: [],
+  experiences: []
 };
