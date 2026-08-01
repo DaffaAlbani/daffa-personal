@@ -27,7 +27,8 @@ export const ProfileProvider = ({ children }) => {
 
   // Hide login button state
   const [hideLoginButton, setHideLoginButton] = useState(() => {
-    return localStorage.getItem('personal_web_hide_login') === 'true';
+    const saved = localStorage.getItem('personal_web_hide_login');
+    return saved !== null ? saved === 'true' : true;
   });
 
   // Modals state
