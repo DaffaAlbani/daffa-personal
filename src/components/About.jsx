@@ -1,92 +1,105 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { Cpu, UserCheck, BarChart3 } from 'lucide-react';
+import { Cpu, UserCheck, BarChart3, Target, Sparkles, Terminal, Code2, Server, Database, Shield } from 'lucide-react';
 
-/* Map skill level % to readable label */
+/* Map skill level % to readable label & theme color */
 const getLevelLabel = (level) => {
-  if (level >= 85) return { label: 'Expert', color: 'var(--accent-emerald)' };
-  if (level >= 65) return { label: 'Advanced', color: 'var(--accent-cyan)' };
-  if (level >= 40) return { label: 'Intermediate', color: 'var(--accent-indigo)' };
-  return { label: 'Beginner', color: 'var(--accent-amber)' };
+  if (level >= 88) return { label: 'Mastery / Expert', color: 'var(--accent-cyan)' };
+  if (level >= 75) return { label: 'Advanced', color: 'var(--accent-indigo)' };
+  if (level >= 50) return { label: 'Intermediate', color: 'var(--accent-purple)' };
+  return { label: 'Foundational', color: 'var(--accent-amber)' };
 };
 
-/* Skill progress bar component */
-const SkillBar = ({ skill }) => {
+/* High-craft Skill Card Component */
+const SkillCard = ({ skill }) => {
   const { label, color } = getLevelLabel(skill.level);
+
   return (
-    <div style={{
-      padding: '0.85rem 1rem',
+    <div className="glass-panel" style={{
+      padding: '1rem 1.25rem',
       borderRadius: 'var(--radius-sm)',
-      background: 'rgba(255,255,255,0.02)',
+      background: 'rgba(13, 20, 38, 0.65)',
       border: '1px solid var(--border-color)',
-      transition: 'border-color 0.2s ease, background 0.2s ease',
+      transition: 'transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease',
     }}
       onMouseEnter={e => {
-        e.currentTarget.style.borderColor = 'var(--border-hover)';
-        e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+        e.currentTarget.style.borderColor = color + '66';
+        e.currentTarget.style.transform = 'translateY(-3px)';
+        e.currentTarget.style.boxShadow = `0 10px 25px -5px ${color}25`;
       }}
       onMouseLeave={e => {
         e.currentTarget.style.borderColor = 'var(--border-color)';
-        e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
       }}
     >
-      {/* Top row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.55rem' }}>
-        <span style={{
-          fontFamily: 'var(--font-heading)',
-          fontWeight: '600',
-          fontSize: '0.9rem',
-          color: 'var(--text-main)',
-        }}>
-          {skill.name}
-        </span>
+      {/* Skill Title & Level Label */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span style={{
+            width: '7px', height: '7px', borderRadius: '50%',
+            background: color,
+            boxShadow: `0 0 8px ${color}`,
+            display: 'inline-block',
+          }} />
+          <span style={{
+            fontFamily: 'var(--font-heading)',
+            fontWeight: '700',
+            fontSize: '0.92rem',
+            color: 'var(--text-main)',
+          }}>
+            {skill.name}
+          </span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
           <span style={{
             fontSize: '0.68rem',
             fontWeight: '700',
             fontFamily: 'var(--font-heading)',
             color,
             background: color + '15',
-            padding: '0.15rem 0.55rem',
+            padding: '0.18rem 0.6rem',
             borderRadius: '9999px',
-            letterSpacing: '0.05em',
+            letterSpacing: '0.04em',
+            border: `1px solid ${color}30`,
           }}>
             {label}
           </span>
           <span style={{
-            fontSize: '0.78rem',
-            fontWeight: '700',
-            color: 'var(--text-dim)',
+            fontSize: '0.82rem',
+            fontWeight: '800',
+            color: 'var(--text-main)',
             fontFamily: 'var(--font-heading)',
           }}>
             {skill.level}%
           </span>
         </div>
       </div>
-      {/* Progress bar */}
+
+      {/* Progress Track */}
       <div style={{
         width: '100%',
-        height: '6px',
-        background: 'var(--bg-surface)',
+        height: '7px',
+        background: 'rgba(6, 10, 18, 0.8)',
         borderRadius: '9999px',
         overflow: 'hidden',
         border: '1px solid var(--border-color)',
+        padding: '1px',
       }}>
         <div style={{
           width: `${skill.level}%`,
           height: '100%',
-          background: `linear-gradient(90deg, ${color}99, ${color})`,
+          background: `linear-gradient(90deg, #38BDF8 0%, ${color} 100%)`,
           borderRadius: '9999px',
           position: 'relative',
-          transition: 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: `0 0 8px ${color}55`,
+          transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+          boxShadow: `0 0 10px ${color}66`,
         }}>
-          {/* Glimmer highlight */}
+          {/* Shimmer Highlight */}
           <div style={{
             position: 'absolute',
-            top: 0, left: 0, right: 0,
-            height: '50%',
-            background: 'rgba(255,255,255,0.35)',
+            inset: 0,
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
             borderRadius: '9999px',
           }} />
         </div>
@@ -97,14 +110,17 @@ const SkillBar = ({ skill }) => {
 
 export const About = () => {
   const { profile } = useProfile();
+  const [activeTab, setActiveTab] = useState('bio');
+  const [selectedCategory, setSelectedCategory] = useState('Semua');
 
-  /* Group skills by category */
-  const skillGroups = (profile.skills || []).reduce((acc, skill) => {
-    const cat = skill.category || 'Lainnya';
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(skill);
-    return acc;
-  }, {});
+  /* Get unique categories */
+  const categories = ['Semua', ...new Set((profile.skills || []).map(s => s.category || 'Lainnya'))];
+
+  /* Filter skills */
+  const filteredSkills = (profile.skills || []).filter(s => {
+    if (selectedCategory === 'Semua') return true;
+    return s.category === selectedCategory;
+  });
 
   return (
     <section id="about" className="section-padding" style={{ position: 'relative' }}>
@@ -123,157 +139,152 @@ export const About = () => {
             <span className="gradient-text">Dekat</span>
           </h2>
           <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.08s' }}>
-            Latar belakang, keahlian teknis, dan dedikasi saya dalam membangun solusi teknologi yang berdampak.
+            Latar belakang akademik, arsitektur sistem backend, dan keahlian rekayasa teknologi saya.
           </p>
         </div>
 
-        {/* Bio + Stats Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '2rem',
-          marginBottom: '2rem',
+        {/* ── Tabbed Bio Card Showcase ── */}
+        <div className="glass-panel reveal-on-scroll" style={{
+          padding: '2rem',
+          marginBottom: '3rem',
+          transitionDelay: '0.12s',
         }}>
-
-          {/* Bio Card */}
-          <div className="glass-panel reveal-on-scroll" style={{ padding: '2rem', transitionDelay: '0.15s' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
-              <div style={{
-                width: '36px', height: '36px', borderRadius: '10px',
-                background: 'rgba(56,189,248,0.12)',
-                border: '1px solid rgba(56,189,248,0.2)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <UserCheck size={18} color="var(--accent-cyan)" />
-              </div>
-              <h3 style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: '1.15rem',
-                fontWeight: '700',
-              }}>
-                Ringkasan Profil
-              </h3>
-            </div>
-            <p style={{
-              color: 'var(--text-muted)',
-              lineHeight: '1.85',
-              fontSize: '0.98rem',
-              whiteSpace: 'pre-line',
-            }}>
-              {profile.bio}
-            </p>
+          {/* Bio Tab Header */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.6rem',
+            borderBottom: '1px solid var(--border-color)',
+            paddingBottom: '1rem',
+            marginBottom: '1.5rem',
+            overflowX: 'auto',
+          }}>
+            {[
+              { id: 'bio', label: 'Latar Belakang & Bio', icon: <UserCheck size={15} /> },
+              { id: 'focus', label: 'Fokus & Spesialisasi', icon: <Target size={15} /> },
+              { id: 'philosophy', label: 'Visi Engineering', icon: <Terminal size={15} /> },
+            ].map(tab => {
+              const active = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.5rem 1.1rem',
+                    borderRadius: '9999px',
+                    fontSize: '0.86rem',
+                    fontWeight: '700',
+                    fontFamily: 'var(--font-heading)',
+                    cursor: 'pointer',
+                    border: 'none',
+                    transition: 'all 0.22s ease',
+                    background: active ? 'var(--gradient-brand)' : 'rgba(255,255,255,0.04)',
+                    color: active ? '#FFF' : 'var(--text-muted)',
+                    boxShadow: active ? 'var(--shadow-btn)' : 'none',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {tab.icon}
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Stats Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '1rem',
-          }}>
-            {profile.stats?.map((stat, idx) => (
-              <div
-                key={idx}
-                className="glass-panel reveal-on-scroll"
-                style={{
-                  padding: '1.5rem',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  transitionDelay: `${0.15 + idx * 0.07}s`,
-                }}
-              >
-                <div style={{
-                  fontSize: '2rem',
-                  fontWeight: '800',
-                  fontFamily: 'var(--font-heading)',
-                  background: 'var(--gradient-brand)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  letterSpacing: '-0.03em',
-                }}>
-                  {stat.value}
+          {/* Tab Content */}
+          <div style={{ minHeight: '130px' }}>
+            {activeTab === 'bio' && (
+              <div style={{ lineHeight: '1.85', color: 'var(--text-main)', fontSize: '1rem' }}>
+                <p style={{ marginBottom: '1rem' }}>
+                  Saya adalah mahasiswa <strong>Information Technology</strong> di Fakultas Vokasi Universitas Brawijaya (2024–Present) dengan minat tinggi pada rekayasa perangkat lunak backend, pemodelan skema basis data terstruktur (Laravel & MySQL), serta sistem Internet of Things (IoT).
+                </p>
+                <p style={{ color: 'var(--text-muted)' }}>
+                  Berpengalaman dalam merancang arsitektur RESTful API, pemodelan ERD, penulisan kode bersih (clean code), dokumentasi teknis yang jelas, serta aktif berkontribusi dalam organisasi kemahasiswaan dan bimbingan belajar AI/pemrograman.
+                </p>
+              </div>
+            )}
+
+            {activeTab === 'focus' && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
+                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+                  <Server size={20} color="var(--accent-cyan)" style={{ marginBottom: '0.5rem' }} />
+                  <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.35rem' }}>Backend Architecture</h4>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>Pembangunan REST API berkinerja tinggi menggunakan PHP & Framework Laravel.</p>
                 </div>
-                <div style={{
-                  fontSize: '0.78rem',
-                  color: 'var(--text-muted)',
-                  fontWeight: '600',
-                  fontFamily: 'var(--font-heading)',
-                  letterSpacing: '0.02em',
-                }}>
-                  {stat.label}
+                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+                  <Database size={20} color="var(--accent-indigo)" style={{ marginBottom: '0.5rem' }} />
+                  <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.35rem' }}>Database Modeling</h4>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>Pemodelan ERD, normalisasi relasional MySQL, dan optimasi query.</p>
+                </div>
+                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+                  <Cpu size={20} color="var(--accent-purple)" style={{ marginBottom: '0.5rem' }} />
+                  <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.35rem' }}>IoT & Embedded Systems</h4>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>Integrasi mikrokontroler ESP32, sensor cerdas, dan pengiriman data terenkripsi.</p>
                 </div>
               </div>
-            ))}
+            )}
+
+            {activeTab === 'philosophy' && (
+              <div style={{ padding: '1.25rem', background: 'rgba(56,189,248,0.06)', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(56,189,248,0.2)' }}>
+                <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '800', color: 'var(--accent-cyan)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Sparkles size={18} /> Pragmatic Cybernetic Engineering
+                </h4>
+                <p style={{ color: 'var(--text-main)', fontSize: '0.94rem', lineHeight: '1.75' }}>
+                  "Setiap baris kode yang ditulis harus modular, mudah dipelihara, dan menyelesaikan masalah nyata. Menggabungkan arsitektur backend yang solid dengan integrasi hardware IoT dan estetika visual tingkat tinggi."
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Technical Skills */}
-        <div className="glass-panel reveal-on-scroll" style={{ padding: '2.25rem', transitionDelay: '0.2s' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.75rem' }}>
-            <div style={{
-              width: '36px', height: '36px', borderRadius: '10px',
-              background: 'rgba(192,132,252,0.12)',
-              border: '1px solid rgba(192,132,252,0.2)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <Cpu size={18} color="var(--accent-purple)" />
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: '700' }}>
-              Keahlian Teknis
+        {/* ── Technical Skills Filter Bar & Matrix ── */}
+        <div className="section-title-wrapper" style={{ textLeft: 'left', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.35rem', fontWeight: '800', color: 'var(--text-main)' }}>
+              Matriks Keahlian & <span className="gradient-text">Kompetensi</span>
             </h3>
-            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-              {[
-                { label: 'Expert', color: 'var(--accent-emerald)' },
-                { label: 'Advanced', color: 'var(--accent-cyan)' },
-                { label: 'Intermediate', color: 'var(--accent-indigo)' },
-                { label: 'Beginner', color: 'var(--accent-amber)' },
-              ].map(({ label, color }) => (
-                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: color, display: 'block' }} />
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', fontFamily: 'var(--font-heading)', fontWeight: '600' }}>
-                    {label}
-                  </span>
-                </div>
-              ))}
+
+            {/* Category Filter Pills */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+              {categories.map(cat => {
+                const active = selectedCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    style={{
+                      padding: '0.38rem 0.95rem',
+                      borderRadius: '9999px',
+                      fontSize: '0.78rem',
+                      fontWeight: '700',
+                      fontFamily: 'var(--font-heading)',
+                      cursor: 'pointer',
+                      border: active ? 'none' : '1px solid var(--border-color)',
+                      transition: 'all 0.2s ease',
+                      background: active ? 'var(--gradient-brand)' : 'rgba(255,255,255,0.04)',
+                      color: active ? '#FFF' : 'var(--text-muted)',
+                      boxShadow: active ? 'var(--shadow-btn)' : 'none',
+                    }}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
             </div>
           </div>
+        </div>
 
-          {/* Skill Groups */}
-          {Object.entries(skillGroups).map(([category, skills], groupIdx) => (
-            <div key={category} style={{ marginBottom: groupIdx < Object.keys(skillGroups).length - 1 ? '2rem' : 0 }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.6rem',
-                marginBottom: '0.85rem',
-              }}>
-                <BarChart3 size={14} color="var(--text-dim)" />
-                <span style={{
-                  fontSize: '0.72rem',
-                  fontWeight: '700',
-                  fontFamily: 'var(--font-heading)',
-                  color: 'var(--text-dim)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                }}>
-                  {category}
-                </span>
-                <div style={{ flex: 1, height: '1px', background: 'var(--border-color)' }} />
-              </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-                gap: '0.75rem',
-              }}>
-                {skills.map((skill, i) => (
-                  <SkillBar key={i} skill={skill} index={i} />
-                ))}
-              </div>
-            </div>
+        {/* Skills Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+          gap: '1.15rem',
+        }}>
+          {filteredSkills.map((skill, idx) => (
+            <SkillCard key={skill.name || idx} skill={skill} />
           ))}
         </div>
 

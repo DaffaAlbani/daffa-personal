@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Phone } from 'lucide-react';
+import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Phone, Sparkles, MessageCircle } from 'lucide-react';
 
 export const Contact = () => {
   const { profile, showToast } = useProfile();
@@ -11,16 +11,16 @@ export const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
-      showToast('Mohon lengkapi semua kolom!', 'error');
+      showToast('Mohon lengkapi kolom nama, email, dan pesan!', 'error');
       return;
     }
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-      showToast('Pesan berhasil dikirim! Terima kasih.', 'success');
+      showToast('Pesan Anda berhasil terkirim! Terima kasih.', 'success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1200);
+    }, 1100);
   };
 
   const contactItems = [
@@ -29,22 +29,22 @@ export const Contact = () => {
       label: 'EMAIL UTAMA',
       value: profile.email,
       href: `mailto:${profile.email}`,
-      color: '#38BDF8',
+      color: 'var(--accent-cyan)',
     },
     ...(profile.phone ? [{
       icon: <Phone size={20} />,
-      label: 'TELEPON / WHATSAPP',
+      label: 'WHATSAPP / TELEPON',
       value: profile.phone,
       href: `https://wa.me/${profile.phone.replace(/[^0-9]/g, '')}`,
-      color: '#34D399',
+      color: 'var(--accent-emerald)',
       external: true,
     }] : []),
     {
       icon: <MapPin size={20} />,
-      label: 'LOKASI',
+      label: 'LOKASI UTAMA',
       value: profile.location,
       href: null,
-      color: '#818CF8',
+      color: 'var(--accent-indigo)',
     },
   ];
 
@@ -65,191 +65,216 @@ export const Contact = () => {
             <span className="gradient-text">Berkolaborasi</span>
           </h2>
           <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.08s' }}>
-            Terbuka untuk peluang magang, proyek freelance, maupun kolaborasi teknis lainnya.
+            Terbuka untuk peluang magang backend/IoT, proyek freelance, maupun bimbingan akademik AI.
           </p>
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '2rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '2.25rem',
           alignItems: 'start',
         }}>
 
-          {/* ── Info Card ── */}
-          <div className="glass-panel reveal-on-scroll" style={{ padding: '2rem', transitionDelay: '0.15s' }}>
+          {/* ── Left Column: Contact Gateway Cards ── */}
+          <div className="glass-panel reveal-on-scroll" style={{ padding: '2.25rem', transitionDelay: '0.15s' }}>
             <h3 style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: '1.1rem',
-              fontWeight: '700',
-              marginBottom: '0.5rem',
+              fontSize: '1.25rem',
+              fontWeight: '800',
+              marginBottom: '0.75rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
+              gap: '0.6rem',
             }}>
-              <MessageSquare size={18} color="var(--accent-cyan)" />
-              Informasi Kontak
+              <MessageCircle size={20} color="var(--accent-cyan)" />
+              Informasi & Gateway
             </h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', lineHeight: '1.75', fontSize: '0.93rem' }}>
-              Saya terbuka untuk peluang <strong style={{ color: 'var(--text-main)' }}>Magang</strong>,{' '}
-              <strong style={{ color: 'var(--text-main)' }}>Freelance</strong>, maupun posisi{' '}
-              <strong style={{ color: 'var(--text-main)' }}>AI Tutor / Data Trainer</strong>.
+            <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', lineHeight: '1.75', fontSize: '0.94rem' }}>
+              Anda dapat menghubungi saya secara langsung melalui WhatsApp atau Email untuk kebutuhan diskusi teknis dan penawaran proyek.
             </p>
 
-            {/* Contact Items */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.75rem' }}>
-              {contactItems.map(({ icon, label, value, href, color, external }) => (
-                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            {/* Contact Items List */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem', marginBottom: '2rem' }}>
+              {contactItems.map((item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    padding: '0.95rem 1.15rem',
+                    borderRadius: 'var(--radius-md)',
+                    background: 'rgba(255,255,255,0.02)',
+                    border: '1px solid var(--border-color)',
+                    transition: 'all 0.22s ease',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                    e.currentTarget.style.borderColor = item.color + '55';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+                    e.currentTarget.style.borderColor = 'var(--border-color)';
+                  }}
+                >
                   <div style={{
-                    width: '44px', height: '44px',
-                    borderRadius: '12px',
-                    background: color + '15',
-                    border: `1px solid ${color}30`,
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: 'var(--radius-sm)',
+                    background: item.color + '15',
+                    border: `1px solid ${item.color}35`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color,
+                    color: item.color,
                     flexShrink: 0,
                   }}>
-                    {icon}
+                    {item.icon}
                   </div>
-                  <div>
+                  <div style={{ flex: 1, overflow: 'hidden' }}>
                     <div style={{
                       fontSize: '0.68rem',
+                      fontWeight: '800',
                       color: 'var(--text-dim)',
                       fontFamily: 'var(--font-heading)',
-                      fontWeight: '700',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      marginBottom: '0.18rem',
+                      letterSpacing: '0.08em',
+                      marginBottom: '2px',
                     }}>
-                      {label}
+                      {item.label}
                     </div>
-                    {href ? (
+                    {item.href ? (
                       <a
-                        href={href}
-                        {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                        href={item.href}
+                        target={item.external ? '_blank' : '_self'}
+                        rel={item.external ? 'noreferrer' : ''}
                         style={{
                           color: 'var(--text-main)',
                           textDecoration: 'none',
-                          fontWeight: '600',
-                          fontSize: '0.92rem',
-                          transition: 'color 0.2s',
+                          fontSize: '0.94rem',
+                          fontWeight: '700',
+                          fontFamily: 'var(--font-heading)',
+                          wordBreak: 'break-all',
                         }}
-                        onMouseEnter={e => e.currentTarget.style.color = color}
-                        onMouseLeave={e => e.currentTarget.style.color = 'var(--text-main)'}
                       >
-                        {value}
+                        {item.value}
                       </a>
                     ) : (
-                      <span style={{ color: 'var(--text-main)', fontWeight: '600', fontSize: '0.92rem' }}>
-                        {value}
-                      </span>
+                      <div style={{
+                        color: 'var(--text-main)',
+                        fontSize: '0.94rem',
+                        fontWeight: '700',
+                        fontFamily: 'var(--font-heading)',
+                      }}>
+                        {item.value}
+                      </div>
                     )}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Availability Card */}
-            <div style={{
-              background: 'rgba(56,189,248,0.06)',
-              border: '1px solid rgba(56,189,248,0.18)',
-              borderRadius: 'var(--radius-md)',
-              padding: '1rem 1.25rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-            }}>
-              <div style={{
-                width: '10px', height: '10px',
-                borderRadius: '50%',
-                background: 'var(--accent-emerald)',
-                boxShadow: '0 0 10px var(--accent-emerald)',
-                flexShrink: 0,
-                animation: 'pulse-dot 2s infinite',
-              }} />
-              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                Status: <strong style={{ color: 'var(--text-main)' }}>Aktif Kuliah @ Universitas Brawijaya</strong>
-              </span>
-            </div>
+            {/* Quick WhatsApp CTA Button */}
+            {profile.phone && (
+              <a
+                href={`https://wa.me/${profile.phone.replace(/[^0-9]/g, '')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn"
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  background: 'rgba(52, 211, 153, 0.15)',
+                  border: '1px solid rgba(52, 211, 153, 0.4)',
+                  color: 'var(--accent-emerald)',
+                  boxShadow: '0 8px 24px -6px rgba(52, 211, 153, 0.25)',
+                }}
+              >
+                <Phone size={16} /> Chat Langsung via WhatsApp
+              </a>
+            )}
           </div>
 
-          {/* ── Contact Form ── */}
-          <div className="glass-panel reveal-on-scroll" style={{ padding: '2rem', transitionDelay: '0.22s' }}>
+          {/* ── Right Column: Interactive Contact Form ── */}
+          <div className="glass-panel reveal-on-scroll" style={{ padding: '2.25rem', transitionDelay: '0.25s' }}>
+            <h3 style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: '1.25rem',
+              fontWeight: '800',
+              marginBottom: '0.5rem',
+            }}>
+              Kirim Pesan Langsung
+            </h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.75rem', fontSize: '0.9rem' }}>
+              Isi formulir di bawah ini untuk mengirimkan pesan atau pertanyaan langsung.
+            </p>
+
             {submitted ? (
-              <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>
-                <div style={{
-                  width: '68px', height: '68px',
-                  borderRadius: '50%',
-                  background: 'rgba(52,211,153,0.12)',
-                  border: '2px solid rgba(52,211,153,0.3)',
-                  color: 'var(--accent-emerald)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  margin: '0 auto 1.25rem auto',
-                }}>
-                  <CheckCircle2 size={34} />
-                </div>
-                <h3 style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.3rem',
-                  fontWeight: '700',
-                  marginBottom: '0.5rem',
-                }}>
+              <div style={{
+                padding: '2.5rem 1.5rem',
+                textAlign: 'center',
+                background: 'rgba(52,211,153,0.08)',
+                border: '1px solid rgba(52,211,153,0.25)',
+                borderRadius: 'var(--radius-md)',
+              }}>
+                <CheckCircle2 size={48} color="var(--accent-emerald)" style={{ marginBottom: '1rem' }} />
+                <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: '800', marginBottom: '0.5rem' }}>
                   Pesan Terkirim!
-                </h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '1.75rem', lineHeight: '1.7' }}>
-                  Terima kasih telah menghubungi saya. Saya akan segera merespons ke email Anda.
+                </h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+                  Terima kasih telah menghubungi saya. Pesan Anda telah diterima dan akan segera direspons.
                 </p>
                 <button onClick={() => setSubmitted(false)} className="btn btn-secondary btn-sm">
                   Kirim Pesan Lain
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-                <div className="form-group">
-                  <label className="form-label">Nama Lengkap *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Nama Anda"
-                    value={formData.name}
-                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    className="form-input"
-                  />
+              <form onSubmit={handleSubmit}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="form-group">
+                    <label className="form-label">Nama Lengkap</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="Masukkan nama Anda..."
+                      value={formData.name}
+                      onChange={e => setFormData({ ...formData, name: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Alamat Email</label>
+                    <input
+                      type="email"
+                      className="form-input"
+                      placeholder="email@domain.com"
+                      value={formData.email}
+                      onChange={e => setFormData({ ...formData, email: e.target.value })}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Alamat Email *</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="email@domain.com"
-                    value={formData.email}
-                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    className="form-input"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Subjek / Penawaran</label>
+                  <label className="form-label">Subjek / Topik</label>
                   <input
                     type="text"
-                    placeholder="Misal: Penawaran Magang / Freelance"
+                    className="form-input"
+                    placeholder="Contoh: Penawaran Magang / Freelance Backend"
                     value={formData.subject}
                     onChange={e => setFormData({ ...formData, subject: e.target.value })}
-                    className="form-input"
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Pesan Anda *</label>
+                  <label className="form-label">Pesan</label>
                   <textarea
-                    required
-                    placeholder="Tuliskan detail pesan Anda..."
+                    rows={4}
+                    className="form-textarea"
+                    placeholder="Tuliskan pesan atau detail proyek Anda di sini..."
                     value={formData.message}
                     onChange={e => setFormData({ ...formData, message: e.target.value })}
-                    className="form-textarea"
+                    required
                   />
                 </div>
 
@@ -257,18 +282,22 @@ export const Contact = () => {
                   type="submit"
                   disabled={isSubmitting}
                   className="btn btn-primary"
-                  style={{ width: '100%', justifyContent: 'center', marginTop: '0.25rem', opacity: isSubmitting ? 0.7 : 1 }}
+                  style={{ width: '100%', justifyContent: 'center' }}
                 >
-                  {isSubmitting
-                    ? 'Mengirim...'
-                    : <><Send size={15} /> Kirim Pesan</>
-                  }
+                  {isSubmitting ? (
+                    'Mengirim Pesan...'
+                  ) : (
+                    <>
+                      Kirim Pesan <Send size={15} />
+                    </>
+                  )}
                 </button>
               </form>
             )}
           </div>
 
         </div>
+
       </div>
     </section>
   );

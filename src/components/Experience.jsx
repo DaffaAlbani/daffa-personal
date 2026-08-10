@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { Briefcase, Calendar, CheckCircle, Building2 } from 'lucide-react';
+import { Briefcase, Calendar, CheckCircle2, Building2, ChevronRight, Award } from 'lucide-react';
 
 export const Experience = () => {
   const { profile } = useProfile();
@@ -19,24 +19,25 @@ export const Experience = () => {
           </div>
           <h2 className="section-title reveal-on-scroll">
             Perjalanan{' '}
-            <span className="gradient-text">Profesional</span>
+            <span className="gradient-text">Profesional & Leadership</span>
           </h2>
           <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.08s' }}>
-            Karir dan kontribusi teknis di berbagai perusahaan dan proyek nyata.
+            Rekam jejak kontribusi teknis, organisasi kemahasiswaan, dan peran bimbingan akademik.
           </p>
         </div>
 
-        <div style={{ maxWidth: '820px', margin: '0 auto', position: 'relative' }}>
+        <div style={{ maxWidth: '840px', margin: '0 auto', position: 'relative' }}>
 
-          {/* Gradient Timeline Line */}
+          {/* Cybernetic Gradient Timeline Spine */}
           <div style={{
             position: 'absolute',
-            left: '22px',
-            top: '10px',
-            bottom: '10px',
-            width: '2px',
-            background: 'linear-gradient(to bottom, var(--accent-cyan), var(--accent-indigo), var(--accent-purple), transparent)',
+            left: '23px',
+            top: '12px',
+            bottom: '12px',
+            width: '3px',
+            background: 'linear-gradient(to bottom, #38BDF8 0%, #818CF8 50%, #C084FC 100%)',
             borderRadius: '9999px',
+            boxShadow: '0 0 12px rgba(56,189,248,0.3)',
           }} />
 
           {profile.experiences?.map((exp, index) => (
@@ -45,144 +46,109 @@ export const Experience = () => {
               className="reveal-on-scroll"
               style={{
                 position: 'relative',
-                paddingLeft: '4rem',
-                marginBottom: index < profile.experiences.length - 1 ? '2.25rem' : 0,
+                paddingLeft: '4.25rem',
+                marginBottom: index < profile.experiences.length - 1 ? '2.5rem' : 0,
                 transitionDelay: `${0.08 + index * 0.08}s`,
               }}
             >
-              {/* Timeline Node */}
+              {/* Glowing Timeline Node Icon */}
               <div style={{
                 position: 'absolute',
                 left: '0',
                 top: '0',
-                width: '46px',
-                height: '46px',
+                width: '48px',
+                height: '48px',
                 borderRadius: '50%',
                 background: 'var(--bg-surface)',
-                border: '2px solid var(--accent-indigo)',
+                border: '2px solid var(--accent-cyan)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 0 4px rgba(129,140,248,0.12), 0 0 20px rgba(129,140,248,0.3)',
+                boxShadow: '0 0 0 4px rgba(56,189,248,0.15), 0 0 25px rgba(56,189,248,0.35)',
                 zIndex: 2,
               }}>
-                <Briefcase size={18} color="var(--accent-indigo)" />
+                <Briefcase size={20} color="var(--accent-cyan)" />
               </div>
 
-              {/* Card */}
-              <div className="glass-panel" style={{ padding: '1.5rem 1.75rem' }}>
+              {/* Timeline Experience Card */}
+              <div className="glass-panel" style={{ padding: '1.65rem 1.85rem' }}>
 
-                {/* Card Header */}
+                {/* Header Meta */}
                 <div style={{
                   display: 'flex',
                   flexWrap: 'wrap',
                   justifyContent: 'space-between',
                   alignItems: 'flex-start',
                   gap: '0.75rem',
-                  marginBottom: '0.85rem',
+                  marginBottom: '1rem',
                 }}>
                   <div>
                     <h3 style={{
                       fontFamily: 'var(--font-heading)',
-                      fontSize: '1.15rem',
-                      fontWeight: '700',
+                      fontSize: '1.2rem',
+                      fontWeight: '800',
                       color: 'var(--text-main)',
-                      marginBottom: '0.25rem',
+                      marginBottom: '0.3rem',
                     }}>
                       {exp.role}
                     </h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                      <Building2 size={14} color="var(--accent-indigo)" />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
                       <span style={{
-                        fontSize: '0.9rem',
-                        fontWeight: '600',
-                        fontFamily: 'var(--font-heading)',
+                        display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                        fontSize: '0.9rem', fontWeight: '700', fontFamily: 'var(--font-heading)',
                         color: 'var(--accent-indigo)',
                       }}>
-                        {exp.company}
+                        <Building2 size={14} /> {exp.company}
                       </span>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', alignItems: 'flex-end' }}>
-                    {/* Period Badge */}
-                    <div style={{
-                      display: 'flex',
+                  {/* Period Badge */}
+                  {exp.period && (
+                    <span style={{
+                      display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.4rem',
-                      fontSize: '0.8rem',
-                      color: 'var(--text-muted)',
-                      background: 'rgba(255,255,255,0.04)',
-                      padding: '0.3rem 0.75rem',
-                      borderRadius: '9999px',
-                      border: '1px solid var(--border-color)',
+                      fontSize: '0.78rem',
+                      fontWeight: '700',
                       fontFamily: 'var(--font-heading)',
-                      fontWeight: '500',
+                      padding: '0.3rem 0.8rem',
+                      borderRadius: '9999px',
+                      background: 'rgba(129,140,248,0.12)',
+                      border: '1px solid rgba(129,140,248,0.25)',
+                      color: 'var(--accent-indigo)',
                     }}>
-                      <Calendar size={13} color="var(--accent-cyan)" />
-                      <span>{exp.period}</span>
-                    </div>
-
-                    {/* Employment Type Badge */}
-                    {exp.type && (
-                      <span style={{
-                        fontSize: '0.68rem',
-                        fontWeight: '700',
-                        fontFamily: 'var(--font-heading)',
-                        color: 'var(--accent-emerald)',
-                        background: 'rgba(52,211,153,0.1)',
-                        border: '1px solid rgba(52,211,153,0.2)',
-                        padding: '0.18rem 0.6rem',
-                        borderRadius: '9999px',
-                        letterSpacing: '0.06em',
-                        textTransform: 'uppercase',
-                      }}>
-                        {exp.type}
-                      </span>
-                    )}
-                  </div>
+                      <Calendar size={13} /> {exp.period}
+                    </span>
+                  )}
                 </div>
 
-                {/* Description */}
+                {/* Role Description */}
                 <p style={{
                   color: 'var(--text-muted)',
                   fontSize: '0.93rem',
-                  marginBottom: exp.achievements?.length ? '1rem' : 0,
-                  lineHeight: '1.7',
+                  lineHeight: '1.75',
+                  marginBottom: '1.15rem',
                 }}>
                   {exp.description}
                 </p>
 
-                {/* Achievements */}
-                {exp.achievements?.length > 0 && (
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-                    gap: '0.45rem',
-                    paddingTop: '0.85rem',
-                    borderTop: '1px solid var(--border-color)',
-                  }}>
-                    {exp.achievements.map((achieve, i) => (
-                      <div key={i} style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: '0.5rem',
-                        fontSize: '0.83rem',
-                        color: 'var(--text-muted)',
-                        lineHeight: '1.5',
-                      }}>
-                        <CheckCircle size={13} color="var(--accent-emerald)" style={{ marginTop: '2px', flexShrink: 0 }} />
-                        <span>{achieve}</span>
+                {/* Key Achievements Bullet Items */}
+                {exp.highlights && exp.highlights.length > 0 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.85rem' }}>
+                    {exp.highlights.map((item, hIdx) => (
+                      <div key={hIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', fontSize: '0.86rem', color: 'var(--text-main)' }}>
+                        <CheckCircle2 size={15} color="var(--accent-emerald)" style={{ flexShrink: 0, marginTop: '3px' }} />
+                        <span style={{ lineHeight: '1.6' }}>{item}</span>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
-
             </div>
           ))}
-
         </div>
+
       </div>
     </section>
   );
