@@ -1,97 +1,280 @@
 import React from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { Code, Terminal, Cpu, Database, Award, UserCheck } from 'lucide-react';
+import { Cpu, UserCheck, BarChart3 } from 'lucide-react';
+
+/* Map skill level % to readable label */
+const getLevelLabel = (level) => {
+  if (level >= 85) return { label: 'Expert', color: 'var(--accent-emerald)' };
+  if (level >= 65) return { label: 'Advanced', color: 'var(--accent-cyan)' };
+  if (level >= 40) return { label: 'Intermediate', color: 'var(--accent-indigo)' };
+  return { label: 'Beginner', color: 'var(--accent-amber)' };
+};
+
+/* Skill progress bar component */
+const SkillBar = ({ skill }) => {
+  const { label, color } = getLevelLabel(skill.level);
+  return (
+    <div style={{
+      padding: '0.85rem 1rem',
+      borderRadius: 'var(--radius-sm)',
+      background: 'rgba(255,255,255,0.02)',
+      border: '1px solid var(--border-color)',
+      transition: 'border-color 0.2s ease, background 0.2s ease',
+    }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = 'var(--border-hover)';
+        e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = 'var(--border-color)';
+        e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+      }}
+    >
+      {/* Top row */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.55rem' }}>
+        <span style={{
+          fontFamily: 'var(--font-heading)',
+          fontWeight: '600',
+          fontSize: '0.9rem',
+          color: 'var(--text-main)',
+        }}>
+          {skill.name}
+        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span style={{
+            fontSize: '0.68rem',
+            fontWeight: '700',
+            fontFamily: 'var(--font-heading)',
+            color,
+            background: color + '15',
+            padding: '0.15rem 0.55rem',
+            borderRadius: '9999px',
+            letterSpacing: '0.05em',
+          }}>
+            {label}
+          </span>
+          <span style={{
+            fontSize: '0.78rem',
+            fontWeight: '700',
+            color: 'var(--text-dim)',
+            fontFamily: 'var(--font-heading)',
+          }}>
+            {skill.level}%
+          </span>
+        </div>
+      </div>
+      {/* Progress bar */}
+      <div style={{
+        width: '100%',
+        height: '6px',
+        background: 'var(--bg-surface)',
+        borderRadius: '9999px',
+        overflow: 'hidden',
+        border: '1px solid var(--border-color)',
+      }}>
+        <div style={{
+          width: `${skill.level}%`,
+          height: '100%',
+          background: `linear-gradient(90deg, ${color}99, ${color})`,
+          borderRadius: '9999px',
+          position: 'relative',
+          transition: 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: `0 0 8px ${color}55`,
+        }}>
+          {/* Glimmer highlight */}
+          <div style={{
+            position: 'absolute',
+            top: 0, left: 0, right: 0,
+            height: '50%',
+            background: 'rgba(255,255,255,0.35)',
+            borderRadius: '9999px',
+          }} />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const About = () => {
   const { profile } = useProfile();
 
+  /* Group skills by category */
+  const skillGroups = (profile.skills || []).reduce((acc, skill) => {
+    const cat = skill.category || 'Lainnya';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(skill);
+    return acc;
+  }, {});
+
   return (
     <section id="about" className="section-padding" style={{ position: 'relative' }}>
       <div className="container">
-        
-        <h2 className="section-title reveal-on-scroll">Tentang Saya</h2>
-        <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.1s' }}>
-          Mengenal lebih dekat latar belakang, keahlian teknis, dan dedikasi saya dalam pengembangan teknologi modern.
-        </p>
+
+        {/* Section Header */}
+        <div className="section-title-wrapper">
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+            <span className="section-badge">
+              <UserCheck size={11} style={{ marginRight: '0.25rem' }} />
+              Tentang Saya
+            </span>
+          </div>
+          <h2 className="section-title reveal-on-scroll">
+            Kenali Lebih{' '}
+            <span className="gradient-text">Dekat</span>
+          </h2>
+          <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.08s' }}>
+            Latar belakang, keahlian teknis, dan dedikasi saya dalam membangun solusi teknologi yang berdampak.
+          </p>
+        </div>
 
         {/* Bio + Stats Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '2.5rem',
-          marginBottom: '4rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '2rem',
+          marginBottom: '2rem',
         }}>
-          
+
           {/* Bio Card */}
-          <div className="glass-panel reveal-on-scroll" style={{ padding: '2rem', transitionDelay: '0.2s' }}>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: '700', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <UserCheck size={22} color="var(--accent-cyan)" /> Ringkasan Profil
-            </h3>
-            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.05rem', whiteSpace: 'pre-line' }}>
+          <div className="glass-panel reveal-on-scroll" style={{ padding: '2rem', transitionDelay: '0.15s' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem' }}>
+              <div style={{
+                width: '36px', height: '36px', borderRadius: '10px',
+                background: 'rgba(56,189,248,0.12)',
+                border: '1px solid rgba(56,189,248,0.2)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <UserCheck size={18} color="var(--accent-cyan)" />
+              </div>
+              <h3 style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '1.15rem',
+                fontWeight: '700',
+              }}>
+                Ringkasan Profil
+              </h3>
+            </div>
+            <p style={{
+              color: 'var(--text-muted)',
+              lineHeight: '1.85',
+              fontSize: '0.98rem',
+              whiteSpace: 'pre-line',
+            }}>
               {profile.bio}
             </p>
           </div>
 
-          {/* Stats Grid Cards */}
+          {/* Stats Grid */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '1.25rem'
+            gap: '1rem',
           }}>
             {profile.stats?.map((stat, idx) => (
-              <div key={idx} className="glass-panel reveal-on-scroll" style={{ padding: '1.5rem', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', transitionDelay: `${0.2 + (idx * 0.1)}s` }}>
-                <div style={{ fontSize: '2.2rem', fontWeight: '800', className: 'gradient-text', background: 'var(--gradient-brand)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <div
+                key={idx}
+                className="glass-panel reveal-on-scroll"
+                style={{
+                  padding: '1.5rem',
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  transitionDelay: `${0.15 + idx * 0.07}s`,
+                }}
+              >
+                <div style={{
+                  fontSize: '2rem',
+                  fontWeight: '800',
+                  fontFamily: 'var(--font-heading)',
+                  background: 'var(--gradient-brand)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  letterSpacing: '-0.03em',
+                }}>
                   {stat.value}
                 </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: '600', marginTop: '0.3rem' }}>
+                <div style={{
+                  fontSize: '0.78rem',
+                  color: 'var(--text-muted)',
+                  fontWeight: '600',
+                  fontFamily: 'var(--font-heading)',
+                  letterSpacing: '0.02em',
+                }}>
                   {stat.label}
                 </div>
               </div>
             ))}
           </div>
-
         </div>
 
-        {/* Technical Skills Section */}
-        <div className="glass-panel reveal-on-scroll" style={{ padding: '2.5rem' }}>
-          <h3 style={{ fontSize: '1.4rem', fontWeight: '700', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <Cpu size={22} color="var(--accent-purple)" /> Keahlian & Keterampilan Teknis
-          </h3>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.5rem'
-          }}>
-            {profile.skills?.map((skill, index) => (
-              <div key={index} style={{
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-sm)',
-                padding: '1rem 1.25rem'
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
-                  <span style={{ fontWeight: '600', fontSize: '0.95rem', color: 'var(--text-main)' }}>
-                    {skill.name}
-                  </span>
-                  <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--accent-cyan)', background: 'rgba(56, 189, 248, 0.1)', padding: '0.2rem 0.6rem', borderRadius: '9999px' }}>
-                    {skill.category}
+        {/* Technical Skills */}
+        <div className="glass-panel reveal-on-scroll" style={{ padding: '2.25rem', transitionDelay: '0.2s' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.75rem' }}>
+            <div style={{
+              width: '36px', height: '36px', borderRadius: '10px',
+              background: 'rgba(192,132,252,0.12)',
+              border: '1px solid rgba(192,132,252,0.2)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <Cpu size={18} color="var(--accent-purple)" />
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.15rem', fontWeight: '700' }}>
+              Keahlian Teknis
+            </h3>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+              {[
+                { label: 'Expert', color: 'var(--accent-emerald)' },
+                { label: 'Advanced', color: 'var(--accent-cyan)' },
+                { label: 'Intermediate', color: 'var(--accent-indigo)' },
+                { label: 'Beginner', color: 'var(--accent-amber)' },
+              ].map(({ label, color }) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: color, display: 'block' }} />
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', fontFamily: 'var(--font-heading)', fontWeight: '600' }}>
+                    {label}
                   </span>
                 </div>
-                
-                {/* Progress bar */}
-                <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '9999px', overflow: 'hidden' }}>
-                  <div style={{
-                    width: `${skill.level}%`,
-                    height: '100%',
-                    background: 'var(--gradient-brand)',
-                    borderRadius: '9999px',
-                    transition: 'width 1s ease'
-                  }} />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          {/* Skill Groups */}
+          {Object.entries(skillGroups).map(([category, skills], groupIdx) => (
+            <div key={category} style={{ marginBottom: groupIdx < Object.keys(skillGroups).length - 1 ? '2rem' : 0 }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                marginBottom: '0.85rem',
+              }}>
+                <BarChart3 size={14} color="var(--text-dim)" />
+                <span style={{
+                  fontSize: '0.72rem',
+                  fontWeight: '700',
+                  fontFamily: 'var(--font-heading)',
+                  color: 'var(--text-dim)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                }}>
+                  {category}
+                </span>
+                <div style={{ flex: 1, height: '1px', background: 'var(--border-color)' }} />
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                gap: '0.75rem',
+              }}>
+                {skills.map((skill, i) => (
+                  <SkillBar key={i} skill={skill} index={i} />
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>

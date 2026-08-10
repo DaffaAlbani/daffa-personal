@@ -1,6 +1,9 @@
 import React from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { Camera, ArrowRight, Download, Mail, Sparkles, MapPin, Code2, Server, Cpu, GraduationCap } from 'lucide-react';
+import {
+  Camera, ArrowRight, Download, Mail, Sparkles,
+  MapPin, Code2, Server, Cpu, GraduationCap, ChevronDown,
+} from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
 
 export const Hero = () => {
@@ -17,247 +20,275 @@ export const Hero = () => {
   };
 
   return (
-    <section id="hero" style={{ 
-      position: 'relative', 
-      minHeight: '100vh', 
-      display: 'flex', 
-      alignItems: 'center', 
+    <section id="hero" style={{
+      position: 'relative',
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: '5rem',
-      paddingBottom: '3rem',
-      overflow: 'hidden' 
+      paddingTop: '5.5rem',
+      paddingBottom: '4rem',
+      overflow: 'hidden',
     }}>
-      
-      {/* Background Ambient Orbs */}
+
+      {/* Ambient Orbs */}
       <div className="ambient-orb-1" />
       <div className="ambient-orb-2" />
-      
+
       <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
         <div className="hero-grid" style={{
           display: 'grid',
-          gridTemplateColumns: '1.2fr 0.8fr',
-          gap: '3.5rem',
-          alignItems: 'center'
+          gridTemplateColumns: '1.25fr 0.75fr',
+          gap: '4rem',
+          alignItems: 'center',
         }}>
-          
-          {/* Left Column: Text Info */}
-          <div className="reveal-on-scroll" style={{ transitionDelay: '0.1s' }}>
+
+          {/* ── Left Column ── */}
+          <div className="reveal-on-scroll" style={{ transitionDelay: '0.05s' }}>
+
             {/* Institution Badge */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.6rem',
-              padding: '0.45rem 1.1rem',
-              background: 'rgba(56, 189, 248, 0.1)',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
+              padding: '0.45rem 1.15rem',
+              background: 'rgba(56,189,248,0.08)',
+              border: '1px solid rgba(56,189,248,0.22)',
               borderRadius: '9999px',
-              fontSize: '0.88rem',
-              fontWeight: '600',
+              fontSize: '0.82rem',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: '700',
               color: 'var(--accent-cyan)',
-              marginBottom: '1.25rem',
-              backdropFilter: 'blur(8px)'
+              marginBottom: '1.5rem',
+              backdropFilter: 'blur(10px)',
+              letterSpacing: '0.02em',
             }}>
-              <GraduationCap size={16} color="var(--accent-cyan)" />
-              <span>Universitas Brawijaya (IT Student)</span>
+              <GraduationCap size={15} color="var(--accent-cyan)" />
+              <span>Universitas Brawijaya — IT Student</span>
+              <span style={{
+                width: '7px', height: '7px', borderRadius: '50%',
+                background: 'var(--accent-emerald)',
+                boxShadow: '0 0 8px var(--accent-emerald)',
+                animation: 'pulse-dot 2s infinite',
+                display: 'inline-block',
+                marginLeft: '0.2rem',
+              }} />
             </div>
 
-            {/* Main Greeting & Name */}
-            <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 3.8rem)', fontWeight: '800', lineHeight: 1.12, marginBottom: '1rem', letterSpacing: '-0.03em' }}>
-              Halo, Saya <br />
+            {/* Main Heading */}
+            <h1 style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(2.6rem, 6vw, 4rem)',
+              fontWeight: '800',
+              lineHeight: 1.1,
+              marginBottom: '1.1rem',
+              letterSpacing: '-0.035em',
+            }}>
+              <span style={{ color: 'var(--text-muted)', fontSize: '55%', fontWeight: '600', display: 'block', marginBottom: '0.4rem', letterSpacing: '-0.01em' }}>
+                Halo, saya
+              </span>
               <span className="gradient-text">{profile.name}</span>
             </h1>
 
-            {/* Title & Tagline */}
-            <h2 style={{ fontSize: 'clamp(1.1rem, 3vw, 1.25rem)', fontWeight: '700', color: 'var(--accent-cyan)', marginBottom: '1rem', lineHeight: '1.5' }}>
-              {profile.title}
-            </h2>
+            {/* Subtitle */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.65rem',
+              marginBottom: '1.25rem',
+            }}>
+              <div style={{
+                width: '28px', height: '3px',
+                background: 'var(--gradient-brand-h)',
+                borderRadius: '9999px',
+                flexShrink: 0,
+              }} />
+              <h2 style={{
+                fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+                fontWeight: '600',
+                fontFamily: 'var(--font-heading)',
+                color: 'var(--accent-indigo)',
+                letterSpacing: '-0.01em',
+              }}>
+                {profile.title}
+              </h2>
+            </div>
 
-            <p style={{ color: 'var(--text-muted)', fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', marginBottom: '1.75rem', maxWidth: '600px', lineHeight: '1.7' }}>
+            {/* Bio */}
+            <p style={{
+              color: 'var(--text-muted)',
+              fontSize: 'clamp(0.95rem, 2vw, 1.05rem)',
+              marginBottom: '1.75rem',
+              maxWidth: '560px',
+              lineHeight: '1.8',
+            }}>
               {profile.tagline || profile.bio}
             </p>
 
             {/* Tech Badges Row */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '1.75rem' }}>
-              <span style={techBadgeStyle}>
-                <Server size={14} color="var(--accent-cyan)" /> Backend (PHP & Laravel)
-              </span>
-              <span style={techBadgeStyle}>
-                <Cpu size={14} color="var(--accent-purple)" /> IoT (ESP32)
-              </span>
-              <span style={techBadgeStyle}>
-                <Code2 size={14} color="var(--accent-emerald)" /> MySQL & ERD Schema
-              </span>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem', marginBottom: '2rem' }}>
+              {[
+                { icon: <Server size={13} color="var(--accent-cyan)" />, label: 'Backend · PHP & Laravel' },
+                { icon: <Cpu size={13} color="var(--accent-purple)" />, label: 'IoT · ESP32' },
+                { icon: <Code2 size={13} color="var(--accent-emerald)" />, label: 'MySQL & ERD' },
+              ].map(({ icon, label }) => (
+                <span key={label} style={techBadgeStyle}>
+                  {icon} {label}
+                </span>
+              ))}
             </div>
 
-            {/* Location & Email Info */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '2rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <MapPin size={16} color="var(--accent-indigo)" />
+            {/* Meta Info */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '1.25rem',
+              marginBottom: '2.25rem',
+              fontSize: '0.87rem',
+              color: 'var(--text-muted)',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <MapPin size={15} color="var(--accent-indigo)" />
                 <span>{profile.location}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <Mail size={16} color="var(--accent-cyan)" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Mail size={15} color="var(--accent-cyan)" />
                 <span>{profile.email}</span>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.25rem' }}>
+            {/* CTA Buttons */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', marginBottom: '2.5rem' }}>
               <a href="#contact" className="btn btn-primary">
-                Hubungi Saya <ArrowRight size={16} />
+                Hubungi Saya <ArrowRight size={15} />
               </a>
               <button onClick={handleDownloadCV} className="btn btn-secondary">
-                <Download size={16} /> Unduh Resume / CV
+                <Download size={15} /> Unduh CV
               </button>
               {isAdminLoggedIn && (
-                <button onClick={() => setIsAdminPanelOpen(true)} className="btn btn-secondary" style={{ borderColor: 'var(--accent-emerald)', color: 'var(--accent-emerald)' }}>
-                  <Sparkles size={16} /> Panel Admin
+                <button
+                  onClick={() => setIsAdminPanelOpen(true)}
+                  className="btn btn-secondary"
+                  style={{ borderColor: 'rgba(52,211,153,0.35)', color: 'var(--accent-emerald)' }}
+                >
+                  <Sparkles size={14} /> Panel Admin
                 </button>
               )}
             </div>
 
             {/* Social Icons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.85rem', color: 'var(--text-dim)', fontWeight: '700', letterSpacing: '0.05em' }}>SOSIAL MEDIA:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+              <span style={{
+                fontSize: '0.72rem',
+                color: 'var(--text-dim)',
+                fontFamily: 'var(--font-heading)',
+                fontWeight: '700',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+              }}>
+                Sosial
+              </span>
+              <div style={{ width: '24px', height: '1px', background: 'var(--border-color)' }} />
               {profile.socials?.github && (
-                <a href={profile.socials.github} target="_blank" rel="noreferrer" style={socialIconStyle} title="GitHub Profile">
-                  <GithubIcon size={18} />
-                </a>
+                <SocialBtn href={profile.socials.github} title="GitHub" hoverColor="#e6edf3">
+                  <GithubIcon size={17} />
+                </SocialBtn>
               )}
               {profile.socials?.linkedin && (
-                <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" style={socialIconStyle} title="LinkedIn Profile">
-                  <LinkedinIcon size={18} />
-                </a>
+                <SocialBtn href={profile.socials.linkedin} title="LinkedIn" hoverColor="#0A66C2">
+                  <LinkedinIcon size={17} />
+                </SocialBtn>
               )}
               {profile.socials?.instagram && (
-                <a href={profile.socials.instagram} target="_blank" rel="noreferrer" style={socialIconStyle} title="Instagram">
-                  <InstagramIcon size={18} />
-                </a>
+                <SocialBtn href={profile.socials.instagram} title="Instagram" hoverColor="#E1306C">
+                  <InstagramIcon size={17} />
+                </SocialBtn>
               )}
               {profile.socials?.twitter && (
-                <a href={profile.socials.twitter} target="_blank" rel="noreferrer" style={socialIconStyle} title="Twitter/X">
-                  <TwitterIcon size={18} />
-                </a>
+                <SocialBtn href={profile.socials.twitter} title="Twitter / X" hoverColor="#1D9BF0">
+                  <TwitterIcon size={17} />
+                </SocialBtn>
               )}
             </div>
           </div>
 
-          {/* Right Column: Dynamic Profile Photo Avatar */}
-          <div className="reveal-on-scroll" style={{ display: 'flex', justifyContent: 'center', position: 'relative', transitionDelay: '0.3s' }}>
+          {/* ── Right Column: Avatar ── */}
+          <div className="reveal-on-scroll" style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
+            transitionDelay: '0.2s',
+          }}>
             <div style={{ position: 'relative' }}>
-              
-              {/* Outer Glowing Ring Frame */}
-              <div 
-                className="glow-avatar-frame"
-                style={{
-                  width: 'min(350px, 80vw)',
-                  height: 'min(350px, 80vw)',
-                  borderRadius: '50%',
-                  padding: '6px',
-                  background: 'var(--gradient-brand)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative'
-                }}
-              >
-                {/* Profile Photo Image */}
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  background: 'var(--bg-card)',
-                  position: 'relative'
-                }}>
-                  <img 
-                    src={profile.avatar} 
-                    alt={profile.name} 
+
+              {/* ── Professional Photo Frame ── */}
+              <div className="avatar-pro-frame">
+                <div
+                  className="avatar-pro-inner"
+                  style={{ width: 'min(290px, 70vw)', aspectRatio: '1 / 1' }}
+                >
+                  <img
+                    src={profile.avatar}
+                    alt={profile.name}
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
-                      display: 'block'
+                      objectPosition: 'center top',
+                      display: 'block',
                     }}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = '/avatar-default.png';
-                    }}
+                    onError={e => { e.target.onerror = null; e.target.src = '/avatar-default.png'; }}
                   />
-
-                  {/* Admin Hover Overlay if Logged In */}
+                  {/* Admin overlay */}
                   {isAdminLoggedIn && (
-                    <div 
+                    <div
                       onClick={() => setIsAdminPanelOpen(true)}
                       style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: 'rgba(0, 0, 0, 0.7)',
+                        position: 'absolute', inset: 0,
+                        background: 'rgba(0,0,0,0.68)',
                         backdropFilter: 'blur(6px)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#FFF',
-                        cursor: 'pointer',
-                        opacity: 0,
-                        transition: 'opacity 0.2s ease',
+                        display: 'flex', flexDirection: 'column',
+                        alignItems: 'center', justifyContent: 'center',
+                        color: '#FFF', cursor: 'pointer',
+                        opacity: 0, transition: 'opacity 0.22s ease',
+                        borderRadius: '50%',
                       }}
-                      onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                      onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
+                      onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                      onMouseLeave={e => e.currentTarget.style.opacity = '0'}
                     >
-                      <Camera size={34} color="var(--accent-cyan)" />
-                      <span style={{ fontSize: '0.85rem', fontWeight: '700', marginTop: '0.5rem' }}>Ganti Foto Profil</span>
+                      <Camera size={32} color="var(--accent-cyan)" />
+                      <span style={{ fontSize: '0.82rem', fontWeight: '700', marginTop: '0.5rem' }}>
+                        Ganti Foto
+                      </span>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Floating Tech Badges */}
+              {/* Floating Badge — Framework */}
               <div style={{
-                position: 'absolute',
-                top: '20px',
-                left: '-25px',
-                background: 'var(--bg-card)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-md)',
-                padding: '0.6rem 1.1rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.6rem',
-                boxShadow: 'var(--shadow-card)',
-                zIndex: 2
+                ...floatBadgeStyle,
+                top: '16px', left: '-30px',
+                animation: 'floatBadge 4s ease-in-out infinite',
               }}>
-                <Server size={18} color="var(--accent-cyan)" />
+                <Server size={16} color="var(--accent-cyan)" />
                 <div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', fontWeight: '700' }}>FRAMEWORK</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-main)' }}>PHP Laravel</div>
+                  <div style={badgeLabelStyle}>FRAMEWORK</div>
+                  <div style={badgeValueStyle}>PHP Laravel</div>
                 </div>
               </div>
 
+              {/* Floating Badge — Hardware */}
               <div style={{
-                position: 'absolute',
-                bottom: '15px',
-                right: '-20px',
-                background: 'var(--bg-card)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-md)',
-                padding: '0.6rem 1.1rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.6rem',
-                boxShadow: 'var(--shadow-card)',
-                zIndex: 2
+                ...floatBadgeStyle,
+                bottom: '16px', right: '-30px',
+                animation: 'floatBadge 4.5s ease-in-out infinite 0.8s',
               }}>
-                <Cpu size={18} color="var(--accent-purple)" />
+                <Cpu size={16} color="var(--accent-purple)" />
                 <div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', fontWeight: '700' }}>HARDWARE</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-main)' }}>IoT & ESP32</div>
+                  <div style={badgeLabelStyle}>HARDWARE</div>
+                  <div style={badgeValueStyle}>IoT & ESP32</div>
                 </div>
               </div>
 
@@ -266,33 +297,121 @@ export const Hero = () => {
 
         </div>
       </div>
+
+      {/* ── Scroll Indicator ── */}
+      <a
+        href="#about"
+        style={{
+          position: 'absolute',
+          bottom: '2.5rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '0.3rem',
+          color: 'var(--text-dim)',
+          textDecoration: 'none',
+          fontSize: '0.72rem',
+          fontFamily: 'var(--font-heading)',
+          fontWeight: '600',
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          animation: 'scrollBounce 2.2s ease-in-out infinite',
+          zIndex: 2,
+        }}
+      >
+        <span>Scroll</span>
+        <ChevronDown size={18} />
+      </a>
     </section>
   );
 };
 
+/* ── Social Button ── */
+const SocialBtn = ({ href, title, hoverColor, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    title={title}
+    style={{
+      width: '38px',
+      height: '38px',
+      borderRadius: '50%',
+      background: 'rgba(255,255,255,0.04)',
+      border: '1px solid var(--border-color)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'var(--text-muted)',
+      textDecoration: 'none',
+      transition: 'all 0.22s ease',
+    }}
+    onMouseEnter={e => {
+      e.currentTarget.style.color = hoverColor;
+      e.currentTarget.style.borderColor = hoverColor + '55';
+      e.currentTarget.style.background = hoverColor + '15';
+      e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+      e.currentTarget.style.boxShadow = `0 8px 20px ${hoverColor}30`;
+    }}
+    onMouseLeave={e => {
+      e.currentTarget.style.color = 'var(--text-muted)';
+      e.currentTarget.style.borderColor = 'var(--border-color)';
+      e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+      e.currentTarget.style.transform = 'translateY(0) scale(1)';
+      e.currentTarget.style.boxShadow = 'none';
+    }}
+  >
+    {children}
+  </a>
+);
+
+/* ── Styles ── */
 const techBadgeStyle = {
-  fontSize: '0.8rem',
+  fontSize: '0.78rem',
   fontWeight: '600',
-  padding: '0.35rem 0.85rem',
+  fontFamily: 'var(--font-heading)',
+  padding: '0.32rem 0.85rem',
   borderRadius: '9999px',
-  background: 'rgba(255, 255, 255, 0.04)',
+  background: 'rgba(255,255,255,0.04)',
   border: '1px solid var(--border-color)',
   color: 'var(--text-muted)',
   display: 'inline-flex',
   alignItems: 'center',
-  gap: '0.4rem'
+  gap: '0.4rem',
 };
 
-const socialIconStyle = {
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  background: 'rgba(255, 255, 255, 0.04)',
+const floatBadgeStyle = {
+  position: 'absolute',
+  background: 'var(--bg-card)',
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)',
   border: '1px solid var(--border-color)',
+  borderRadius: 'var(--radius-md)',
+  padding: '0.7rem 1.15rem',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
-  color: 'var(--text-muted)',
-  textDecoration: 'none',
-  transition: 'all 0.25s ease'
+  gap: '0.7rem',
+  boxShadow: 'var(--shadow-card)',
+  zIndex: 2,
+  minWidth: '150px',
+  transition: 'border-color 0.3s ease, transform 0.3s ease',
+};
+
+const badgeLabelStyle = {
+  fontSize: '0.62rem',
+  color: 'var(--text-dim)',
+  fontFamily: 'var(--font-heading)',
+  fontWeight: '700',
+  letterSpacing: '0.08em',
+  textTransform: 'uppercase',
+};
+
+const badgeValueStyle = {
+  fontSize: '0.88rem',
+  fontWeight: '700',
+  fontFamily: 'var(--font-heading)',
+  color: 'var(--text-main)',
+  marginTop: '1px',
 };

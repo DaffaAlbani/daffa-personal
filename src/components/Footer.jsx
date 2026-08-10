@@ -1,100 +1,311 @@
 import React from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { ArrowUp, Lock, ShieldAlert } from 'lucide-react';
+import { ArrowUp, Lock, Heart } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
+
+const NAV_COLUMNS = [
+  {
+    title: 'Navigasi',
+    links: [
+      { label: 'Tentang Saya', href: '#about' },
+      { label: 'Portofolio', href: '#projects' },
+      { label: 'Sertifikat', href: '#certificates' },
+      { label: 'Pengalaman', href: '#experience' },
+      { label: 'Kontak', href: '#contact' },
+    ],
+  },
+];
+
+const SOCIAL_MAP = {
+  github:    { icon: GithubIcon,    color: '#e6edf3' },
+  linkedin:  { icon: LinkedinIcon,  color: '#0A66C2' },
+  instagram: { icon: InstagramIcon, color: '#E1306C' },
+  twitter:   { icon: TwitterIcon,   color: '#1D9BF0' },
+};
 
 export const Footer = () => {
   const { profile, hideLoginButton, setIsLoginModalOpen, isAdminLoggedIn } = useProfile();
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const handleSecretClick = (e) => {
-    // Secret double click trigger to open admin login
-    if (e.detail === 2) {
-      setIsLoginModalOpen(true);
-    }
+    if (e.detail === 2) setIsLoginModalOpen(true);
   };
 
   return (
     <footer style={{
-      background: 'rgba(11, 15, 25, 0.95)',
+      background: 'var(--bg-surface)',
       borderTop: '1px solid var(--border-color)',
-      padding: '3rem 0 2rem 0',
       position: 'relative',
-      zIndex: 10
+      zIndex: 10,
+      transition: 'background var(--transition-normal)',
     }}>
-      <div className="container">
+      {/* Top gradient line */}
+      <div style={{
+        height: '2px',
+        background: 'linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-indigo), var(--accent-purple), transparent)',
+      }} />
+
+      {/* Main Footer Content */}
+      <div className="container" style={{ padding: '3.5rem 1.75rem 2rem' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.8fr 1fr',
+          gap: '3rem',
+          marginBottom: '3rem',
+        }}>
+
+          {/* Brand Column */}
+          <div>
+            {/* Brand */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.1rem' }}>
+              <div style={{
+                width: '40px', height: '40px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                flexShrink: 0,
+                boxShadow: '0 0 0 2px rgba(56,189,248,0.4), 0 4px 14px rgba(56,189,248,0.25)',
+                border: '2px solid var(--accent-cyan)',
+                background: 'var(--bg-surface)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <img
+                  src={profile.avatar}
+                  alt={profile.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                  onError={e => { e.target.onerror = null; e.target.src = '/avatar-default.png'; }}
+                />
+              </div>
+              <div>
+                <div style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontWeight: '800',
+                  fontSize: '1.1rem',
+                  color: 'var(--text-main)',
+                  letterSpacing: '-0.02em',
+                }}>
+                  {profile.name}
+                </div>
+                <div style={{
+                  fontSize: '0.72rem',
+                  color: 'var(--text-dim)',
+                  fontFamily: 'var(--font-heading)',
+                  fontWeight: '600',
+                  letterSpacing: '0.05em',
+                }}>
+                  {profile.title}
+                </div>
+              </div>
+            </div>
+
+            <p style={{
+              color: 'var(--text-muted)',
+              fontSize: '0.9rem',
+              lineHeight: '1.75',
+              maxWidth: '340px',
+              marginBottom: '1.75rem',
+            }}>
+              Mahasiswa IT yang passionate dalam membangun solusi teknologi inovatif dan berdampak nyata.
+            </p>
+
+            {/* Social Icons */}
+            <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+              {profile.socials && Object.entries(SOCIAL_MAP).map(([key, { icon: Icon, color }]) => {
+                if (!profile.socials[key]) return null;
+                return (
+                  <a
+                    key={key}
+                    href={profile.socials[key]}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={key.charAt(0).toUpperCase() + key.slice(1)}
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '9px',
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid var(--border-color)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--text-dim)',
+                      textDecoration: 'none',
+                      transition: 'all 0.22s ease',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.color = color;
+                      e.currentTarget.style.borderColor = color + '50';
+                      e.currentTarget.style.background = color + '12';
+                      e.currentTarget.style.transform = 'translateY(-3px)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.color = 'var(--text-dim)';
+                      e.currentTarget.style.borderColor = 'var(--border-color)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                      e.currentTarget.style.transform = 'none';
+                    }}
+                  >
+                    <Icon size={16} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Nav Columns */}
+          {NAV_COLUMNS.map(({ title, links }) => (
+            <div key={title}>
+              <h4 style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '0.72rem',
+                fontWeight: '700',
+                color: 'var(--text-dim)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.12em',
+                marginBottom: '1rem',
+              }}>
+                {title}
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                {links.map(({ label, href }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    style={{
+                      color: 'var(--text-muted)',
+                      textDecoration: 'none',
+                      fontSize: '0.88rem',
+                      fontFamily: 'var(--font-heading)',
+                      fontWeight: '500',
+                      transition: 'color 0.18s ease',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-indigo)'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Bar */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '1.5rem',
-          paddingBottom: '2rem',
-          borderBottom: '1px solid var(--border-color)'
+          gap: '1rem',
+          paddingTop: '1.75rem',
+          borderTop: '1px solid var(--border-color)',
         }}>
-          <div>
-            <div style={{ fontWeight: '800', fontSize: '1.3rem', color: 'var(--text-main)', marginBottom: '0.3rem' }}>
-              {profile.name}
-            </div>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-              {profile.title}
-            </p>
+          {/* Copyright */}
+          <div onClick={handleSecretClick} style={{ userSelect: 'none', cursor: 'default' }}>
+            <span style={{ fontSize: '0.82rem', color: 'var(--text-dim)' }}>
+              © {new Date().getFullYear()} {profile.name}. All rights reserved.
+            </span>
           </div>
 
-          {/* Secret hint notification if login button is hidden */}
-          {hideLoginButton && !isAdminLoggedIn && (
-            <div 
-              onClick={() => setIsLoginModalOpen(true)}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                fontSize: '0.75rem',
-                color: 'var(--text-dim)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                padding: '0.3rem 0.75rem',
-                borderRadius: '9999px',
-                border: '1px dashed var(--border-color)',
-                cursor: 'pointer'
-              }}
-              title="Klik di sini atau tekan Ctrl+Shift+A untuk Login Admin"
-            >
-              <Lock size={12} />
-              <span>Akses Admin Rahasia (Ctrl+Shift+A / Klik 2x Logo)</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
+            {/* Built with badge */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              fontSize: '0.78rem',
+              color: 'var(--text-dim)',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: '500',
+            }}>
+              Built with <Heart size={12} color="var(--accent-rose)" fill="var(--accent-rose)" />
+              <span style={{
+                background: 'rgba(129,140,248,0.12)',
+                border: '1px solid rgba(129,140,248,0.2)',
+                color: 'var(--accent-indigo)',
+                padding: '0.1rem 0.5rem',
+                borderRadius: '5px',
+                fontSize: '0.72rem',
+                fontWeight: '700',
+              }}>React</span>
+              <span style={{
+                background: 'rgba(251,191,36,0.1)',
+                border: '1px solid rgba(251,191,36,0.2)',
+                color: 'var(--accent-amber)',
+                padding: '0.1rem 0.5rem',
+                borderRadius: '5px',
+                fontSize: '0.72rem',
+                fontWeight: '700',
+              }}>Vite</span>
             </div>
-          )}
 
-          {/* Back to top button */}
-          <button 
-            onClick={scrollToTop}
-            className="btn btn-secondary btn-sm"
-            title="Kembali ke atas"
-          >
-            <ArrowUp size={16} /> Ke Atas
-          </button>
-        </div>
+            {/* Secret hint */}
+            {hideLoginButton && !isAdminLoggedIn && (
+              <div
+                onClick={() => setIsLoginModalOpen(true)}
+                title="Ctrl+Shift+A untuk Admin Login"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  fontSize: '0.7rem',
+                  color: 'var(--text-dim)',
+                  background: 'rgba(255,255,255,0.02)',
+                  padding: '0.25rem 0.6rem',
+                  borderRadius: '9999px',
+                  border: '1px dashed var(--border-color)',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-heading)',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'var(--border-hover)';
+                  e.currentTarget.style.color = 'var(--text-muted)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = 'var(--border-color)';
+                  e.currentTarget.style.color = 'var(--text-dim)';
+                }}
+              >
+                <Lock size={11} /> Admin
+              </div>
+            )}
 
-        {/* Copyright notice with secret double click */}
-        <div 
-          onClick={handleSecretClick}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingTop: '1.5rem',
-            fontSize: '0.85rem',
-            color: 'var(--text-dim)',
-            userSelect: 'none'
-          }}
-        >
-          <span>
-            © {new Date().getFullYear()} {profile.name}. Hak Cipta Dilindungi.
-          </span>
-          <span style={{ fontSize: '0.75rem' }}>
-            Built with React & Vite
-          </span>
+            {/* Back to top */}
+            <button
+              onClick={scrollToTop}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '8px',
+                color: 'var(--text-muted)',
+                cursor: 'pointer',
+                padding: '0.4rem 0.8rem',
+                fontSize: '0.78rem',
+                fontFamily: 'var(--font-heading)',
+                fontWeight: '600',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.09)';
+                e.currentTarget.style.borderColor = 'var(--border-hover)';
+                e.currentTarget.style.color = 'var(--accent-indigo)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                e.currentTarget.style.borderColor = 'var(--border-color)';
+                e.currentTarget.style.color = 'var(--text-muted)';
+                e.currentTarget.style.transform = 'none';
+              }}
+              title="Kembali ke atas"
+            >
+              <ArrowUp size={14} /> Ke Atas
+            </button>
+          </div>
         </div>
       </div>
     </footer>
