@@ -1,13 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProfile } from '../context/ProfileContext';
 import {
   Camera, ArrowRight, Download, Mail, Sparkles,
   MapPin, Code2, Server, Cpu, GraduationCap, ChevronDown,
+  Database, ShieldCheck, CheckCircle2, MessageSquare,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
 
+const ROLES = [
+  "Backend & Laravel Developer",
+  "IoT & ESP32 Embedded Engineer",
+  "Database & ERD Architect",
+  "AI & Programming Tutor"
+];
+
 export const Hero = () => {
   const { profile, isAdminLoggedIn, setIsAdminPanelOpen } = useProfile();
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Typewriter Rotator Effect
+  useEffect(() => {
+    const currentRole = ROLES[roleIndex];
+    let timer;
+
+    if (!isDeleting && displayText !== currentRole) {
+      timer = setTimeout(() => {
+        setDisplayText(currentRole.slice(0, displayText.length + 1));
+      }, 70);
+    } else if (!isDeleting && displayText === currentRole) {
+      timer = setTimeout(() => setIsDeleting(true), 2400);
+    } else if (isDeleting && displayText !== '') {
+      timer = setTimeout(() => {
+        setDisplayText(currentRole.slice(0, displayText.length - 1));
+      }, 40);
+    } else if (isDeleting && displayText === '') {
+      setIsDeleting(false);
+      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, roleIndex]);
 
   const handleDownloadCV = () => {
     const cvContent = `=== CURRICULUM VITAE ===\nNama: ${profile.name}\nTitle: ${profile.title}\nEmail: ${profile.email}\nLokasi: ${profile.location}\n\nBio:\n${profile.bio}\n\nSkillsets:\n${profile.skills?.map(s => `- ${s.name} (${s.level}%)`).join('\n')}`;
@@ -26,12 +60,12 @@ export const Hero = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingTop: '5.5rem',
-      paddingBottom: '4rem',
+      paddingTop: '6rem',
+      paddingBottom: '4.5rem',
       overflow: 'hidden',
     }}>
 
-      {/* Ambient Orbs */}
+      {/* Ambient Radial Mesh Glows */}
       <div className="ambient-orb-1" />
       <div className="ambient-orb-2" />
 
@@ -43,59 +77,59 @@ export const Hero = () => {
           alignItems: 'center',
         }}>
 
-          {/* ── Left Column ── */}
+          {/* ── Left Column: Identity & Craft Highlights ── */}
           <div className="reveal-on-scroll" style={{ transitionDelay: '0.05s' }}>
 
-            {/* Institution Badge */}
+            {/* Availability Status Badge */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.6rem',
-              padding: '0.45rem 1.15rem',
-              background: 'rgba(56,189,248,0.08)',
-              border: '1px solid rgba(56,189,248,0.22)',
+              gap: '0.65rem',
+              padding: '0.42rem 1.15rem',
+              background: 'rgba(52, 211, 153, 0.09)',
+              border: '1px solid rgba(52, 211, 153, 0.28)',
               borderRadius: '9999px',
-              fontSize: '0.82rem',
+              fontSize: '0.8rem',
               fontFamily: 'var(--font-heading)',
               fontWeight: '700',
-              color: 'var(--accent-cyan)',
-              marginBottom: '1.5rem',
-              backdropFilter: 'blur(10px)',
+              color: 'var(--accent-emerald)',
+              marginBottom: '1.4rem',
+              backdropFilter: 'blur(12px)',
               letterSpacing: '0.02em',
+              boxShadow: '0 4px 20px rgba(52, 211, 153, 0.15)',
             }}>
-              <GraduationCap size={15} color="var(--accent-cyan)" />
-              <span>Universitas Brawijaya — IT Student</span>
               <span style={{
-                width: '7px', height: '7px', borderRadius: '50%',
+                width: '8px', height: '8px', borderRadius: '50%',
                 background: 'var(--accent-emerald)',
-                boxShadow: '0 0 8px var(--accent-emerald)',
-                animation: 'pulse-dot 2s infinite',
+                boxShadow: '0 0 12px var(--accent-emerald)',
+                animation: 'pulse-dot 1.8s infinite',
                 display: 'inline-block',
-                marginLeft: '0.2rem',
               }} />
+              <span>{profile.availability || "Terbuka untuk Magang, Freelance & AI Tutor"}</span>
             </div>
 
-            {/* Main Heading */}
+            {/* Main Greeting & Name */}
             <h1 style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2.6rem, 6vw, 4rem)',
+              fontSize: 'clamp(2.7rem, 6vw, 4.25rem)',
               fontWeight: '800',
               lineHeight: 1.1,
-              marginBottom: '1.1rem',
+              marginBottom: '1rem',
               letterSpacing: '-0.035em',
             }}>
-              <span style={{ color: 'var(--text-muted)', fontSize: '55%', fontWeight: '600', display: 'block', marginBottom: '0.4rem', letterSpacing: '-0.01em' }}>
+              <span style={{ color: 'var(--text-muted)', fontSize: '50%', fontWeight: '600', display: 'block', marginBottom: '0.35rem', letterSpacing: '-0.01em' }}>
                 Halo, saya
               </span>
               <span className="gradient-text">{profile.name}</span>
             </h1>
 
-            {/* Subtitle */}
+            {/* Dynamic Typewriter Specialization Rotator */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.65rem',
-              marginBottom: '1.25rem',
+              marginBottom: '1.35rem',
+              minHeight: '2.2rem',
             }}>
               <div style={{
                 width: '28px', height: '3px',
@@ -104,33 +138,43 @@ export const Hero = () => {
                 flexShrink: 0,
               }} />
               <h2 style={{
-                fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-                fontWeight: '600',
+                fontSize: 'clamp(1.05rem, 2.5vw, 1.3rem)',
+                fontWeight: '700',
                 fontFamily: 'var(--font-heading)',
-                color: 'var(--accent-indigo)',
+                color: 'var(--accent-cyan)',
                 letterSpacing: '-0.01em',
               }}>
-                {profile.title}
+                {displayText}
+                <span style={{
+                  display: 'inline-block',
+                  width: '2px',
+                  height: '1.2em',
+                  background: 'var(--accent-cyan)',
+                  marginLeft: '4px',
+                  verticalAlign: 'middle',
+                  animation: 'pulse-dot 0.9s infinite',
+                }} />
               </h2>
             </div>
 
-            {/* Bio */}
+            {/* Bio / Tagline */}
             <p style={{
               color: 'var(--text-muted)',
-              fontSize: 'clamp(0.95rem, 2vw, 1.05rem)',
+              fontSize: 'clamp(0.96rem, 2vw, 1.05rem)',
               marginBottom: '1.75rem',
-              maxWidth: '560px',
+              maxWidth: '570px',
               lineHeight: '1.8',
             }}>
               {profile.tagline || profile.bio}
             </p>
 
-            {/* Tech Badges Row */}
+            {/* Tech Matrix Badges */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem', marginBottom: '2rem' }}>
               {[
                 { icon: <Server size={13} color="var(--accent-cyan)" />, label: 'Backend · PHP & Laravel' },
-                { icon: <Cpu size={13} color="var(--accent-purple)" />, label: 'IoT · ESP32' },
-                { icon: <Code2 size={13} color="var(--accent-emerald)" />, label: 'MySQL & ERD' },
+                { icon: <Cpu size={13} color="var(--accent-purple)" />, label: 'IoT · ESP32 Hardware' },
+                { icon: <Database size={13} color="var(--accent-indigo)" />, label: 'MySQL & ERD Schema' },
+                { icon: <ShieldCheck size={13} color="var(--accent-rose)" />, label: 'Cybersecurity & picoCTF' },
               ].map(({ icon, label }) => (
                 <span key={label} style={techBadgeStyle}>
                   {icon} {label}
@@ -138,29 +182,55 @@ export const Hero = () => {
               ))}
             </div>
 
-            {/* Meta Info */}
+            {/* Quick Profile Metrics Strip */}
+            {profile.stats && profile.stats.length > 0 && (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+                gap: '0.75rem',
+                marginBottom: '2.25rem',
+                padding: '0.85rem 1.15rem',
+                background: 'rgba(13, 20, 38, 0.55)',
+                border: '1px solid var(--border-color)',
+                borderRadius: 'var(--radius-md)',
+                backdropFilter: 'blur(16px)',
+              }}>
+                {profile.stats.map((stat, idx) => (
+                  <div key={idx}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-heading)' }}>
+                      {stat.label}
+                    </div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: '800', color: 'var(--text-main)', fontFamily: 'var(--font-heading)', marginTop: '2px' }}>
+                      {stat.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Location & Contact Meta */}
             <div style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '1.25rem',
+              gap: '1.35rem',
               marginBottom: '2.25rem',
               fontSize: '0.87rem',
               color: 'var(--text-muted)',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                 <MapPin size={15} color="var(--accent-indigo)" />
                 <span>{profile.location}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                 <Mail size={15} color="var(--accent-cyan)" />
                 <span>{profile.email}</span>
               </div>
             </div>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons Row */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', marginBottom: '2.5rem' }}>
               <a href="#contact" className="btn btn-primary">
-                Hubungi Saya <ArrowRight size={15} />
+                <MessageSquare size={15} /> Hubungi Saya <ArrowRight size={15} />
               </a>
               <button onClick={handleDownloadCV} className="btn btn-secondary">
                 <Download size={15} /> Unduh CV
@@ -176,7 +246,7 @@ export const Hero = () => {
               )}
             </div>
 
-            {/* Social Icons */}
+            {/* Social Connection Row */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
               <span style={{
                 fontSize: '0.72rem',
@@ -212,7 +282,7 @@ export const Hero = () => {
             </div>
           </div>
 
-          {/* ── Right Column: Avatar ── */}
+          {/* ── Right Column: High-Craft Avatar Frame & Tri-Badges ── */}
           <div className="reveal-on-scroll" style={{
             display: 'flex',
             justifyContent: 'center',
@@ -222,11 +292,22 @@ export const Hero = () => {
           }}>
             <div style={{ position: 'relative' }}>
 
+              {/* Conic Rotating Energy Glow Halo Ring */}
+              <div style={{
+                position: 'absolute',
+                inset: '-12px',
+                borderRadius: '50%',
+                background: 'conic-gradient(from 0deg, #38BDF8, #818CF8, #C084FC, #34D399, #38BDF8)',
+                filter: 'blur(18px)',
+                opacity: 0.65,
+                animation: 'spinConic 12s linear infinite',
+              }} />
+
               {/* ── Professional Photo Frame ── */}
-              <div className="avatar-pro-frame">
+              <div className="avatar-pro-frame" style={{ position: 'relative', zIndex: 1 }}>
                 <div
                   className="avatar-pro-inner"
-                  style={{ width: 'min(290px, 70vw)', aspectRatio: '1 / 1' }}
+                  style={{ width: 'min(300px, 72vw)', aspectRatio: '1 / 1' }}
                 >
                   <img
                     src={profile.avatar}
@@ -240,7 +321,7 @@ export const Hero = () => {
                     }}
                     onError={e => { e.target.onerror = null; e.target.src = '/avatar-default.png'; }}
                   />
-                  {/* Admin overlay */}
+                  {/* Admin Edit Overlay */}
                   {isAdminLoggedIn && (
                     <div
                       onClick={() => setIsAdminPanelOpen(true)}
@@ -266,10 +347,10 @@ export const Hero = () => {
                 </div>
               </div>
 
-              {/* Floating Badge — Framework */}
+              {/* Floating Badge 1 — Framework */}
               <div style={{
                 ...floatBadgeStyle,
-                top: '16px', left: '-30px',
+                top: '12px', left: '-36px',
                 animation: 'floatBadge 4s ease-in-out infinite',
               }}>
                 <Server size={16} color="var(--accent-cyan)" />
@@ -279,16 +360,29 @@ export const Hero = () => {
                 </div>
               </div>
 
-              {/* Floating Badge — Hardware */}
+              {/* Floating Badge 2 — Hardware */}
               <div style={{
                 ...floatBadgeStyle,
-                bottom: '16px', right: '-30px',
+                bottom: '12px', right: '-36px',
                 animation: 'floatBadge 4.5s ease-in-out infinite 0.8s',
               }}>
                 <Cpu size={16} color="var(--accent-purple)" />
                 <div>
                   <div style={badgeLabelStyle}>HARDWARE</div>
                   <div style={badgeValueStyle}>IoT & ESP32</div>
+                </div>
+              </div>
+
+              {/* Floating Badge 3 — Database */}
+              <div style={{
+                ...floatBadgeStyle,
+                bottom: '-25px', left: '20px',
+                animation: 'floatBadge 5s ease-in-out infinite 1.5s',
+              }}>
+                <Database size={16} color="var(--accent-indigo)" />
+                <div>
+                  <div style={badgeLabelStyle}>DATABASE</div>
+                  <div style={badgeValueStyle}>MySQL & ERD</div>
                 </div>
               </div>
 
@@ -303,7 +397,7 @@ export const Hero = () => {
         href="#about"
         style={{
           position: 'absolute',
-          bottom: '2.5rem',
+          bottom: '2rem',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
@@ -328,7 +422,7 @@ export const Hero = () => {
   );
 };
 
-/* ── Social Button ── */
+/* ── Social Button Component ── */
 const SocialBtn = ({ href, title, hoverColor, children }) => (
   <a
     href={href}
@@ -367,12 +461,12 @@ const SocialBtn = ({ href, title, hoverColor, children }) => (
   </a>
 );
 
-/* ── Styles ── */
+/* ── Style Constants ── */
 const techBadgeStyle = {
   fontSize: '0.78rem',
   fontWeight: '600',
   fontFamily: 'var(--font-heading)',
-  padding: '0.32rem 0.85rem',
+  padding: '0.34rem 0.85rem',
   borderRadius: '9999px',
   background: 'rgba(255,255,255,0.04)',
   border: '1px solid var(--border-color)',
@@ -380,13 +474,15 @@ const techBadgeStyle = {
   display: 'inline-flex',
   alignItems: 'center',
   gap: '0.4rem',
+  backdropFilter: 'blur(8px)',
+  transition: 'border-color 0.2s ease, color 0.2s ease',
 };
 
 const floatBadgeStyle = {
   position: 'absolute',
-  background: 'var(--bg-card)',
-  backdropFilter: 'blur(20px)',
-  WebkitBackdropFilter: 'blur(20px)',
+  background: 'rgba(11, 17, 32, 0.85)',
+  backdropFilter: 'blur(24px) saturate(180%)',
+  WebkitBackdropFilter: 'blur(24px) saturate(180%)',
   border: '1px solid var(--border-color)',
   borderRadius: 'var(--radius-md)',
   padding: '0.7rem 1.15rem',
@@ -394,8 +490,8 @@ const floatBadgeStyle = {
   alignItems: 'center',
   gap: '0.7rem',
   boxShadow: 'var(--shadow-card)',
-  zIndex: 2,
-  minWidth: '150px',
+  zIndex: 3,
+  minWidth: '155px',
   transition: 'border-color 0.3s ease, transform 0.3s ease',
 };
 
