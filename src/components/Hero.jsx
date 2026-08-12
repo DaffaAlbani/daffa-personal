@@ -74,90 +74,92 @@ export const Hero = () => {
           {/* ── Left Column: Identity ── */}
           <div className="reveal-on-scroll hero-identity-col" style={{ transitionDelay: '0.05s' }}>
 
-            {/* Availability Status */}
+            {/* Availability Status Badge */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.35rem 1rem',
-              background: 'rgba(52, 211, 153, 0.06)',
-              border: '1px solid rgba(52, 211, 153, 0.2)',
+              gap: '0.6rem',
+              padding: '0.45rem 1.15rem',
+              background: 'rgba(16, 185, 129, 0.08)',
+              border: '1px solid rgba(16, 185, 129, 0.25)',
               borderRadius: 'var(--radius-full)',
-              fontSize: '0.75rem',
+              fontSize: '0.78rem',
               fontFamily: 'var(--font-heading)',
-              fontWeight: '600',
+              fontWeight: '700',
               color: 'var(--accent-emerald)',
               marginBottom: '1.75rem',
-              letterSpacing: '0.02em',
+              letterSpacing: '0.03em',
+              boxShadow: '0 0 20px rgba(16, 185, 129, 0.15)',
+              backdropFilter: 'blur(10px)',
             }}>
               <span style={{
-                width: '6px', height: '6px', borderRadius: '50%',
+                width: '7px', height: '7px', borderRadius: '50%',
                 background: 'var(--accent-emerald)',
-                boxShadow: '0 0 8px var(--accent-emerald)',
-                animation: 'pulse-dot 2s infinite',
+                boxShadow: '0 0 10px var(--accent-emerald)',
+                animation: 'pulse-dot 1.8s infinite',
                 display: 'inline-block',
               }} />
-              <span>{profile.availability || "Terbuka untuk Magang & Freelance"}</span>
+              <span>{profile.availability || "⚡ Systems Online • Open for Opportunities"}</span>
             </div>
 
-            {/* Main Name */}
+            {/* Main Display Headline */}
             <h1 style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2.4rem, 5.5vw, 3.75rem)',
-              fontWeight: '800',
-              lineHeight: 1.08,
+              fontSize: 'clamp(2.5rem, 5.8vw, 4.1rem)',
+              fontWeight: '900',
+              lineHeight: 1.05,
               marginBottom: '1.25rem',
               letterSpacing: '-0.04em',
             }}>
               <span style={{
-                color: 'var(--text-dim)',
-                fontSize: '45%',
-                fontWeight: '500',
+                color: 'var(--text-muted)',
+                fontSize: '42%',
+                fontWeight: '600',
                 display: 'block',
-                marginBottom: '0.5rem',
-                letterSpacing: '-0.01em',
+                marginBottom: '0.6rem',
+                letterSpacing: '0.02em',
+                textTransform: 'uppercase',
               }}>
-                Halo, saya
+                Backend & IoT Software Engineer
               </span>
               <span className="gradient-text">{profile.name}</span>
             </h1>
 
-            {/* Typewriter Role */}
+            {/* Typewriter Dynamic Role */}
             <div className="hero-typewriter">
               <div style={{
-                width: '24px', height: '2px',
-                background: 'var(--accent-indigo)',
+                width: '28px', height: '2.5px',
+                background: 'var(--accent-cyan)',
                 borderRadius: 'var(--radius-full)',
                 flexShrink: 0,
-                opacity: 0.7,
+                boxShadow: '0 0 10px var(--accent-cyan)',
               }} />
               <h2 style={{
-                fontSize: 'clamp(0.95rem, 2.2vw, 1.2rem)',
-                fontWeight: '600',
+                fontSize: 'clamp(1rem, 2.3vw, 1.25rem)',
+                fontWeight: '700',
                 fontFamily: 'var(--font-heading)',
-                color: 'var(--accent-indigo)',
+                color: 'var(--accent-cyan)',
                 letterSpacing: '-0.01em',
               }}>
                 {displayText}
                 <span style={{
                   display: 'inline-block',
-                  width: '2px',
+                  width: '3px',
                   height: '1.1em',
-                  background: 'var(--accent-indigo)',
-                  marginLeft: '3px',
+                  background: 'var(--accent-cyan)',
+                  marginLeft: '4px',
                   verticalAlign: 'middle',
-                  animation: 'pulse-dot 1s infinite',
-                  opacity: 0.8,
+                  animation: 'pulse-dot 0.9s infinite',
                 }} />
               </h2>
             </div>
 
-            {/* Tagline */}
+            {/* Tagline / Bio */}
             <p style={{
               color: 'var(--text-muted)',
-              fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
+              fontSize: 'clamp(0.92rem, 1.8vw, 1.05rem)',
               marginBottom: '2.25rem',
-              maxWidth: '520px',
+              maxWidth: '540px',
               lineHeight: '1.8',
             }}>
               {profile.tagline || profile.bio}
@@ -166,42 +168,42 @@ export const Hero = () => {
             {/* CTA Buttons */}
             <div className="hero-cta-group">
               <a href="#contact" className="btn btn-primary">
-                <MessageSquare size={14} /> Hubungi Saya <ArrowRight size={14} />
+                <MessageSquare size={15} /> Hubungi Saya <ArrowRight size={15} />
               </a>
               <button onClick={handleDownloadCV} className="btn btn-secondary">
-                <Download size={14} /> Unduh CV
+                <Download size={15} /> Unduh CV
               </button>
               {isAdminLoggedIn && (
                 <button
                   onClick={() => setIsAdminPanelOpen(true)}
                   className="btn btn-secondary"
-                  style={{ borderColor: 'rgba(52,211,153,0.25)', color: 'var(--accent-emerald)' }}
+                  style={{ borderColor: 'rgba(16,185,129,0.3)', color: 'var(--accent-emerald)' }}
                 >
-                  <Sparkles size={13} /> Panel Admin
+                  <Sparkles size={14} /> Panel Admin
                 </button>
               )}
             </div>
 
-            {/* Social Row & Quick Stats Badges */}
+            {/* Social Row */}
             <div className="hero-social-row">
               {profile.socials?.github && (
-                <SocialBtn href={profile.socials.github} title="GitHub" hoverColor="#e6edf3">
-                  <GithubIcon size={16} />
+                <SocialBtn href={profile.socials.github} title="GitHub" hoverColor="#06B6D4">
+                  <GithubIcon size={17} />
                 </SocialBtn>
               )}
               {profile.socials?.linkedin && (
                 <SocialBtn href={profile.socials.linkedin} title="LinkedIn" hoverColor="#0A66C2">
-                  <LinkedinIcon size={16} />
+                  <LinkedinIcon size={17} />
                 </SocialBtn>
               )}
               {profile.socials?.instagram && (
                 <SocialBtn href={profile.socials.instagram} title="Instagram" hoverColor="#E1306C">
-                  <InstagramIcon size={16} />
+                  <InstagramIcon size={17} />
                 </SocialBtn>
               )}
               {profile.socials?.twitter && (
                 <SocialBtn href={profile.socials.twitter} title="Twitter / X" hoverColor="#1D9BF0">
-                  <TwitterIcon size={16} />
+                  <TwitterIcon size={17} />
                 </SocialBtn>
               )}
             </div>
@@ -213,26 +215,29 @@ export const Hero = () => {
                   <div
                     key={i}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.025)',
+                      background: 'rgba(11, 19, 43, 0.65)',
                       border: '1px solid var(--border-color)',
                       borderRadius: 'var(--radius-sm)',
-                      padding: '0.65rem 0.85rem',
-                      backdropFilter: 'blur(12px)',
-                      transition: 'all 0.25s ease',
+                      padding: '0.75rem 1rem',
+                      backdropFilter: 'blur(16px)',
+                      boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
+                      transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.borderColor = 'var(--border-hover)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                      e.currentTarget.style.borderColor = 'var(--accent-cyan)';
+                      e.currentTarget.style.transform = 'translateY(-3px)';
+                      e.currentTarget.style.boxShadow = '0 12px 25px rgba(6, 182, 212, 0.2)';
                     }}
                     onMouseLeave={e => {
                       e.currentTarget.style.borderColor = 'var(--border-color)';
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.025)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
                     }}
                   >
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <div style={{ fontSize: '0.68rem', color: 'var(--accent-cyan)', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '800' }}>
                       {st.label}
                     </div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: '700', color: 'var(--text-main)', marginTop: '0.15rem' }}>
+                    <div style={{ fontSize: '0.92rem', fontWeight: '800', color: 'var(--text-main)', marginTop: '0.2rem' }}>
                       {st.value}
                     </div>
                   </div>
@@ -241,7 +246,7 @@ export const Hero = () => {
             )}
           </div>
 
-          {/* ── Right Column: Avatar ── */}
+          {/* ── Right Column: Avatar Frame ── */}
           <div className="reveal-on-scroll" style={{
             display: 'flex',
             justifyContent: 'center',
@@ -251,16 +256,40 @@ export const Hero = () => {
           }}>
             <div style={{ position: 'relative' }}>
 
-              {/* Subtle rotating glow ring */}
+              {/* Pulsing Conic Glow Ring */}
               <div style={{
                 position: 'absolute',
-                inset: '-10px',
+                inset: '-14px',
                 borderRadius: '50%',
-                background: 'conic-gradient(from 0deg, rgba(129,140,248,0.3), rgba(168,139,250,0.2), rgba(192,132,252,0.3), rgba(129,140,248,0.2), rgba(129,140,248,0.3))',
-                filter: 'blur(20px)',
-                opacity: 0.5,
-                animation: 'spinConic 16s linear infinite',
+                background: 'conic-gradient(from 0deg, rgba(6,182,212,0.5), rgba(99,102,241,0.4), rgba(168,85,247,0.5), rgba(6,182,212,0.5))',
+                filter: 'blur(22px)',
+                opacity: 0.75,
+                animation: 'spinConic 14s linear infinite',
               }} />
+
+              {/* Floating Tech Badge */}
+              <div style={{
+                position: 'absolute',
+                bottom: '-10px',
+                right: '-10px',
+                zIndex: 10,
+                background: 'rgba(11, 19, 43, 0.92)',
+                border: '1px solid var(--accent-cyan)',
+                borderRadius: 'var(--radius-full)',
+                padding: '0.4rem 0.95rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-heading)',
+                fontWeight: '800',
+                color: 'var(--accent-cyan)',
+                boxShadow: '0 10px 25px rgba(6, 182, 212, 0.3)',
+                backdropFilter: 'blur(16px)',
+              }}>
+                <Sparkles size={13} color="var(--accent-cyan)" />
+                <span>ESP32 & Laravel</span>
+              </div>
 
               {/* Photo Frame */}
               <div className="avatar-pro-frame" style={{ position: 'relative', zIndex: 1 }}>
