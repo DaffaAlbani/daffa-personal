@@ -57,12 +57,7 @@ export const Footer = () => {
 
       {/* Main Footer Grid */}
       <div className="container" style={{ padding: '3.5rem 1.75rem 2rem' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.6fr 0.9fr 0.9fr',
-          gap: '3rem',
-          marginBottom: '3rem',
-        }}>
+        <div className="footer-grid">
 
           {/* ── Brand & Identity Column ── */}
           <div>

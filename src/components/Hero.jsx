@@ -69,15 +69,10 @@ export const Hero = () => {
       <div className="ambient-orb-2" />
 
       <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
-        <div className="hero-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: '1.3fr 0.7fr',
-          gap: 'var(--space-2xl)',
-          alignItems: 'center',
-        }}>
+        <div className="hero-grid">
 
           {/* ── Left Column: Identity ── */}
-          <div className="reveal-on-scroll" style={{ transitionDelay: '0.05s' }}>
+          <div className="reveal-on-scroll hero-identity-col" style={{ transitionDelay: '0.05s' }}>
 
             {/* Availability Status */}
             <div style={{
@@ -108,7 +103,7 @@ export const Hero = () => {
             {/* Main Name */}
             <h1 style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2.5rem, 5.5vw, 3.75rem)',
+              fontSize: 'clamp(2.4rem, 5.5vw, 3.75rem)',
               fontWeight: '800',
               lineHeight: 1.08,
               marginBottom: '1.25rem',
@@ -128,13 +123,7 @@ export const Hero = () => {
             </h1>
 
             {/* Typewriter Role */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              marginBottom: '1.5rem',
-              minHeight: '2rem',
-            }}>
+            <div className="hero-typewriter">
               <div style={{
                 width: '24px', height: '2px',
                 background: 'var(--accent-indigo)',
@@ -143,7 +132,7 @@ export const Hero = () => {
                 opacity: 0.7,
               }} />
               <h2 style={{
-                fontSize: 'clamp(1rem, 2.2vw, 1.2rem)',
+                fontSize: 'clamp(0.95rem, 2.2vw, 1.2rem)',
                 fontWeight: '600',
                 fontFamily: 'var(--font-heading)',
                 color: 'var(--accent-indigo)',
@@ -166,7 +155,7 @@ export const Hero = () => {
             {/* Tagline */}
             <p style={{
               color: 'var(--text-muted)',
-              fontSize: 'clamp(0.92rem, 1.8vw, 1rem)',
+              fontSize: 'clamp(0.9rem, 1.8vw, 1rem)',
               marginBottom: '2.25rem',
               maxWidth: '520px',
               lineHeight: '1.8',
@@ -175,7 +164,7 @@ export const Hero = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '2.5rem' }}>
+            <div className="hero-cta-group">
               <a href="#contact" className="btn btn-primary">
                 <MessageSquare size={14} /> Hubungi Saya <ArrowRight size={14} />
               </a>
@@ -194,7 +183,7 @@ export const Hero = () => {
             </div>
 
             {/* Social Row & Quick Stats Badges */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+            <div className="hero-social-row">
               {profile.socials?.github && (
                 <SocialBtn href={profile.socials.github} title="GitHub" hoverColor="#e6edf3">
                   <GithubIcon size={16} />
@@ -219,12 +208,7 @@ export const Hero = () => {
 
             {/* Editorial Quick Stats Badges */}
             {profile.stats && profile.stats.length > 0 && (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                gap: '0.75rem',
-                maxWidth: '560px',
-              }}>
+              <div className="hero-stats-grid">
                 {profile.stats.map((st, i) => (
                   <div
                     key={i}
