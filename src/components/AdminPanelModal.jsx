@@ -79,8 +79,6 @@ export const AdminPanelModal = () => {
     }
   }, [profile.avatar]);
 
-  if (!isAdminPanelOpen) return null;
-
   // Drag Handlers
   const handleMouseDown = (e) => {
     setIsDragging(true);
