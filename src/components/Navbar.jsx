@@ -65,24 +65,27 @@ export const Navbar = () => {
   return (
     <header style={{
       position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
+      top: scrolled ? '0.75rem' : '1.1rem',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: 'min(1140px, calc(100% - 2rem))',
       zIndex: 900,
-      transition: 'all 0.35s cubic-bezier(0.4,0,0.2,1)',
+      transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
       background: scrolled
-        ? 'var(--nav-scrolled-bg)'
-        : 'transparent',
-      backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-      WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-      borderBottom: scrolled
-        ? '1px solid var(--nav-scrolled-border)'
-        : '1px solid transparent',
-      padding: scrolled ? '0.75rem 0' : '1.15rem 0',
+        ? 'rgba(11, 19, 43, 0.88)'
+        : 'rgba(11, 19, 43, 0.72)',
+      backdropFilter: 'blur(24px) saturate(180%)',
+      WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+      border: '1px solid var(--border-color)',
+      borderRadius: 'var(--radius-full)',
+      boxShadow: scrolled
+        ? '0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 25px rgba(6, 182, 212, 0.15)'
+        : '0 10px 30px -10px rgba(0, 0, 0, 0.4)',
+      padding: '0.5rem 1rem',
     }}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
 
-        {/* ── Brand ── */}
+        {/* ── Brand Unit ── */}
         <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div style={{
             width: '38px',
@@ -90,7 +93,7 @@ export const Navbar = () => {
             borderRadius: '50%',
             overflow: 'hidden',
             flexShrink: 0,
-            boxShadow: '0 0 0 2px rgba(56,189,248,0.4), 0 4px 14px rgba(56,189,248,0.25)',
+            boxShadow: '0 0 0 2px rgba(6, 182, 212, 0.4), 0 0 14px rgba(6, 182, 212, 0.25)',
             border: '2px solid var(--accent-cyan)',
             background: 'var(--bg-surface)',
             display: 'flex',
@@ -108,9 +111,10 @@ export const Navbar = () => {
             <span style={{
               fontFamily: 'var(--font-heading)',
               fontWeight: '800',
-              fontSize: '1.1rem',
+              fontSize: '1.02rem',
               color: 'var(--text-main)',
-              letterSpacing: '-0.025em',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
               display: 'block',
             }}>
               {profile.name}
@@ -118,31 +122,30 @@ export const Navbar = () => {
             {isAdminLoggedIn ? (
               <span style={{
                 display: 'block',
-                fontSize: '0.6rem',
+                fontSize: '0.62rem',
                 color: 'var(--accent-emerald)',
                 fontWeight: '700',
                 textTransform: 'uppercase',
-                letterSpacing: '0.1em',
+                letterSpacing: '0.08em',
               }}>
                 ● Admin Mode
               </span>
             ) : (
               <span style={{
                 display: 'block',
-                fontSize: '0.6rem',
-                color: 'var(--text-dim)',
+                fontSize: '0.64rem',
+                color: 'var(--accent-cyan)',
                 fontWeight: '600',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
+                letterSpacing: '0.04em',
               }}>
-                {profile.title?.split(' ').slice(0, 3).join(' ')}
+                Backend & IoT Engineer
               </span>
             )}
           </div>
         </a>
 
-        {/* ── Desktop Nav ── */}
-        <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+        {/* ── Desktop Nav Links ── */}
+        <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
           {NAV_LINKS.map(({ href, label }) => {
             const active = isActive(href);
             return (
@@ -150,46 +153,39 @@ export const Navbar = () => {
                 key={href}
                 href={href}
                 style={{
-                  position: 'relative',
-                  color: active ? 'var(--text-main)' : 'var(--text-muted)',
+                  color: active ? 'var(--accent-cyan)' : 'var(--text-muted)',
                   textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  fontWeight: active ? '600' : '500',
+                  fontSize: '0.84rem',
+                  fontWeight: active ? '700' : '600',
                   fontFamily: 'var(--font-heading)',
-                  padding: '0.5rem 0.85rem',
-                  borderRadius: 'var(--radius-sm)',
-                  transition: 'color 0.2s ease',
+                  padding: '0.4rem 0.9rem',
+                  borderRadius: '9999px',
+                  transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                  background: active ? 'rgba(6, 182, 212, 0.12)' : 'transparent',
+                  border: active ? '1px solid rgba(6, 182, 212, 0.25)' : '1px solid transparent',
                   letterSpacing: '0.01em',
                 }}
                 onMouseEnter={e => {
-                  if (!active) e.currentTarget.style.color = 'var(--text-main)';
+                  if (!active) {
+                    e.currentTarget.style.color = 'var(--text-main)';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                  }
                 }}
                 onMouseLeave={e => {
-                  if (!active) e.currentTarget.style.color = 'var(--text-muted)';
+                  if (!active) {
+                    e.currentTarget.style.color = 'var(--text-muted)';
+                    e.currentTarget.style.background = 'transparent';
+                  }
                 }}
               >
                 {label}
-                {/* Animated underline */}
-                <span style={{
-                  position: 'absolute',
-                  bottom: '4px',
-                  left: '50%',
-                  transform: active ? 'translateX(-50%) scaleX(1)' : 'translateX(-50%) scaleX(0)',
-                  transformOrigin: 'center',
-                  width: '60%',
-                  height: '2px',
-                  background: 'var(--gradient-brand-h)',
-                  borderRadius: '9999px',
-                  transition: 'transform 0.25s cubic-bezier(0.4,0,0.2,1)',
-                  display: 'block',
-                }} />
               </a>
             );
           })}
         </nav>
 
-        {/* ── Actions ── */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        {/* ── Actions Unit ── */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <button
             onClick={toggleTheme}
             title={theme === 'dark' ? "Beralih ke Mode Terang" : "Beralih ke Mode Gelap"}
@@ -198,7 +194,7 @@ export const Navbar = () => {
               width: '36px',
               height: '36px',
               borderRadius: '50%',
-              background: 'rgba(255,255,255,0.06)',
+              background: 'rgba(255,255,255,0.05)',
               border: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
@@ -208,17 +204,19 @@ export const Navbar = () => {
               transition: 'all var(--transition-fast)',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-              e.currentTarget.style.borderColor = 'var(--border-hover)';
+              e.currentTarget.style.background = 'rgba(6, 182, 212, 0.12)';
+              e.currentTarget.style.borderColor = 'var(--accent-cyan)';
+              e.currentTarget.style.color = 'var(--accent-cyan)';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
               e.currentTarget.style.borderColor = 'var(--border-color)';
+              e.currentTarget.style.color = 'var(--text-muted)';
             }}
           >
             {theme === 'dark'
-              ? <Sun size={16} color="var(--accent-amber)" style={{ transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)', transform: 'rotate(0deg) scale(1)' }} />
-              : <Moon size={16} color="var(--accent-indigo)" style={{ transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)', transform: 'rotate(180deg) scale(1)' }} />
+              ? <Sun size={15} color="var(--accent-amber)" />
+              : <Moon size={15} color="var(--accent-cyan)" />
             }
           </button>
 
@@ -226,16 +224,16 @@ export const Navbar = () => {
           {isAdminLoggedIn ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
               <button onClick={() => setIsAdminPanelOpen(true)} className="btn btn-primary btn-sm">
-                <Settings size={14} /> Panel
+                <Settings size={13} /> Panel
               </button>
               <button onClick={logoutAdmin} className="btn btn-danger btn-sm" title="Keluar Admin" aria-label="Keluar dari mode admin">
-                <LogOut size={14} />
+                <LogOut size={13} />
               </button>
             </div>
           ) : (
             !hideLoginButton && (
               <button onClick={() => setIsLoginModalOpen(true)} className="btn btn-secondary btn-sm" aria-label="Buka modal login admin">
-                <Lock size={13} /> Admin
+                <Lock size={12} /> Admin
               </button>
             )
           )}
@@ -255,7 +253,7 @@ export const Navbar = () => {
               padding: '0.4rem',
             }}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
