@@ -220,8 +220,8 @@ export const Navbar = () => {
             }
           </button>
 
-          {/* Admin Controls */}
-          {isAdminLoggedIn ? (
+          {/* Admin Controls (Only when logged in) */}
+          {isAdminLoggedIn && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
               <button onClick={() => setIsAdminPanelOpen(true)} className="btn btn-primary btn-sm">
                 <Settings size={13} /> Panel
@@ -230,12 +230,6 @@ export const Navbar = () => {
                 <LogOut size={13} />
               </button>
             </div>
-          ) : (
-            !hideLoginButton && (
-              <button onClick={() => setIsLoginModalOpen(true)} className="btn btn-secondary btn-sm" aria-label="Buka modal login admin">
-                <Lock size={12} /> Admin
-              </button>
-            )
           )}
 
           {/* Mobile Toggle */}

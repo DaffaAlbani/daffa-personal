@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { ArrowUp, Lock, Heart, Code2, Zap } from 'lucide-react';
+import { ArrowUp, Lock, Heart, Code2, Zap, Sparkles } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
 
 const NAV_COLUMNS = [
@@ -259,28 +259,61 @@ export const Footer = () => {
               }}>Vite</span>
             </div>
 
-            {/* Secret admin hint */}
-            {hideLoginButton && !isAdminLoggedIn && (
-              <div
-                onClick={() => setIsLoginModalOpen(true)}
-                title="Ctrl+Shift+A untuk Admin Login"
+            {/* Footer Admin Trigger */}
+            {isAdminLoggedIn ? (
+              <button
+                onClick={() => setIsAdminPanelOpen(true)}
+                title="Buka Panel Admin"
+                aria-label="Buka Panel Admin"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.35rem',
-                  fontSize: '0.7rem',
-                  color: 'var(--text-dim)',
-                  background: 'rgba(255,255,255,0.02)',
-                  padding: '0.25rem 0.6rem',
+                  gap: '0.4rem',
+                  fontSize: '0.75rem',
+                  fontWeight: '700',
+                  color: 'var(--accent-emerald)',
+                  background: 'rgba(16, 185, 129, 0.1)',
+                  padding: '0.32rem 0.8rem',
                   borderRadius: '9999px',
-                  border: '1px dashed var(--border-color)',
+                  border: '1px solid rgba(16, 185, 129, 0.3)',
                   cursor: 'pointer',
                   fontFamily: 'var(--font-heading)',
                   transition: 'all 0.2s ease',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'var(--border-hover)';
-                  e.currentTarget.style.color = 'var(--text-muted)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(16, 185, 129, 0.25)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <Sparkles size={12} /> Panel Admin
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
+                title="Portal Login Admin (Atau tekan Ctrl+Shift+A)"
+                aria-label="Portal Login Admin"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  fontSize: '0.72rem',
+                  fontWeight: '600',
+                  color: 'var(--text-dim)',
+                  background: 'var(--bg-card)',
+                  padding: '0.28rem 0.72rem',
+                  borderRadius: '9999px',
+                  border: '1px solid var(--border-color)',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-heading)',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'var(--accent-cyan)';
+                  e.currentTarget.style.color = 'var(--accent-cyan)';
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.borderColor = 'var(--border-color)';
@@ -288,7 +321,7 @@ export const Footer = () => {
                 }}
               >
                 <Lock size={11} /> Admin
-              </div>
+              </button>
             )}
 
             {/* Back to top */}
