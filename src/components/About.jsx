@@ -18,7 +18,7 @@ const SkillCard = ({ skill }) => {
     <div className="glass-panel" style={{
       padding: '1rem 1.25rem',
       borderRadius: 'var(--radius-sm)',
-      background: 'rgba(13, 20, 38, 0.65)',
+      background: 'var(--bg-card)',
       border: '1px solid var(--border-color)',
       transition: 'transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease',
     }}
@@ -80,7 +80,7 @@ const SkillCard = ({ skill }) => {
       <div style={{
         width: '100%',
         height: '7px',
-        background: 'rgba(6, 10, 18, 0.8)',
+        background: 'var(--bg-surface)',
         borderRadius: '9999px',
         overflow: 'hidden',
         border: '1px solid var(--border-color)',
@@ -181,7 +181,7 @@ export const About = () => {
                     cursor: 'pointer',
                     border: 'none',
                     transition: 'all 0.22s ease',
-                    background: active ? 'var(--gradient-brand)' : 'rgba(255,255,255,0.04)',
+                    background: active ? 'var(--gradient-brand)' : 'var(--bg-card)',
                     color: active ? '#FFF' : 'var(--text-muted)',
                     boxShadow: active ? 'var(--shadow-btn)' : 'none',
                     whiteSpace: 'nowrap',
@@ -209,17 +209,17 @@ export const About = () => {
 
             {activeTab === 'focus' && (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
-                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+                <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
                   <Server size={20} color="var(--accent-cyan)" style={{ marginBottom: '0.5rem' }} />
                   <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.35rem' }}>Backend Architecture</h4>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>Pembangunan REST API berkinerja tinggi menggunakan PHP & Framework Laravel.</p>
                 </div>
-                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+                <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
                   <Database size={20} color="var(--accent-indigo)" style={{ marginBottom: '0.5rem' }} />
                   <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.35rem' }}>Database Modeling</h4>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>Pemodelan ERD, normalisasi relasional MySQL, dan optimasi query.</p>
                 </div>
-                <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
+                <div style={{ padding: '1rem', background: 'var(--bg-surface)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
                   <Cpu size={20} color="var(--accent-purple)" style={{ marginBottom: '0.5rem' }} />
                   <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.35rem' }}>IoT & Embedded Systems</h4>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>Integrasi mikrokontroler ESP32, sensor cerdas, dan pengiriman data terenkripsi.</p>
@@ -228,7 +228,7 @@ export const About = () => {
             )}
 
             {activeTab === 'philosophy' && (
-              <div style={{ padding: '1.25rem', background: 'rgba(56,189,248,0.06)', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(56,189,248,0.2)' }}>
+              <div style={{ padding: '1.25rem', background: 'rgba(6, 182, 212, 0.08)', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(6, 182, 212, 0.25)' }}>
                 <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: '800', color: 'var(--accent-cyan)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <Sparkles size={18} /> Pragmatic Cybernetic Engineering
                 </h4>
@@ -264,7 +264,7 @@ export const About = () => {
                       cursor: 'pointer',
                       border: active ? 'none' : '1px solid var(--border-color)',
                       transition: 'all 0.2s ease',
-                      background: active ? 'var(--gradient-brand)' : 'rgba(255,255,255,0.04)',
+                      background: active ? 'var(--gradient-brand)' : 'var(--bg-card)',
                       color: active ? '#FFF' : 'var(--text-muted)',
                       boxShadow: active ? 'var(--shadow-btn)' : 'none',
                     }}

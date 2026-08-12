@@ -79,19 +79,19 @@ export const Projects = () => {
                     cursor: 'pointer',
                     border: active ? 'none' : '1px solid var(--border-color)',
                     transition: 'all 0.22s ease',
-                    background: active ? 'var(--gradient-brand)' : 'rgba(255,255,255,0.04)',
+                    background: active ? 'var(--gradient-brand)' : 'var(--bg-card)',
                     color: active ? '#FFF' : 'var(--text-muted)',
                     boxShadow: active ? 'var(--shadow-btn)' : 'none',
                   }}
                   onMouseEnter={e => {
                     if (!active) {
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.09)';
+                      e.currentTarget.style.background = 'var(--bg-card-hover)';
                       e.currentTarget.style.color = 'var(--text-main)';
                     }
                   }}
                   onMouseLeave={e => {
                     if (!active) {
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                      e.currentTarget.style.background = 'var(--bg-card)';
                       e.currentTarget.style.color = 'var(--text-muted)';
                     }
                   }}

@@ -72,8 +72,8 @@ export const Navbar = () => {
       zIndex: 900,
       transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
       background: scrolled
-        ? 'rgba(11, 19, 43, 0.88)'
-        : 'rgba(11, 19, 43, 0.72)',
+        ? 'var(--nav-scrolled-bg)'
+        : 'var(--nav-bg)',
       backdropFilter: 'blur(24px) saturate(180%)',
       WebkitBackdropFilter: 'blur(24px) saturate(180%)',
       border: '1px solid var(--border-color)',
@@ -264,7 +264,7 @@ export const Navbar = () => {
         top: '100%',
         left: 0,
         right: 0,
-        background: 'rgba(6, 10, 18, 0.97)',
+        background: 'var(--nav-scrolled-bg)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
         borderBottom: mobileMenuOpen ? '1px solid var(--border-color)' : 'none',

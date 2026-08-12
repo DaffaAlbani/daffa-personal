@@ -215,12 +215,12 @@ export const Hero = () => {
                   <div
                     key={i}
                     style={{
-                      background: 'rgba(11, 19, 43, 0.65)',
+                      background: 'var(--bg-card)',
                       border: '1px solid var(--border-color)',
                       borderRadius: 'var(--radius-sm)',
                       padding: '0.75rem 1rem',
                       backdropFilter: 'blur(16px)',
-                      boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
+                      boxShadow: 'var(--shadow-card)',
                       transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                     }}
                     onMouseEnter={e => {
@@ -273,7 +273,7 @@ export const Hero = () => {
                 bottom: '-10px',
                 right: '-10px',
                 zIndex: 10,
-                background: 'rgba(11, 19, 43, 0.92)',
+                background: 'var(--bg-card-hover)',
                 border: '1px solid var(--accent-cyan)',
                 borderRadius: 'var(--radius-full)',
                 padding: '0.4rem 0.95rem',
