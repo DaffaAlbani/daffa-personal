@@ -192,8 +192,8 @@ export const Navbar = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <button
             onClick={toggleTheme}
-            title="Toggle Dark/Light Mode"
-            aria-label="Toggle theme"
+            title={theme === 'dark' ? "Beralih ke Mode Terang" : "Beralih ke Mode Gelap"}
+            aria-label={theme === 'dark' ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
             style={{
               width: '36px',
               height: '36px',
@@ -228,13 +228,13 @@ export const Navbar = () => {
               <button onClick={() => setIsAdminPanelOpen(true)} className="btn btn-primary btn-sm">
                 <Settings size={14} /> Panel
               </button>
-              <button onClick={logoutAdmin} className="btn btn-danger btn-sm" title="Keluar Admin">
+              <button onClick={logoutAdmin} className="btn btn-danger btn-sm" title="Keluar Admin" aria-label="Keluar dari mode admin">
                 <LogOut size={14} />
               </button>
             </div>
           ) : (
             !hideLoginButton && (
-              <button onClick={() => setIsLoginModalOpen(true)} className="btn btn-secondary btn-sm">
+              <button onClick={() => setIsLoginModalOpen(true)} className="btn btn-secondary btn-sm" aria-label="Buka modal login admin">
                 <Lock size={13} /> Admin
               </button>
             )
@@ -244,6 +244,8 @@ export const Navbar = () => {
           <button
             className="mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu navigasi"
+            aria-expanded={mobileMenuOpen}
             style={{
               display: 'none',
               background: 'none',

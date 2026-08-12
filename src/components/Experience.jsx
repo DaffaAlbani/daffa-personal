@@ -4,6 +4,7 @@ import { Briefcase, Calendar, CheckCircle2, Building2, ChevronRight, Award } fro
 
 export const Experience = () => {
   const { profile } = useProfile();
+  const experiencesList = profile.experiences || [];
 
   return (
     <section id="experience" className="section-padding" style={{ position: 'relative' }}>
@@ -26,21 +27,51 @@ export const Experience = () => {
           </p>
         </div>
 
-        <div style={{ maxWidth: '840px', margin: '0 auto', position: 'relative' }}>
+        {experiencesList.length === 0 ? (
+          <div className="glass-panel reveal-on-scroll" style={{
+            padding: '3rem 2rem',
+            textAlign: 'center',
+            maxWidth: '560px',
+            margin: '0 auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1rem',
+          }}>
+            <div style={{
+              width: '56px', height: '56px', borderRadius: '50%',
+              background: 'rgba(129,140,248,0.08)',
+              border: '1px solid rgba(129,140,248,0.2)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'var(--accent-indigo)',
+            }}>
+              <Briefcase size={26} />
+            </div>
+            <div>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: '700', fontSize: '1.1rem', marginBottom: '0.35rem' }}>
+                Belum Ada Pengalaman Ditampilkan
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                Pengalaman kerja, proyek, dan peran organisasi dapat ditambahkan kapan saja melalui Panel Admin.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div style={{ maxWidth: '840px', margin: '0 auto', position: 'relative' }}>
 
-          {/* Cybernetic Gradient Timeline Spine */}
-          <div style={{
-            position: 'absolute',
-            left: '23px',
-            top: '12px',
-            bottom: '12px',
-            width: '3px',
-            background: 'linear-gradient(to bottom, #38BDF8 0%, #818CF8 50%, #C084FC 100%)',
-            borderRadius: '9999px',
-            boxShadow: '0 0 12px rgba(56,189,248,0.3)',
-          }} />
+            {/* Cybernetic Gradient Timeline Spine */}
+            <div style={{
+              position: 'absolute',
+              left: '23px',
+              top: '12px',
+              bottom: '12px',
+              width: '3px',
+              background: 'linear-gradient(to bottom, #38BDF8 0%, #818CF8 50%, #C084FC 100%)',
+              borderRadius: '9999px',
+              boxShadow: '0 0 12px rgba(56,189,248,0.3)',
+            }} />
 
-          {profile.experiences?.map((exp, index) => (
+            {experiencesList.map((exp, index) => (
             <div
               key={index}
               className="reveal-on-scroll"
@@ -148,6 +179,7 @@ export const Experience = () => {
             </div>
           ))}
         </div>
+        )}
 
       </div>
     </section>

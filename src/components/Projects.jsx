@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProfile } from '../context/ProfileContext';
 import { ExternalLink, Search, FolderGit2, X, FolderOpen, Code2, Sparkles, Layers, Eye } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
@@ -8,6 +8,16 @@ export const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProjectModal, setActiveProjectModal] = useState(null);
+
+  // Scroll lock when project modal is active
+  useEffect(() => {
+    if (activeProjectModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [activeProjectModal]);
 
   const categories = ['Semua', ...new Set(profile.projects?.map(p => p.category) || [])];
 
@@ -59,6 +69,7 @@ export const Projects = () => {
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
+                  aria-pressed={active}
                   style={{
                     padding: '0.42rem 1.05rem',
                     borderRadius: '9999px',
@@ -101,6 +112,7 @@ export const Projects = () => {
             <input
               type="text"
               placeholder="Cari proyek atau tech stack..."
+              aria-label="Cari proyek berdasarkan judul, deskripsi, atau teknologi"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               className="form-input"
@@ -114,6 +126,7 @@ export const Projects = () => {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
+                aria-label="Bersihkan pencarian"
                 style={{
                   position: 'absolute', right: '0.8rem', top: '50%', transform: 'translateY(-50%)',
                   background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer',

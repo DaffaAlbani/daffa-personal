@@ -30,7 +30,28 @@ export const defaultProfileData = {
     { name: "Log Analysis & Cybersecurity (picoCTF)", category: "Security", level: 82 },
     { name: "Technical Writing & Documentation", category: "Soft Skills", level: 85 }
   ],
-  projects: [],
+  projects: [
+    {
+      id: 1,
+      title: "IoT Smart Monitoring & Automation System",
+      category: "IoT & Embedded",
+      description: "Sistem pemantauan lingkungan real-time berbasis mikrokontroler ESP32 dengan integrasi REST API Laravel dan dashboard pemantauan.",
+      tags: ["ESP32", "C++", "Laravel", "MySQL", "REST API"],
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      demoUrl: "https://github.com/DaffaAlbani",
+      githubUrl: "https://github.com/DaffaAlbani"
+    },
+    {
+      id: 2,
+      title: "Backend Service & E-Commerce API",
+      category: "Backend",
+      description: "Arsitektur RESTful API performa tinggi berbasis Laravel 10 dengan fitur authentication JWT, database indexing, dan role-based access control.",
+      tags: ["PHP", "Laravel", "MySQL", "REST API", "JWT"],
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+      demoUrl: "https://github.com/DaffaAlbani",
+      githubUrl: "https://github.com/DaffaAlbani"
+    }
+  ],
   certificates: [],
   experiences: []
 };

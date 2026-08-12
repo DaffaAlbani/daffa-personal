@@ -330,6 +330,17 @@ export const AdminPanelModal = () => {
     setEditingCertIndex(null);
   };
 
+  useEffect(() => {
+    if (isAdminPanelOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isAdminPanelOpen]);
+
+  if (!isAdminPanelOpen) return null;
+
   return (
     <div className="modal-overlay" onClick={() => setIsAdminPanelOpen(false)}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '840px' }}>
@@ -357,7 +368,7 @@ export const AdminPanelModal = () => {
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Atur Foto Profil, Bio, Portofolio, Sertifikat & Pengaturan</span>
             </div>
           </div>
-          <button className="modal-close" onClick={() => setIsAdminPanelOpen(false)}>
+          <button className="modal-close" onClick={() => setIsAdminPanelOpen(false)} aria-label="Tutup panel kontrol admin">
             <X size={18} />
           </button>
         </div>

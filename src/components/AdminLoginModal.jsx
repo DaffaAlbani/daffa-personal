@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProfile } from '../context/ProfileContext';
 import { Lock, Key, X, Eye, EyeOff, ShieldCheck, HelpCircle } from 'lucide-react';
 
@@ -6,6 +6,15 @@ export const AdminLoginModal = () => {
   const { isLoginModalOpen, setIsLoginModalOpen, loginAdmin } = useProfile();
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (isLoginModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isLoginModalOpen]);
 
   if (!isLoginModalOpen) return null;
 
@@ -37,7 +46,7 @@ export const AdminLoginModal = () => {
             </div>
             <h3 style={{ fontSize: '1.15rem', fontWeight: '700' }}>Autentikasi Admin</h3>
           </div>
-          <button className="modal-close" onClick={() => setIsLoginModalOpen(false)}>
+          <button className="modal-close" onClick={() => setIsLoginModalOpen(false)} aria-label="Tutup modal login admin">
             <X size={18} />
           </button>
         </div>

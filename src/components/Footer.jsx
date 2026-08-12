@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { ArrowUp, Lock, Heart } from 'lucide-react';
+import { ArrowUp, Lock, Heart, Code2, Zap } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
 
 const NAV_COLUMNS = [
@@ -12,6 +12,15 @@ const NAV_COLUMNS = [
       { label: 'Sertifikat', href: '#certificates' },
       { label: 'Pengalaman', href: '#experience' },
       { label: 'Kontak', href: '#contact' },
+    ],
+  },
+  {
+    title: 'Spesialisasi',
+    links: [
+      { label: 'Backend & Laravel' },
+      { label: 'MySQL & Database' },
+      { label: 'IoT & ESP32' },
+      { label: 'Cybersecurity' },
     ],
   },
 ];
@@ -40,27 +49,26 @@ export const Footer = () => {
       zIndex: 10,
       transition: 'background var(--transition-normal)',
     }}>
-      {/* Top gradient line */}
+      {/* Top gradient accent line */}
       <div style={{
         height: '2px',
         background: 'linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-indigo), var(--accent-purple), transparent)',
       }} />
 
-      {/* Main Footer Content */}
+      {/* Main Footer Grid */}
       <div className="container" style={{ padding: '3.5rem 1.75rem 2rem' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1.8fr 1fr',
+          gridTemplateColumns: '1.6fr 0.9fr 0.9fr',
           gap: '3rem',
           marginBottom: '3rem',
         }}>
 
-          {/* Brand Column */}
+          {/* ── Brand & Identity Column ── */}
           <div>
-            {/* Brand */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.1rem' }}>
               <div style={{
-                width: '40px', height: '40px',
+                width: '42px', height: '42px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 flexShrink: 0,
@@ -80,7 +88,7 @@ export const Footer = () => {
                 <div style={{
                   fontFamily: 'var(--font-heading)',
                   fontWeight: '800',
-                  fontSize: '1.1rem',
+                  fontSize: '1.15rem',
                   color: 'var(--text-main)',
                   letterSpacing: '-0.02em',
                 }}>
@@ -91,9 +99,9 @@ export const Footer = () => {
                   color: 'var(--text-dim)',
                   fontFamily: 'var(--font-heading)',
                   fontWeight: '600',
-                  letterSpacing: '0.05em',
+                  letterSpacing: '0.04em',
                 }}>
-                  {profile.title}
+                  BACKEND & IOT DEVELOPER
                 </div>
               </div>
             </div>
@@ -102,10 +110,10 @@ export const Footer = () => {
               color: 'var(--text-muted)',
               fontSize: '0.9rem',
               lineHeight: '1.75',
-              maxWidth: '340px',
+              maxWidth: '360px',
               marginBottom: '1.75rem',
             }}>
-              Mahasiswa IT yang passionate dalam membangun solusi teknologi inovatif dan berdampak nyata.
+              Mahasiswa IT di Universitas Brawijaya yang berfokus pada arsitektur backend, basis data terstruktur, dan rekayasa sistem IoT embedded.
             </p>
 
             {/* Social Icons */}
@@ -152,45 +160,62 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Nav Columns */}
+          {/* ── Nav & Specialization Columns ── */}
           {NAV_COLUMNS.map(({ title, links }) => (
             <div key={title}>
               <h4 style={{
                 fontFamily: 'var(--font-heading)',
                 fontSize: '0.72rem',
-                fontWeight: '700',
+                fontWeight: '800',
                 color: 'var(--text-dim)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.12em',
-                marginBottom: '1rem',
+                marginBottom: '1.15rem',
               }}>
                 {title}
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                 {links.map(({ label, href }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    style={{
-                      color: 'var(--text-muted)',
-                      textDecoration: 'none',
-                      fontSize: '0.88rem',
-                      fontFamily: 'var(--font-heading)',
-                      fontWeight: '500',
-                      transition: 'color 0.18s ease',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-indigo)'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
-                  >
-                    {label}
-                  </a>
+                  href ? (
+                    <a
+                      key={label}
+                      href={href}
+                      style={{
+                        color: 'var(--text-muted)',
+                        textDecoration: 'none',
+                        fontSize: '0.88rem',
+                        fontFamily: 'var(--font-heading)',
+                        fontWeight: '500',
+                        transition: 'color 0.18s ease',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-cyan)'}
+                      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+                    >
+                      {label}
+                    </a>
+                  ) : (
+                    <span
+                      key={label}
+                      style={{
+                        color: 'var(--text-muted)',
+                        fontSize: '0.88rem',
+                        fontFamily: 'var(--font-heading)',
+                        fontWeight: '500',
+                      }}
+                    >
+                      {label}
+                    </span>
+                  )
                 ))}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom Bar */}
+        {/* ── Bottom Bar ── */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -208,7 +233,7 @@ export const Footer = () => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-            {/* Built with badge */}
+            {/* Built with tech stack badges */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -220,10 +245,10 @@ export const Footer = () => {
             }}>
               Built with <Heart size={12} color="var(--accent-rose)" fill="var(--accent-rose)" />
               <span style={{
-                background: 'rgba(129,140,248,0.12)',
-                border: '1px solid rgba(129,140,248,0.2)',
-                color: 'var(--accent-indigo)',
-                padding: '0.1rem 0.5rem',
+                background: 'rgba(56,189,248,0.12)',
+                border: '1px solid rgba(56,189,248,0.2)',
+                color: 'var(--accent-cyan)',
+                padding: '0.12rem 0.5rem',
                 borderRadius: '5px',
                 fontSize: '0.72rem',
                 fontWeight: '700',
@@ -232,14 +257,14 @@ export const Footer = () => {
                 background: 'rgba(251,191,36,0.1)',
                 border: '1px solid rgba(251,191,36,0.2)',
                 color: 'var(--accent-amber)',
-                padding: '0.1rem 0.5rem',
+                padding: '0.12rem 0.5rem',
                 borderRadius: '5px',
                 fontSize: '0.72rem',
                 fontWeight: '700',
               }}>Vite</span>
             </div>
 
-            {/* Secret hint */}
+            {/* Secret admin hint */}
             {hideLoginButton && !isAdminLoggedIn && (
               <div
                 onClick={() => setIsLoginModalOpen(true)}
@@ -274,36 +299,37 @@ export const Footer = () => {
             {/* Back to top */}
             <button
               onClick={scrollToTop}
+              aria-label="Kembali ke atas halaman"
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.35rem',
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '8px',
-                color: 'var(--text-muted)',
+                gap: '0.4rem',
+                background: 'rgba(56,189,248,0.08)',
+                border: '1px solid rgba(56,189,248,0.25)',
+                borderRadius: '9999px',
+                color: 'var(--accent-cyan)',
                 cursor: 'pointer',
-                padding: '0.4rem 0.8rem',
+                padding: '0.42rem 0.95rem',
                 fontSize: '0.78rem',
                 fontFamily: 'var(--font-heading)',
-                fontWeight: '600',
-                transition: 'all 0.2s ease',
+                fontWeight: '700',
+                transition: 'all 0.22s ease',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.09)';
-                e.currentTarget.style.borderColor = 'var(--border-hover)';
-                e.currentTarget.style.color = 'var(--accent-indigo)';
+                e.currentTarget.style.background = 'var(--accent-cyan)';
+                e.currentTarget.style.color = '#FFF';
                 e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(56,189,248,0.3)';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                e.currentTarget.style.borderColor = 'var(--border-color)';
-                e.currentTarget.style.color = 'var(--text-muted)';
+                e.currentTarget.style.background = 'rgba(56,189,248,0.08)';
+                e.currentTarget.style.color = 'var(--accent-cyan)';
                 e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.boxShadow = 'none';
               }}
               title="Kembali ke atas"
             >
-              <ArrowUp size={14} /> Ke Atas
+              <ArrowUp size={14} /> Kembali ke Atas
             </button>
           </div>
         </div>
