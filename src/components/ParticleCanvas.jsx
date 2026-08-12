@@ -70,11 +70,8 @@ export const ParticleCanvas = () => {
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.globalAlpha = p.alpha;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
         ctx.fill();
         ctx.globalAlpha = 1;
-        ctx.shadowBlur = 0;
       });
 
       animationFrameId = requestAnimationFrame(render);

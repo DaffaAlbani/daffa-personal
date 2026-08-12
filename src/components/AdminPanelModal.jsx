@@ -175,7 +175,7 @@ export const AdminPanelModal = () => {
       ctx.restore();
 
       try {
-        const croppedBase64 = canvas.toDataURL('image/png');
+        const croppedBase64 = canvas.toDataURL('image/jpeg', 0.85);
         updateAvatar(croppedBase64);
       } catch (err) {
         console.error('Failed to export cropped canvas:', err);
