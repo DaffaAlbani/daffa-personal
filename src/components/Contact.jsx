@@ -105,12 +105,12 @@ export const Contact = () => {
                     gap: '1rem',
                     padding: '0.95rem 1.15rem',
                     borderRadius: 'var(--radius-md)',
-                    background: 'rgba(255,255,255,0.02)',
+                    background: 'var(--bg-card)',
                     border: '1px solid var(--border-color)',
                     transition: 'all 0.22s ease',
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                    e.currentTarget.style.background = 'var(--bg-card-hover)';
                     e.currentTarget.style.borderColor = item.color + '55';
                   }}
                   onMouseLeave={e => {

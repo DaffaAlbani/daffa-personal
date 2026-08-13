@@ -220,7 +220,7 @@ export const Certificates = () => {
                         color: 'var(--text-dim)',
                         fontWeight: '600',
                         fontFamily: 'var(--font-heading)',
-                        background: 'rgba(255,255,255,0.03)',
+                        background: 'var(--bg-surface)',
                         padding: '0.15rem 0.55rem',
                         borderRadius: '6px',
                         border: '1px solid var(--border-color)',
