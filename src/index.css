@@ -110,6 +110,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Subtle Engineering Blueprint Grid ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 25%, #000 65%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme='light'] body::before {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* ── Soft Ambient Spotlight Lighting ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% -10%, rgba(59, 130, 246, 0.08) 0%, rgba(99, 102, 241, 0.04) 35%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* ════════════════════════════════════════════
    SCROLLBAR
 ══════════════════════════════════════════════ */
@@ -155,10 +186,11 @@ p {
    CONTAINER & SECTIONS
 ══════════════════════════════════════════════ */
 .container {
-  max-width: 1120px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 var(--space-lg);
   position: relative;
+  z-index: 1;
 }
 
 .section-padding { padding: 5.5rem 0; }

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { ArrowRight, Download, Camera, MessageSquare, ChevronDown } from 'lucide-react';
+import {
+  ArrowRight, Download, Camera, MessageSquare, ChevronDown,
+  Building2, Server, Database, Cpu, Layers, CheckCircle2
+} from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
 
 const ROLES = [
@@ -8,6 +11,14 @@ const ROLES = [
   "IoT & ESP32 Engineer",
   "Database Architect",
   "AI & Programming Tutor"
+];
+
+const CORE_STACK = [
+  "PHP & Laravel",
+  "MySQL & Database",
+  "ESP32 & C++",
+  "RESTful APIs",
+  "Git & GitHub"
 ];
 
 export const Hero = () => {
@@ -52,29 +63,29 @@ export const Hero = () => {
   return (
     <section id="hero" style={{
       position: 'relative',
-      minHeight: '90vh',
+      minHeight: '92vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       paddingTop: '6.5rem',
-      paddingBottom: '4rem',
+      paddingBottom: '4.5rem',
     }}>
       <div className="container" style={{ width: '100%' }}>
         <div className="hero-layout">
 
-          {/* ── Left Column: Identity & Bio ── */}
+          {/* ── Left Column: Identity & Story ── */}
           <div className="hero-layout-left reveal-on-scroll">
 
             {/* Availability Status Badge */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.35rem 0.85rem',
+              gap: '0.55rem',
+              padding: '0.35rem 0.95rem',
               background: 'rgba(16, 185, 129, 0.08)',
-              border: '1px solid rgba(16, 185, 129, 0.2)',
+              border: '1px solid rgba(16, 185, 129, 0.25)',
               borderRadius: 'var(--radius-full)',
-              fontSize: '0.76rem',
+              fontSize: '0.78rem',
               fontFamily: 'var(--font-heading)',
               fontWeight: '650',
               color: 'var(--accent-emerald)',
@@ -85,21 +96,21 @@ export const Hero = () => {
                 background: 'var(--accent-emerald)',
                 display: 'inline-block',
               }} />
-              <span>{profile.availability || "Open for Opportunities"}</span>
+              <span>{profile.availability || "Open for Opportunities • Surabaya / Malang"}</span>
             </div>
 
             {/* Main Headline */}
             <h1 style={{
-              fontSize: 'clamp(2.5rem, 5.2vw, 3.8rem)',
-              fontWeight: '800',
-              lineHeight: 1.1,
+              fontSize: 'clamp(2.6rem, 5.5vw, 4rem)',
+              fontWeight: '850',
+              lineHeight: 1.08,
               marginBottom: '0.85rem',
               letterSpacing: '-0.035em',
             }}>
               <span style={{
                 color: 'var(--text-muted)',
                 fontSize: '38%',
-                fontWeight: '650',
+                fontWeight: '700',
                 display: 'block',
                 marginBottom: '0.35rem',
                 letterSpacing: '0.04em',
@@ -111,7 +122,7 @@ export const Hero = () => {
               {profile.name}
             </h1>
 
-            {/* Typewriter Dynamic Specialization */}
+            {/* Typewriter Specialization */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -119,10 +130,10 @@ export const Hero = () => {
               marginBottom: '1.25rem',
               minHeight: '1.8rem',
             }}>
-              <span style={{ color: 'var(--text-dim)', fontSize: '0.92rem', fontFamily: 'var(--font-code)' }}>$</span>
+              <span style={{ color: 'var(--text-dim)', fontSize: '0.95rem', fontFamily: 'var(--font-code)' }}>$</span>
               <h2 style={{
-                fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-                fontWeight: '600',
+                fontSize: 'clamp(1.05rem, 2.2vw, 1.25rem)',
+                fontWeight: '650',
                 fontFamily: 'var(--font-code)',
                 color: 'var(--text-main)',
                 letterSpacing: '-0.01em',
@@ -142,74 +153,108 @@ export const Hero = () => {
             {/* Bio / Tagline */}
             <p style={{
               color: 'var(--text-muted)',
-              fontSize: '1rem',
+              fontSize: '1.02rem',
               lineHeight: '1.75',
-              marginBottom: '2rem',
-              maxWidth: '560px',
+              marginBottom: '1.75rem',
+              maxWidth: '580px',
             }}>
               {profile.tagline || profile.bio}
             </p>
 
-            {/* CTAs */}
+            {/* Tech Stack Chips Bar */}
+            <div style={{ marginBottom: '2rem' }}>
+              <div style={{
+                fontSize: '0.72rem',
+                fontWeight: '700',
+                color: 'var(--text-dim)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                fontFamily: 'var(--font-heading)',
+                marginBottom: '0.65rem',
+              }}>
+                Tech Stack Utama
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                {CORE_STACK.map((tech) => (
+                  <span
+                    key={tech}
+                    style={{
+                      fontSize: '0.76rem',
+                      fontWeight: '600',
+                      fontFamily: 'var(--font-code)',
+                      padding: '0.25rem 0.65rem',
+                      borderRadius: 'var(--radius-xs)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-main)',
+                    }}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* CTAs & Socials */}
             <div style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '0.75rem',
-              marginBottom: '2rem',
+              alignItems: 'center',
+              gap: '1rem',
             }}>
-              <a href="#contact" className="btn btn-primary">
-                <MessageSquare size={15} /> Hubungi Saya <ArrowRight size={15} />
-              </a>
-              <button onClick={handleDownloadCV} className="btn btn-secondary">
-                <Download size={15} /> Unduh CV
-              </button>
-            </div>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <a href="#contact" className="btn btn-primary">
+                  <MessageSquare size={15} /> Hubungi Saya <ArrowRight size={15} />
+                </a>
+                <button onClick={handleDownloadCV} className="btn btn-secondary">
+                  <Download size={15} /> Unduh CV
+                </button>
+              </div>
 
-            {/* Social Links */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-              {profile.socials?.github && (
-                <SocialLink href={profile.socials.github} title="GitHub">
-                  <GithubIcon size={16} />
-                </SocialLink>
-              )}
-              {profile.socials?.linkedin && (
-                <SocialLink href={profile.socials.linkedin} title="LinkedIn">
-                  <LinkedinIcon size={16} />
-                </SocialLink>
-              )}
-              {profile.socials?.instagram && (
-                <SocialLink href={profile.socials.instagram} title="Instagram">
-                  <InstagramIcon size={16} />
-                </SocialLink>
-              )}
-              {profile.socials?.twitter && (
-                <SocialLink href={profile.socials.twitter} title="Twitter / X">
-                  <TwitterIcon size={16} />
-                </SocialLink>
-              )}
+              {/* Social Row */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                {profile.socials?.github && (
+                  <SocialLink href={profile.socials.github} title="GitHub">
+                    <GithubIcon size={16} />
+                  </SocialLink>
+                )}
+                {profile.socials?.linkedin && (
+                  <SocialLink href={profile.socials.linkedin} title="LinkedIn">
+                    <LinkedinIcon size={16} />
+                  </SocialLink>
+                )}
+                {profile.socials?.instagram && (
+                  <SocialLink href={profile.socials.instagram} title="Instagram">
+                    <InstagramIcon size={16} />
+                  </SocialLink>
+                )}
+                {profile.socials?.twitter && (
+                  <SocialLink href={profile.socials.twitter} title="Twitter / X">
+                    <TwitterIcon size={16} />
+                  </SocialLink>
+                )}
+              </div>
             </div>
 
           </div>
 
-          {/* ── Right Column: Portrait & Stats ── */}
+          {/* ── Right Column: Grand Arch Photo Card & Highlights ── */}
           <div className="reveal-on-scroll" style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '1.5rem',
+            gap: '1.75rem',
             transitionDelay: '0.1s',
           }}>
-            {/* ── Architectural Arch / Geometric Capsule Card ── */}
+            {/* ── Grand Architectural Arch Card ── */}
             <div className="arch-card-wrapper">
-              {/* Layered Architectural Blueprint Backing */}
               <div className="arch-card-backing" />
 
               <div className="arch-card-outer">
                 <div
                   className="arch-card-inner"
-                  style={{ width: 'min(300px, 72vw)', height: '375px' }}
+                  style={{ width: 'min(320px, 75vw)', height: '390px' }}
                 >
-                  {/* Subtle Technical Badge Tag */}
                   <div className="arch-top-badge">
                     ID // 01
                   </div>
@@ -235,8 +280,8 @@ export const Hero = () => {
                       onMouseEnter={e => e.currentTarget.style.opacity = '1'}
                       onMouseLeave={e => e.currentTarget.style.opacity = '0'}
                     >
-                      <Camera size={24} />
-                      <span style={{ fontSize: '0.75rem', fontWeight: '650', marginTop: '0.35rem' }}>
+                      <Camera size={26} />
+                      <span style={{ fontSize: '0.78rem', fontWeight: '650', marginTop: '0.35rem' }}>
                         Ganti Foto
                       </span>
                     </div>
@@ -255,49 +300,62 @@ export const Hero = () => {
               </div>
             </div>
 
-            {/* Quick Metrics Grid */}
+            {/* Quick Highlights Bento Cards */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
               gap: '0.75rem',
               width: '100%',
-              maxWidth: '320px',
-              marginTop: '0.5rem',
+              maxWidth: '340px',
+              marginTop: '0.35rem',
             }}>
-              {(profile.stats && profile.stats.length > 0 ? profile.stats : [
-                { label: 'Proyek Selesai', value: '12+' },
-                { label: 'Sertifikasi', value: '8+' },
-                { label: 'Tech Stack', value: 'Laravel & IoT' },
-                { label: 'Institusi', value: 'Univ. Brawijaya' },
-              ]).slice(0, 4).map((st, i) => (
-                <div
-                  key={i}
-                  className="craft-card"
-                  style={{
-                    padding: '0.85rem 1rem',
-                    textAlign: 'center',
-                  }}
-                >
-                  <div style={{
-                    fontSize: '0.68rem',
-                    color: 'var(--text-dim)',
-                    fontFamily: 'var(--font-heading)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
-                    fontWeight: '700',
-                  }}>
-                    {st.label}
-                  </div>
-                  <div style={{
-                    fontSize: '1.05rem',
-                    fontWeight: '800',
-                    color: 'var(--text-main)',
-                    marginTop: '0.2rem',
-                  }}>
-                    {st.value}
-                  </div>
+              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                  <Building2 size={13} /> Institusi
                 </div>
-              ))}
+                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
+                  Univ. Brawijaya
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  D3 IT (2024–Pres)
+                </div>
+              </div>
+
+              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                  <Server size={13} /> Spesialisasi
+                </div>
+                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
+                  Backend & IoT
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  API & Microcontrollers
+                </div>
+              </div>
+
+              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                  <Database size={13} /> Database
+                </div>
+                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
+                  MySQL & ERD
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  Relational Modeling
+                </div>
+              </div>
+
+              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                  <CheckCircle2 size={13} color="var(--accent-emerald)" /> Kesiapan
+                </div>
+                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
+                  Open for Work
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  Magang & Freelance
+                </div>
+              </div>
             </div>
 
           </div>
