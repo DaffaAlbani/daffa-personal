@@ -201,11 +201,19 @@ export const Hero = () => {
           }}>
             {/* ── Architectural Arch / Geometric Capsule Card ── */}
             <div className="arch-card-wrapper">
+              {/* Layered Architectural Blueprint Backing */}
+              <div className="arch-card-backing" />
+
               <div className="arch-card-outer">
                 <div
                   className="arch-card-inner"
-                  style={{ width: 'min(230px, 58vw)', height: '280px' }}
+                  style={{ width: 'min(300px, 72vw)', height: '375px' }}
                 >
+                  {/* Subtle Technical Badge Tag */}
+                  <div className="arch-top-badge">
+                    ID // 01
+                  </div>
+
                   <img
                     src={profile.avatar}
                     alt={profile.name}
@@ -227,8 +235,8 @@ export const Hero = () => {
                       onMouseEnter={e => e.currentTarget.style.opacity = '1'}
                       onMouseLeave={e => e.currentTarget.style.opacity = '0'}
                     >
-                      <Camera size={22} />
-                      <span style={{ fontSize: '0.72rem', fontWeight: '600', marginTop: '0.3rem' }}>
+                      <Camera size={24} />
+                      <span style={{ fontSize: '0.75rem', fontWeight: '650', marginTop: '0.35rem' }}>
                         Ganti Foto
                       </span>
                     </div>
@@ -243,7 +251,7 @@ export const Hero = () => {
                   background: 'var(--accent-emerald)',
                   display: 'inline-block',
                 }} />
-                <span>ESP32 & Laravel</span>
+                <span>ESP32 & Laravel Engineer</span>
               </div>
             </div>
 
@@ -253,7 +261,8 @@ export const Hero = () => {
               gridTemplateColumns: 'repeat(2, 1fr)',
               gap: '0.75rem',
               width: '100%',
-              maxWidth: '280px',
+              maxWidth: '320px',
+              marginTop: '0.5rem',
             }}>
               {(profile.stats && profile.stats.length > 0 ? profile.stats : [
                 { label: 'Proyek Selesai', value: '12+' },
