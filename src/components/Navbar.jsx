@@ -66,7 +66,7 @@ export const Navbar = () => {
       top: scrolled ? '0.75rem' : '1.25rem',
       left: '50%',
       transform: 'translateX(-50%)',
-      width: 'min(1120px, calc(100% - 2rem))',
+      width: 'min(1520px, calc(100% - 2.5rem))',
       zIndex: 900,
       transition: 'all 0.25s ease',
       background: scrolled

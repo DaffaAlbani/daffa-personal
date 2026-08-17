@@ -253,7 +253,7 @@ export const Hero = () => {
               <div className="arch-card-outer">
                 <div
                   className="arch-card-inner"
-                  style={{ width: 'min(320px, 75vw)', height: '390px' }}
+                  style={{ width: 'min(360px, 85vw)', height: '440px' }}
                 >
                   <div className="arch-top-badge">
                     ID // 01
@@ -304,9 +304,9 @@ export const Hero = () => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '0.75rem',
+              gap: '0.85rem',
               width: '100%',
-              maxWidth: '340px',
+              maxWidth: '380px',
               marginTop: '0.35rem',
             }}>
               <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>

@@ -183,12 +183,13 @@ p {
 .text-dim   { color: var(--text-dim); }
 
 /* ════════════════════════════════════════════
-   CONTAINER & SECTIONS
+   CONTAINER & SECTIONS (FULL-BLEED DYNAMIC)
 ══════════════════════════════════════════════ */
 .container {
-  max-width: 1240px;
+  width: min(1520px, 94vw);
+  max-width: 1520px;
   margin: 0 auto;
-  padding: 0 var(--space-lg);
+  padding: 0 var(--space-md);
   position: relative;
   z-index: 1;
 }
@@ -518,8 +519,8 @@ p {
 
 .arch-card-backing {
   position: absolute;
-  inset: -8px;
-  border-radius: 170px 170px 30px 30px;
+  inset: -10px;
+  border-radius: 195px 195px 34px 34px;
   border: 1px dashed rgba(255, 255, 255, 0.14);
   pointer-events: none;
   transition: inset var(--transition-normal), border-color var(--transition-normal);
@@ -533,7 +534,7 @@ p {
   position: relative;
   display: inline-flex;
   padding: 10px;
-  border-radius: 160px 160px 24px 24px;
+  border-radius: 185px 185px 28px 28px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
@@ -547,13 +548,13 @@ p {
 }
 
 .arch-card-wrapper:hover .arch-card-backing {
-  inset: -12px;
+  inset: -14px;
   border-color: rgba(255, 255, 255, 0.25);
 }
 
 .arch-card-inner {
   position: relative;
-  border-radius: 150px 150px 16px 16px;
+  border-radius: 175px 175px 20px 20px;
   overflow: hidden;
   background: var(--bg-surface);
   border: 1px solid rgba(255, 255, 255, 0.06);
