@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminPanelModal } from './components/AdminPanelModal';
 import { Toast } from './components/Toast';
+import { SideRails } from './components/SideRails';
 
 const MainContent = () => {
   const { setIsLoginModalOpen, isAdminLoggedIn, setIsAdminPanelOpen, showToast } = useProfile();
@@ -77,6 +78,9 @@ const MainContent = () => {
         <Contact />
       </main>
       <Footer />
+
+      {/* Desktop Side Margin Anchors */}
+      <SideRails />
 
       {/* Admin Modals & Notifications */}
       <AdminLoginModal />
