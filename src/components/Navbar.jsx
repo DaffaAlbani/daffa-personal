@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { Settings, LogOut, Sun, Moon, Menu, X, Terminal } from 'lucide-react';
+import { Settings, LogOut, Sun, Moon, Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
   { href: '#about',        label: 'Tentang' },
@@ -29,7 +29,7 @@ export const Navbar = () => {
   }, [theme]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 25);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -44,7 +44,7 @@ export const Navbar = () => {
       if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: '-35% 0px -55% 0px', threshold: 0 }
+        { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
       );
       obs.observe(el);
       observers.push(obs);
@@ -63,40 +63,36 @@ export const Navbar = () => {
   return (
     <header style={{
       position: 'fixed',
-      top: scrolled ? '0.75rem' : '1.15rem',
+      top: scrolled ? '0.75rem' : '1.25rem',
       left: '50%',
       transform: 'translateX(-50%)',
-      width: 'min(1180px, calc(100% - 2rem))',
+      width: 'min(1120px, calc(100% - 2rem))',
       zIndex: 900,
-      transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+      transition: 'all 0.25s ease',
       background: scrolled
         ? 'var(--nav-scrolled-bg)'
         : 'var(--nav-bg)',
-      backdropFilter: 'blur(24px) saturate(180%)',
-      WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+      backdropFilter: 'blur(16px)',
+      WebkitBackdropFilter: 'blur(16px)',
       border: '1px solid var(--border-color)',
       borderRadius: 'var(--radius-full)',
       boxShadow: scrolled
-        ? '0 18px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(6, 182, 212, 0.15)'
-        : '0 10px 30px -10px rgba(0, 0, 0, 0.4)',
-      padding: '0.45rem 1.1rem',
+        ? '0 10px 30px -10px rgba(0, 0, 0, 0.5)'
+        : '0 4px 15px -5px rgba(0, 0, 0, 0.2)',
+      padding: '0.45rem 1rem',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
 
         {/* ── Brand Unit ── */}
-        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div style={{
-            width: '38px',
-            height: '38px',
+            width: '32px',
+            height: '32px',
             borderRadius: '50%',
             overflow: 'hidden',
             flexShrink: 0,
-            boxShadow: '0 0 0 2px rgba(6, 182, 212, 0.45), 0 0 14px rgba(6, 182, 212, 0.3)',
-            border: '2px solid var(--accent-cyan)',
+            border: '1px solid var(--border-color)',
             background: 'var(--bg-surface)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
           }}>
             <img
               src={profile.avatar}
@@ -108,43 +104,20 @@ export const Navbar = () => {
           <div>
             <span style={{
               fontFamily: 'var(--font-heading)',
-              fontWeight: '850',
-              fontSize: '1.02rem',
+              fontWeight: '750',
+              fontSize: '0.95rem',
               color: 'var(--text-main)',
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.015em',
               lineHeight: 1.15,
               display: 'block',
             }}>
               {profile.name}
             </span>
-            {isAdminLoggedIn ? (
-              <span style={{
-                display: 'block',
-                fontSize: '0.62rem',
-                color: 'var(--accent-emerald)',
-                fontWeight: '800',
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-              }}>
-                ● Admin Mode
-              </span>
-            ) : (
-              <span style={{
-                display: 'block',
-                fontSize: '0.66rem',
-                color: 'var(--accent-cyan)',
-                fontWeight: '700',
-                letterSpacing: '0.04em',
-                fontFamily: 'var(--font-code)',
-              }}>
-                Backend & IoT Engineer
-              </span>
-            )}
           </div>
         </a>
 
         {/* ── Desktop Nav Links ── */}
-        <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+        <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
           {NAV_LINKS.map(({ href, label }) => {
             const active = isActive(href);
             return (
@@ -152,29 +125,25 @@ export const Navbar = () => {
                 key={href}
                 href={href}
                 style={{
-                  color: active ? '#FFF' : 'var(--text-muted)',
+                  color: active ? 'var(--text-main)' : 'var(--text-muted)',
                   textDecoration: 'none',
                   fontSize: '0.84rem',
-                  fontWeight: active ? '700' : '600',
+                  fontWeight: active ? '650' : '500',
                   fontFamily: 'var(--font-heading)',
-                  padding: '0.42rem 0.95rem',
+                  padding: '0.35rem 0.85rem',
                   borderRadius: 'var(--radius-full)',
-                  transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
-                  background: active ? 'var(--gradient-brand)' : 'transparent',
-                  border: active ? 'none' : '1px solid transparent',
-                  boxShadow: active ? '0 4px 15px rgba(6, 182, 212, 0.35)' : 'none',
-                  letterSpacing: '0.01em',
+                  transition: 'all 0.15s ease',
+                  background: active ? 'var(--bg-surface)' : 'transparent',
+                  border: active ? '1px solid var(--border-color)' : '1px solid transparent',
                 }}
                 onMouseEnter={e => {
                   if (!active) {
                     e.currentTarget.style.color = 'var(--text-main)';
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
                   }
                 }}
                 onMouseLeave={e => {
                   if (!active) {
                     e.currentTarget.style.color = 'var(--text-muted)';
-                    e.currentTarget.style.background = 'transparent';
                   }
                 }}
               >
@@ -185,16 +154,16 @@ export const Navbar = () => {
         </nav>
 
         {/* ── Actions Unit ── */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button
             onClick={toggleTheme}
             title={theme === 'dark' ? "Beralih ke Mode Terang" : "Beralih ke Mode Gelap"}
             aria-label={theme === 'dark' ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
             style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.04)',
+              width: '34px',
+              height: '34px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'transparent',
               border: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
@@ -204,25 +173,23 @@ export const Navbar = () => {
               transition: 'all var(--transition-fast)',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = 'rgba(6, 182, 212, 0.12)';
-              e.currentTarget.style.borderColor = 'var(--accent-cyan)';
-              e.currentTarget.style.color = 'var(--accent-cyan)';
+              e.currentTarget.style.color = 'var(--text-main)';
+              e.currentTarget.style.borderColor = 'var(--border-hover)';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-              e.currentTarget.style.borderColor = 'var(--border-color)';
               e.currentTarget.style.color = 'var(--text-muted)';
+              e.currentTarget.style.borderColor = 'var(--border-color)';
             }}
           >
             {theme === 'dark'
-              ? <Sun size={16} color="var(--accent-amber)" />
-              : <Moon size={16} color="var(--accent-cyan)" />
+              ? <Sun size={15} />
+              : <Moon size={15} />
             }
           </button>
 
           {/* Admin Controls */}
           {isAdminLoggedIn && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               <button onClick={() => setIsAdminPanelOpen(true)} className="btn btn-primary btn-sm">
                 <Settings size={13} /> Panel
               </button>
@@ -240,17 +207,17 @@ export const Navbar = () => {
             aria-expanded={mobileMenuOpen}
             style={{
               display: 'none',
-              background: 'rgba(255,255,255,0.04)',
+              background: 'transparent',
               border: '1px solid var(--border-color)',
               borderRadius: 'var(--radius-sm)',
               color: 'var(--text-main)',
               cursor: 'pointer',
-              padding: '0.5rem',
+              padding: '0.45rem',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
@@ -258,24 +225,24 @@ export const Navbar = () => {
       {/* ── Mobile Drawer ── */}
       <div style={{
         position: 'absolute',
-        top: 'calc(100% + 0.75rem)',
+        top: 'calc(100% + 0.6rem)',
         left: 0,
         right: 0,
         background: 'var(--nav-scrolled-bg)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderRadius: 'var(--radius-lg)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderRadius: 'var(--radius-md)',
         border: '1px solid var(--border-color)',
-        padding: mobileMenuOpen ? '1.25rem 1.5rem' : '0 1.5rem',
+        padding: mobileMenuOpen ? '1rem 1.25rem' : '0 1.25rem',
         display: 'flex',
         flexDirection: 'column',
-        gap: '0.35rem',
-        maxHeight: mobileMenuOpen ? '420px' : '0',
+        gap: '0.25rem',
+        maxHeight: mobileMenuOpen ? '380px' : '0',
         opacity: mobileMenuOpen ? 1 : 0,
         visibility: mobileMenuOpen ? 'visible' : 'hidden',
         overflow: 'hidden',
-        transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-        boxShadow: mobileMenuOpen ? '0 24px 50px -8px rgba(0,0,0,0.7)' : 'none',
+        transition: 'all 0.25s ease',
+        boxShadow: mobileMenuOpen ? '0 18px 40px -10px rgba(0,0,0,0.6)' : 'none',
       }}>
         {NAV_LINKS.map(({ href, label }) => (
           <a
@@ -283,13 +250,13 @@ export const Navbar = () => {
             href={href}
             onClick={() => setMobileMenuOpen(false)}
             style={{
-              color: isActive(href) ? 'var(--accent-cyan)' : 'var(--text-main)',
+              color: isActive(href) ? 'var(--text-main)' : 'var(--text-muted)',
               textDecoration: 'none',
-              fontSize: '1rem',
-              fontWeight: '700',
+              fontSize: '0.94rem',
+              fontWeight: '600',
               fontFamily: 'var(--font-heading)',
-              padding: '0.8rem 0',
-              borderBottom: '1px solid rgba(255,255,255,0.06)',
+              padding: '0.65rem 0',
+              borderBottom: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -298,9 +265,8 @@ export const Navbar = () => {
             {label}
             {isActive(href) && (
               <span style={{
-                width: '7px', height: '7px', borderRadius: '50%',
-                background: 'var(--accent-cyan)',
-                boxShadow: '0 0 8px var(--accent-cyan)',
+                width: '6px', height: '6px', borderRadius: '50%',
+                background: 'var(--text-main)',
               }} />
             )}
           </a>

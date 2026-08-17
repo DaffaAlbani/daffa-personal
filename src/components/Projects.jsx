@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { ExternalLink, Search, FolderGit2, X, FolderOpen, Eye, Sparkles } from 'lucide-react';
+import { ExternalLink, Search, FolderGit2, X, FolderOpen, Eye } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 
 export const Projects = () => {
@@ -9,7 +9,6 @@ export const Projects = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProjectModal, setActiveProjectModal] = useState(null);
 
-  // Scroll lock when project modal is active
   useEffect(() => {
     if (activeProjectModal) {
       document.body.style.overflow = 'hidden';
@@ -31,37 +30,37 @@ export const Projects = () => {
   }) || [];
 
   return (
-    <section id="projects" className="section-padding" style={{ position: 'relative' }}>
+    <section id="projects" className="section-padding">
       <div className="container">
 
         {/* Section Header */}
         <div className="section-title-wrapper">
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.6rem' }}>
             <span className="section-badge">
-              <FolderOpen size={12} style={{ marginRight: '0.25rem' }} />
-              Portofolio Karya
+              <FolderOpen size={11} style={{ marginRight: '0.25rem' }} />
+              Portofolio
             </span>
           </div>
           <h2 className="section-title reveal-on-scroll">
-            Karya & <span className="gradient-text">Proyek Unggulan</span>
+            Karya & Proyek Terpilih
           </h2>
-          <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.08s' }}>
-            Kompilasi sistem backend terdistribusi, database terstruktur, dan rekayasa cerdas IoT.
+          <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.05s' }}>
+            Implementasi sistem backend, perancangan database, dan rekayasa embedded hardware.
           </p>
         </div>
 
-        {/* Filter & Search Bar */}
+        {/* Filter & Search Controls */}
         <div className="reveal-on-scroll" style={{
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '1.25rem',
-          marginBottom: '2.5rem',
-          transitionDelay: '0.15s',
+          gap: '1rem',
+          marginBottom: '2rem',
+          transitionDelay: '0.1s',
         }}>
           {/* Category Filter Pills */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
             {categories.map(cat => {
               const active = selectedCategory === cat;
               return (
@@ -70,29 +69,16 @@ export const Projects = () => {
                   onClick={() => setSelectedCategory(cat)}
                   aria-pressed={active}
                   style={{
-                    padding: '0.42rem 1.05rem',
-                    borderRadius: '9999px',
-                    fontSize: '0.82rem',
-                    fontWeight: '750',
+                    padding: '0.35rem 0.85rem',
+                    borderRadius: 'var(--radius-xs)',
+                    fontSize: '0.8rem',
+                    fontWeight: active ? '700' : '500',
                     fontFamily: 'var(--font-heading)',
                     cursor: 'pointer',
-                    border: active ? 'none' : '1px solid var(--border-color)',
-                    transition: 'all 0.22s ease',
-                    background: active ? 'var(--gradient-brand)' : 'var(--bg-card)',
-                    color: active ? '#FFF' : 'var(--text-muted)',
-                    boxShadow: active ? '0 4px 15px rgba(6, 182, 212, 0.35)' : 'none',
-                  }}
-                  onMouseEnter={e => {
-                    if (!active) {
-                      e.currentTarget.style.background = 'var(--bg-card-hover)';
-                      e.currentTarget.style.color = 'var(--text-main)';
-                    }
-                  }}
-                  onMouseLeave={e => {
-                    if (!active) {
-                      e.currentTarget.style.background = 'var(--bg-card)';
-                      e.currentTarget.style.color = 'var(--text-muted)';
-                    }
+                    border: '1px solid var(--border-color)',
+                    transition: 'all 0.15s ease',
+                    background: active ? 'var(--text-main)' : 'var(--bg-card)',
+                    color: active ? 'var(--bg-main)' : 'var(--text-muted)',
                   }}
                 >
                   {cat}
@@ -102,24 +88,25 @@ export const Projects = () => {
           </div>
 
           {/* Search Input */}
-          <div style={{ position: 'relative', width: '100%', maxWidth: '320px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '280px' }}>
             <Search
-              size={16}
-              color="var(--text-muted)"
-              style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
+              size={15}
+              color="var(--text-dim)"
+              style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
             />
             <input
               type="text"
-              placeholder="Cari proyek atau teknologi..."
-              aria-label="Cari proyek berdasarkan judul, deskripsi, atau teknologi"
+              placeholder="Cari proyek..."
+              aria-label="Cari proyek"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               className="form-input"
               style={{
-                paddingLeft: '2.65rem',
-                paddingRight: searchQuery ? '2.2rem' : '1rem',
-                fontSize: '0.88rem',
-                borderRadius: '9999px',
+                paddingLeft: '2.4rem',
+                paddingRight: searchQuery ? '2rem' : '0.85rem',
+                fontSize: '0.85rem',
+                paddingTop: '0.55rem',
+                paddingBottom: '0.55rem',
               }}
             />
             {searchQuery && (
@@ -127,12 +114,12 @@ export const Projects = () => {
                 onClick={() => setSearchQuery('')}
                 aria-label="Bersihkan pencarian"
                 style={{
-                  position: 'absolute', right: '0.85rem', top: '50%', transform: 'translateY(-50%)',
-                  background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer',
+                  position: 'absolute', right: '0.65rem', top: '50%', transform: 'translateY(-50%)',
+                  background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
-                <X size={15} />
+                <X size={14} />
               </button>
             )}
           </div>
@@ -142,104 +129,75 @@ export const Projects = () => {
         {filteredProjects.length > 0 ? (
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-            gap: '2rem',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))',
+            gap: '1.5rem',
           }}>
             {filteredProjects.map((project, index) => (
               <div
                 key={project.id || index}
-                className="bento-card reveal-on-scroll"
+                className="craft-card reveal-on-scroll"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  borderRadius: 'var(--radius-lg)',
-                  transitionDelay: `${0.07 * (index % 3)}s`,
+                  borderRadius: 'var(--radius-md)',
+                  overflow: 'hidden',
+                  transitionDelay: `${0.05 * (index % 3)}s`,
                 }}
               >
                 {/* Thumbnail Header */}
-                <div style={{ position: 'relative', height: '210px', overflow: 'hidden', background: 'var(--bg-surface)' }}>
+                <div style={{ position: 'relative', height: '190px', overflow: 'hidden', background: 'var(--bg-surface)' }}>
                   <img
                     src={project.image}
                     alt={project.title}
                     style={{
                       width: '100%', height: '100%', objectFit: 'cover',
-                      transition: 'transform 0.5s ease',
                       display: 'block',
+                      transition: 'transform 0.3s ease',
                     }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                     onError={e => {
                       e.target.onerror = null;
                       e.target.src = 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80';
                     }}
                   />
-                  {/* Overlay Gradient */}
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'linear-gradient(to top, rgba(3,7,18,0.85) 0%, transparent 65%)',
-                    pointerEvents: 'none',
-                  }} />
-
-                  {/* Project Index Badge */}
-                  <div style={{
-                    position: 'absolute', top: '0.85rem', left: '0.85rem',
-                    fontFamily: 'var(--font-code)',
-                    fontWeight: '800',
-                    fontSize: '0.7rem',
-                    color: 'rgba(255,255,255,0.85)',
-                    letterSpacing: '0.06em',
-                    background: 'rgba(0,0,0,0.65)',
-                    backdropFilter: 'blur(10px)',
-                    padding: '0.25rem 0.65rem',
-                    borderRadius: 'var(--radius-full)',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                  }}>
-                    #{String(index + 1).padStart(2, '0')}
-                  </div>
-
-                  {/* Category Pill Badge */}
                   {project.category && (
                     <span style={{
-                      position: 'absolute', top: '0.85rem', right: '0.85rem',
-                      background: 'rgba(3,7,18,0.88)',
-                      backdropFilter: 'blur(10px)',
-                      color: 'var(--accent-cyan)',
-                      fontSize: '0.72rem',
-                      fontWeight: '800',
+                      position: 'absolute', top: '0.75rem', right: '0.75rem',
+                      background: 'rgba(9, 9, 11, 0.85)',
+                      backdropFilter: 'blur(6px)',
+                      color: 'var(--text-main)',
+                      fontSize: '0.7rem',
+                      fontWeight: '600',
                       fontFamily: 'var(--font-heading)',
-                      padding: '0.25rem 0.75rem',
-                      borderRadius: 'var(--radius-full)',
-                      border: '1px solid rgba(6,182,212,0.35)',
+                      padding: '0.2rem 0.6rem',
+                      borderRadius: 'var(--radius-xs)',
+                      border: '1px solid var(--border-color)',
                     }}>
                       {project.category}
                     </span>
                   )}
                 </div>
 
-                {/* Card Content Body */}
-                <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                {/* Card Body */}
+                <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
                     <h3
                       onClick={() => setActiveProjectModal(project)}
                       style={{
                         fontFamily: 'var(--font-heading)',
-                        fontSize: '1.2rem',
-                        fontWeight: '800',
-                        marginBottom: '0.55rem',
+                        fontSize: '1.1rem',
+                        fontWeight: '750',
+                        marginBottom: '0.45rem',
                         cursor: 'pointer',
                         color: 'var(--text-main)',
-                        transition: 'color 0.2s ease',
                       }}
-                      onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-cyan)'}
-                      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-main)'}
                     >
                       {project.title}
                     </h3>
                     <p style={{
                       color: 'var(--text-muted)',
-                      fontSize: '0.9rem',
-                      marginBottom: '1.25rem',
-                      lineHeight: '1.65',
+                      fontSize: '0.88rem',
+                      marginBottom: '1.15rem',
+                      lineHeight: '1.6',
                       display: '-webkit-box',
                       WebkitLineClamp: 3,
                       WebkitBoxOrient: 'vertical',
@@ -252,19 +210,19 @@ export const Projects = () => {
                   <div>
                     {/* Tech Stack Tags */}
                     {project.tags && project.tags.length > 0 && (
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.25rem' }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '1.15rem' }}>
                         {project.tags.map(tag => (
                           <span
                             key={tag}
                             style={{
-                              fontSize: '0.72rem',
-                              fontWeight: '700',
+                              fontSize: '0.7rem',
+                              fontWeight: '600',
                               fontFamily: 'var(--font-code)',
-                              padding: '0.22rem 0.6rem',
-                              borderRadius: '6px',
-                              background: 'rgba(56,189,248,0.08)',
-                              border: '1px solid rgba(56,189,248,0.2)',
-                              color: 'var(--accent-cyan)',
+                              padding: '0.15rem 0.5rem',
+                              borderRadius: '4px',
+                              background: 'var(--bg-surface)',
+                              border: '1px solid var(--border-color)',
+                              color: 'var(--text-muted)',
                             }}
                           >
                             {tag}
@@ -278,21 +236,21 @@ export const Projects = () => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      paddingTop: '0.95rem',
+                      paddingTop: '0.85rem',
                       borderTop: '1px solid var(--border-color)',
                     }}>
                       <button
                         onClick={() => setActiveProjectModal(project)}
                         style={{
-                          background: 'none', border: 'none', color: 'var(--accent-cyan)',
-                          fontSize: '0.84rem', fontWeight: '750', fontFamily: 'var(--font-heading)',
+                          background: 'none', border: 'none', color: 'var(--text-main)',
+                          fontSize: '0.82rem', fontWeight: '650', fontFamily: 'var(--font-heading)',
                           cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
                         }}
                       >
-                        <Eye size={15} /> Detail Proyek
+                        <Eye size={14} /> Detail
                       </button>
 
-                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', gap: '0.4rem' }}>
                         {project.githubUrl && (
                           <a
                             href={project.githubUrl}
@@ -300,23 +258,15 @@ export const Projects = () => {
                             rel="noreferrer"
                             title="Repository GitHub"
                             style={{
-                              width: '34px', height: '34px', borderRadius: '50%',
-                              background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)',
+                              width: '32px', height: '32px', borderRadius: 'var(--radius-xs)',
+                              background: 'var(--bg-surface)', border: '1px solid var(--border-color)',
                               display: 'flex', alignItems: 'center', justifyContent: 'center',
-                              color: 'var(--text-muted)', transition: 'all 0.2s ease',
+                              color: 'var(--text-muted)', transition: 'all 0.15s ease',
                             }}
-                            onMouseEnter={e => {
-                              e.currentTarget.style.color = '#FFF';
-                              e.currentTarget.style.borderColor = 'var(--accent-cyan)';
-                              e.currentTarget.style.background = 'rgba(6,182,212,0.15)';
-                            }}
-                            onMouseLeave={e => {
-                              e.currentTarget.style.color = 'var(--text-muted)';
-                              e.currentTarget.style.borderColor = 'var(--border-color)';
-                              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                            }}
+                            onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-main)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-muted)'; }}
                           >
-                            <GithubIcon size={15} />
+                            <GithubIcon size={14} />
                           </a>
                         )}
                         {project.liveUrl && (
@@ -326,23 +276,13 @@ export const Projects = () => {
                             rel="noreferrer"
                             title="Live Demo"
                             style={{
-                              width: '34px', height: '34px', borderRadius: '50%',
-                              background: 'rgba(6,182,212,0.12)', border: '1px solid rgba(6,182,212,0.3)',
+                              width: '32px', height: '32px', borderRadius: 'var(--radius-xs)',
+                              background: 'var(--bg-surface)', border: '1px solid var(--border-color)',
                               display: 'flex', alignItems: 'center', justifyContent: 'center',
-                              color: 'var(--accent-cyan)', transition: 'all 0.2s ease',
-                            }}
-                            onMouseEnter={e => {
-                              e.currentTarget.style.background = 'var(--accent-cyan)';
-                              e.currentTarget.style.color = '#FFF';
-                              e.currentTarget.style.boxShadow = '0 0 15px rgba(6,182,212,0.5)';
-                            }}
-                            onMouseLeave={e => {
-                              e.currentTarget.style.background = 'rgba(6,182,212,0.12)';
-                              e.currentTarget.style.color = 'var(--accent-cyan)';
-                              e.currentTarget.style.boxShadow = 'none';
+                              color: 'var(--text-main)', transition: 'all 0.15s ease',
                             }}
                           >
-                            <ExternalLink size={15} />
+                            <ExternalLink size={14} />
                           </a>
                         )}
                       </div>
@@ -353,12 +293,11 @@ export const Projects = () => {
             ))}
           </div>
         ) : (
-          /* Empty Search State */
-          <div className="bento-card" style={{ padding: '3.5rem 2rem', textAlign: 'center', maxWidth: '500px', margin: '0 auto' }}>
-            <FolderGit2 size={44} color="var(--text-dim)" style={{ marginBottom: '1rem' }} />
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: '800', marginBottom: '0.5rem' }}>Proyek Tidak Ditemukan</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-              Tidak ada proyek yang cocok dengan kata kunci "{searchQuery}".
+          <div className="craft-card" style={{ padding: '3rem 2rem', textAlign: 'center', maxWidth: '440px', margin: '0 auto' }}>
+            <FolderGit2 size={36} color="var(--text-dim)" style={{ marginBottom: '0.85rem' }} />
+            <h3 style={{ fontSize: '1.05rem', fontWeight: '750', marginBottom: '0.35rem' }}>Proyek Tidak Ditemukan</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '1.25rem' }}>
+              Tidak ada proyek dengan filter saat ini.
             </p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory('Semua'); }}
@@ -371,20 +310,18 @@ export const Projects = () => {
 
       </div>
 
-      {/* ── Project Detail Modal View ── */}
+      {/* ── Project Detail Modal ── */}
       {activeProjectModal && (
         <div
           className="modal-overlay"
           onClick={() => setActiveProjectModal(null)}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1050 }}
         >
           <div
-            className="modal-content bento-card"
+            className="modal-content"
             onClick={e => e.stopPropagation()}
-            style={{ width: '100%', maxWidth: '680px', padding: '0', overflow: 'hidden' }}
+            style={{ padding: 0, overflow: 'hidden' }}
           >
-            {/* Modal Image Header */}
-            <div style={{ position: 'relative', height: '260px', background: 'var(--bg-surface)' }}>
+            <div style={{ position: 'relative', height: '240px', background: 'var(--bg-surface)' }}>
               <img
                 src={activeProjectModal.image}
                 alt={activeProjectModal.title}
@@ -396,48 +333,40 @@ export const Projects = () => {
               />
               <button
                 onClick={() => setActiveProjectModal(null)}
-                aria-label="Tutup modal proyek"
+                aria-label="Tutup modal"
                 style={{
-                  position: 'absolute', top: '1rem', right: '1rem',
-                  width: '38px', height: '38px', borderRadius: '50%',
-                  background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255,255,255,0.15)', color: '#FFF', cursor: 'pointer',
+                  position: 'absolute', top: '0.85rem', right: '0.85rem',
+                  width: '32px', height: '32px', borderRadius: 'var(--radius-xs)',
+                  background: 'rgba(0,0,0,0.7)', border: '1px solid rgba(255,255,255,0.15)',
+                  color: '#FFF', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
-            {/* Modal Body */}
-            <div style={{ padding: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.6rem' }}>
-                <span className="section-badge" style={{ margin: 0 }}>
-                  {activeProjectModal.category || 'Portfolio'}
-                </span>
-              </div>
-
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.45rem', fontWeight: '850', marginBottom: '0.85rem' }}>
+            <div style={{ padding: '1.75rem' }}>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', marginBottom: '0.75rem' }}>
                 {activeProjectModal.title}
               </h3>
 
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '0.95rem', marginBottom: '1.65rem' }}>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.75', fontSize: '0.92rem', marginBottom: '1.5rem' }}>
                 {activeProjectModal.description}
               </p>
 
-              {/* Tech tags */}
               {activeProjectModal.tags && (
-                <div style={{ marginBottom: '1.85rem' }}>
-                  <div style={{ fontSize: '0.74rem', fontWeight: '800', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.6rem', fontFamily: 'var(--font-heading)' }}>
-                    Teknologi & Instrumen
+                <div style={{ marginBottom: '1.75rem' }}>
+                  <div style={{ fontSize: '0.72rem', fontWeight: '700', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.5rem' }}>
+                    Teknologi yang Digunakan
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                     {activeProjectModal.tags.map(tag => (
                       <span key={tag} style={{
-                        fontSize: '0.78rem', fontWeight: '700', fontFamily: 'var(--font-code)',
-                        padding: '0.3rem 0.8rem', borderRadius: '6px',
-                        background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)',
-                        color: 'var(--accent-cyan)',
+                        fontSize: '0.75rem', fontWeight: '600', fontFamily: 'var(--font-code)',
+                        padding: '0.2rem 0.6rem', borderRadius: '4px',
+                        background: 'var(--bg-surface)', border: '1px solid var(--border-color)',
+                        color: 'var(--text-main)',
                       }}>
                         {tag}
                       </span>
@@ -446,16 +375,15 @@ export const Projects = () => {
                 </div>
               )}
 
-              {/* Modal Actions */}
-              <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '0.65rem' }}>
                 {activeProjectModal.githubUrl && (
                   <a href={activeProjectModal.githubUrl} target="_blank" rel="noreferrer" className="btn btn-secondary">
-                    <GithubIcon size={16} /> Repository GitHub
+                    <GithubIcon size={15} /> GitHub
                   </a>
                 )}
                 {activeProjectModal.liveUrl && (
                   <a href={activeProjectModal.liveUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
-                    <ExternalLink size={16} /> Buka Live Demo
+                    <ExternalLink size={15} /> Live Demo
                   </a>
                 )}
               </div>

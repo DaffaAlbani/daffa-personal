@@ -11,7 +11,6 @@ import { Footer } from './components/Footer';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminPanelModal } from './components/AdminPanelModal';
 import { Toast } from './components/Toast';
-import { ParticleCanvas } from './components/ParticleCanvas';
 
 const MainContent = () => {
   const { setIsLoginModalOpen, isAdminLoggedIn, setIsAdminPanelOpen, showToast } = useProfile();
@@ -36,7 +35,6 @@ const MainContent = () => {
 
   // Scroll Animation Fallback using Intersection Observer
   useEffect(() => {
-    // Check if browser supports native scroll-driven animations
     const supportsScrollTimeline = CSS.supports('(animation-timeline: view()) and (animation-range: entry)');
     
     if (!supportsScrollTimeline) {
@@ -45,14 +43,12 @@ const MainContent = () => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('is-visible');
-              // Optional: unobserve if you only want it to animate once
-              // observer.unobserve(entry.target);
             } else {
               entry.target.classList.remove('is-visible');
             }
           });
         },
-        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
       );
 
       const elements = document.querySelectorAll('.reveal-on-scroll');
@@ -66,9 +62,6 @@ const MainContent = () => {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      {/* Interactive Particle Network Background */}
-      <ParticleCanvas />
-
       <Navbar />
       <main style={{ flex: 1, position: 'relative', zIndex: 1 }}>
         <Hero />

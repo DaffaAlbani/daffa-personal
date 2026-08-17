@@ -1,33 +1,22 @@
 # PRODUCT.md — Impeccable Product Context
 
 ## Schema & Version
-- **Schema Version**: 2.0.0
+- **Schema Version**: 3.0.0
 - **Framework**: Impeccable AI Design System
 - **Last Updated**: 2026-08-17
 
 ## Product Vision & Surface Type
-- **Surface Category**: Neo-Modern Bento Portfolio & Interactive Showcase (Hybrid: High-Impact Developer Showcase + Admin Management Suite)
-- **Core Purpose**: Present Daffa Albani's engineering expertise (Backend API Architecture, MySQL Modeling, and IoT Embedded Systems) with modular bento cards, verified credentials, and client-side administrative content management.
+- **Surface Category**: Minimalist Engineering Portfolio & Technical Showcase (Human-Crafted Editorial Experience)
+- **Core Purpose**: Present Daffa Albani's software engineering background (Backend REST APIs, Database Architecture & IoT Embedded Systems) with high-density content, clean editorial typography, and full client-side content management.
 
-## Target Audience
-1. **Tech Recruiters & Engineering Leads**: Seeking backend (Laravel, REST APIs, MySQL) and IoT (ESP32, C++) engineers.
-2. **Academic & Institutional Peers**: Faculty and students at Universitas Brawijaya.
-3. **Clients & Mentees**: Individuals seeking custom web/IoT solutions or programming mentorship.
+## Key Differentiators
+- **Human-Crafted Aesthetic**: Inspired by modern developer platforms (Linear, Vercel, Stripe). Focuses on clean solid typography, matte surfaces, and zero gimmicks.
+- **Full Client-Side State Management**: Instant profile editing via `ProfileContext` with hidden admin panel (`Cmd/Ctrl + Shift + A`).
+- **High Performance & Legibility**: Zero extraneous canvas calculations, clean DOM, and WCAG AA contrast compliance.
 
-## Key Value Propositions & Tone of Voice
-- **Tone**: Technical, Confident, Modern, Craft-Driven.
-- **Brand Personality**: High Tech x Modular Bento Craftsmanship.
-- **Key Differentiators**:
-  - Modular Bento-grid layout with high visual density and clear hierarchy.
-  - Interactive constellation particle background.
-  - Full client-side profile state management via `ProfileContext` with hidden admin panel (`Cmd/Ctrl + Shift + A`).
-  - Seamless Light/Dark theme switching with persistent localStorage.
-
-## Product Lanes & Bento Architecture
-- **Hero Lane**: Dynamic typewriter role, availability status badge, avatar with glowing aura, quick stats bento tiles, and live stack highlights.
-- **About Matrix**: Tabbed bio view, core specialization cards (Backend, Database, IoT), and filterable skill competence matrix.
-- **Projects Showcase**: Bento project gallery with real-time text search, category filters, tech tags, and interactive detail modals.
-- **Certificates Lane**: Bento credential cards with verified badges, credential IDs, and zoomable lightbox preview.
-- **Experience Timeline**: Vertical cybernetic milestone timeline with organization highlights and achievement tags.
-- **Contact Gateway**: Dual-card layout with direct WhatsApp/Email gateways and responsive contact form.
-- **Admin Suite**: Secret shortcut activated modal for real-time CRUD data management.
+## Product Lanes
+- **Hero & Identity**: Focused typography, natural typewriter specialization, portrait frame, key metrics, and direct CTAs.
+- **About & Foundations**: Clean tabbed background, authentic engineering specializations (Backend, Database, IoT), and competence matrix.
+- **Projects Showcase**: Clean card gallery with live links, GitHub badges, and interactive detail modals.
+- **Certificates & Experience**: Verified credential cards and clear chronological milestone timeline.
+- **Contact Gateway**: Direct communication channels (WhatsApp, Email, Location) and validated contact form.

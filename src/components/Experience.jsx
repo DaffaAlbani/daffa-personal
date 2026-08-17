@@ -7,177 +7,152 @@ export const Experience = () => {
   const experiencesList = profile.experiences || [];
 
   return (
-    <section id="experience" className="section-padding" style={{ position: 'relative' }}>
+    <section id="experience" className="section-padding">
       <div className="container">
 
         {/* Section Header */}
         <div className="section-title-wrapper">
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.6rem' }}>
             <span className="section-badge">
-              <Briefcase size={12} style={{ marginRight: '0.25rem' }} />
-              Rekam Jejak Karir
+              <Briefcase size={11} style={{ marginRight: '0.25rem' }} />
+              Pengalaman
             </span>
           </div>
           <h2 className="section-title reveal-on-scroll">
-            Pengalaman & <span className="gradient-text">Kepemimpinan</span>
+            Rekam Jejak & Kepemimpinan
           </h2>
-          <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.08s' }}>
-            Riwayat kontribusi rekayasa perangkat lunak, organisasi kemahasiswaan, dan peran mentoring.
+          <p className="section-subtitle reveal-on-scroll" style={{ transitionDelay: '0.05s' }}>
+            Kontribusi teknis, organisasi kemahasiswaan, dan pendampingan akademik.
           </p>
         </div>
 
         {experiencesList.length === 0 ? (
-          <div className="bento-card reveal-on-scroll" style={{
-            padding: '3rem 2rem',
+          <div className="craft-card reveal-on-scroll" style={{
+            padding: '2.5rem 1.5rem',
             textAlign: 'center',
-            maxWidth: '560px',
+            maxWidth: '480px',
             margin: '0 auto',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '1rem',
           }}>
-            <div style={{
-              width: '56px', height: '56px', borderRadius: '50%',
-              background: 'rgba(99,102,241,0.1)',
-              border: '1px solid rgba(99,102,241,0.25)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'var(--accent-indigo)',
-            }}>
-              <Briefcase size={28} />
-            </div>
-            <div>
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: '800', fontSize: '1.15rem', marginBottom: '0.35rem' }}>
-                Belum Ada Pengalaman Ditampilkan
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
-                Pengalaman kerja, proyek, dan peran organisasi dapat ditambahkan kapan saja melalui Panel Admin.
-              </p>
-            </div>
+            <Briefcase size={28} color="var(--text-dim)" style={{ marginBottom: '0.75rem' }} />
+            <h3 style={{ fontSize: '1.05rem', fontWeight: '750', marginBottom: '0.25rem' }}>
+              Belum Ada Pengalaman Ditampilkan
+            </h3>
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+              Pengalaman kerja dan organisasi dapat ditambahkan melalui Panel Admin.
+            </p>
           </div>
         ) : (
-          <div style={{ maxWidth: '880px', margin: '0 auto', position: 'relative' }}>
+          <div style={{ maxWidth: '780px', margin: '0 auto', position: 'relative' }}>
 
-            {/* Cybernetic Gradient Timeline Spine */}
+            {/* Subtle Timeline Spine */}
             <div style={{
               position: 'absolute',
-              left: '23px',
-              top: '14px',
-              bottom: '14px',
-              width: '3px',
-              background: 'linear-gradient(to bottom, #06B6D4 0%, #6366F1 50%, #A855F7 100%)',
-              borderRadius: '9999px',
-              boxShadow: '0 0 14px rgba(6,182,212,0.4)',
+              left: '19px',
+              top: '12px',
+              bottom: '12px',
+              width: '1px',
+              background: 'var(--border-color)',
             }} />
 
             {experiencesList.map((exp, index) => (
-            <div
-              key={index}
-              className="reveal-on-scroll"
-              style={{
-                position: 'relative',
-                paddingLeft: '4.5rem',
-                marginBottom: index < profile.experiences.length - 1 ? '2.5rem' : 0,
-                transitionDelay: `${0.08 + index * 0.08}s`,
-              }}
-            >
-              {/* Glowing Timeline Node Icon */}
-              <div style={{
-                position: 'absolute',
-                left: '0',
-                top: '0',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                background: 'var(--bg-surface)',
-                border: '2px solid var(--accent-cyan)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 0 0 4px rgba(6,182,212,0.15), 0 0 25px rgba(6,182,212,0.4)',
-                zIndex: 2,
-              }}>
-                <Briefcase size={20} color="var(--accent-cyan)" />
-              </div>
-
-              {/* Timeline Experience Bento Card */}
-              <div className="bento-card" style={{ padding: '1.75rem 2rem' }}>
-
-                {/* Header Meta */}
+              <div
+                key={index}
+                className="reveal-on-scroll"
+                style={{
+                  position: 'relative',
+                  paddingLeft: '3.75rem',
+                  marginBottom: index < profile.experiences.length - 1 ? '2rem' : 0,
+                  transitionDelay: `${0.06 * index}s`,
+                }}
+              >
+                {/* Timeline Node */}
                 <div style={{
+                  position: 'absolute',
+                  left: '0',
+                  top: '0',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-color)',
                   display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  gap: '0.75rem',
-                  marginBottom: '1rem',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--text-muted)',
+                  zIndex: 2,
                 }}>
-                  <div>
-                    <h3 style={{
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: '1.25rem',
-                      fontWeight: '850',
-                      color: 'var(--text-main)',
-                      marginBottom: '0.35rem',
-                    }}>
-                      {exp.role}
-                    </h3>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      <span style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                        fontSize: '0.92rem', fontWeight: '750', fontFamily: 'var(--font-heading)',
-                        color: 'var(--accent-indigo)',
-                      }}>
-                        <Building2 size={15} /> {exp.company}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Period Badge */}
-                  {exp.period && (
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                      fontSize: '0.78rem',
-                      fontWeight: '750',
-                      fontFamily: 'var(--font-heading)',
-                      padding: '0.32rem 0.85rem',
-                      borderRadius: '9999px',
-                      background: 'rgba(99,102,241,0.12)',
-                      border: '1px solid rgba(99,102,241,0.3)',
-                      color: 'var(--accent-indigo)',
-                    }}>
-                      <Calendar size={13} /> {exp.period}
-                    </span>
-                  )}
+                  <Briefcase size={16} />
                 </div>
 
-                {/* Role Description */}
-                <p style={{
-                  color: 'var(--text-muted)',
-                  fontSize: '0.94rem',
-                  lineHeight: '1.8',
-                  marginBottom: '1.25rem',
-                }}>
-                  {exp.description}
-                </p>
-
-                {/* Key Achievements Bullet Items */}
-                {exp.highlights && exp.highlights.length > 0 && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
-                    {exp.highlights.map((item, hIdx) => (
-                      <div key={hIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', fontSize: '0.88rem', color: 'var(--text-main)' }}>
-                        <CheckCircle2 size={16} color="var(--accent-emerald)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                        <span style={{ lineHeight: '1.6' }}>{item}</span>
+                {/* Experience Card */}
+                <div className="craft-card" style={{ padding: '1.5rem' }}>
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    gap: '0.5rem',
+                    marginBottom: '0.85rem',
+                  }}>
+                    <div>
+                      <h3 style={{
+                        fontSize: '1.15rem',
+                        fontWeight: '750',
+                        color: 'var(--text-main)',
+                        marginBottom: '0.25rem',
+                      }}>
+                        {exp.role}
+                      </h3>
+                      <div style={{
+                        display: 'flex', alignItems: 'center', gap: '0.35rem',
+                        fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)',
+                      }}>
+                        <Building2 size={14} /> {exp.company}
                       </div>
-                    ))}
+                    </div>
+
+                    {exp.period && (
+                      <span style={{
+                        fontSize: '0.76rem',
+                        fontWeight: '600',
+                        fontFamily: 'var(--font-heading)',
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: 'var(--radius-xs)',
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-dim)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                      }}>
+                        <Calendar size={12} /> {exp.period}
+                      </span>
+                    )}
                   </div>
-                )}
+
+                  <p style={{
+                    color: 'var(--text-muted)',
+                    fontSize: '0.92rem',
+                    lineHeight: '1.7',
+                    marginBottom: '1rem',
+                  }}>
+                    {exp.description}
+                  </p>
+
+                  {exp.highlights && exp.highlights.length > 0 && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.85rem' }}>
+                      {exp.highlights.map((item, hIdx) => (
+                        <div key={hIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.86rem', color: 'var(--text-muted)' }}>
+                          <span style={{ color: 'var(--text-dim)', marginTop: '2px' }}>•</span>
+                          <span style={{ lineHeight: '1.55' }}>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         )}
 
       </div>
