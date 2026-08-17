@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useProfile } from '../context/ProfileContext';
 import {
   ArrowRight, Download, Camera, MessageSquare, ChevronDown,
-  Building2, Server, Database, Cpu, Layers, CheckCircle2
+  Building2, Server, Database, Cpu, Layers, CheckCircle2, Award, Code2, MapPin
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
 
@@ -63,17 +63,19 @@ export const Hero = () => {
   return (
     <section id="hero" style={{
       position: 'relative',
-      minHeight: '92vh',
+      minHeight: '94vh',
       display: 'flex',
-      alignItems: 'center',
+      flexDirection: 'column',
       justifyContent: 'center',
       paddingTop: '6.5rem',
-      paddingBottom: '4.5rem',
+      paddingBottom: '3.5rem',
     }}>
       <div className="container" style={{ width: '100%' }}>
-        <div className="hero-layout">
 
-          {/* ── Left Column: Identity & Story ── */}
+        {/* ── 3-Column Panoramic Hero Grid ── */}
+        <div className="hero-layout-3col">
+
+          {/* ── Column 1 (Left): Identity, Bio & CTAs ── */}
           <div className="hero-layout-left reveal-on-scroll">
 
             {/* Availability Status Badge */}
@@ -101,7 +103,7 @@ export const Hero = () => {
 
             {/* Main Headline */}
             <h1 style={{
-              fontSize: 'clamp(2.6rem, 5.5vw, 4rem)',
+              fontSize: 'clamp(2.4rem, 4.8vw, 3.7rem)',
               fontWeight: '850',
               lineHeight: 1.08,
               marginBottom: '0.85rem',
@@ -109,7 +111,7 @@ export const Hero = () => {
             }}>
               <span style={{
                 color: 'var(--text-muted)',
-                fontSize: '38%',
+                fontSize: '36%',
                 fontWeight: '700',
                 display: 'block',
                 marginBottom: '0.35rem',
@@ -127,12 +129,12 @@ export const Hero = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              marginBottom: '1.25rem',
+              marginBottom: '1.15rem',
               minHeight: '1.8rem',
             }}>
               <span style={{ color: 'var(--text-dim)', fontSize: '0.95rem', fontFamily: 'var(--font-code)' }}>$</span>
               <h2 style={{
-                fontSize: 'clamp(1.05rem, 2.2vw, 1.25rem)',
+                fontSize: 'clamp(1rem, 2vw, 1.2rem)',
                 fontWeight: '650',
                 fontFamily: 'var(--font-code)',
                 color: 'var(--text-main)',
@@ -153,36 +155,36 @@ export const Hero = () => {
             {/* Bio / Tagline */}
             <p style={{
               color: 'var(--text-muted)',
-              fontSize: '1.02rem',
+              fontSize: '0.96rem',
               lineHeight: '1.75',
-              marginBottom: '1.75rem',
-              maxWidth: '580px',
+              marginBottom: '1.5rem',
+              maxWidth: '520px',
             }}>
               {profile.tagline || profile.bio}
             </p>
 
             {/* Tech Stack Chips Bar */}
-            <div style={{ marginBottom: '2rem' }}>
+            <div style={{ marginBottom: '1.75rem' }}>
               <div style={{
-                fontSize: '0.72rem',
+                fontSize: '0.7rem',
                 fontWeight: '700',
                 color: 'var(--text-dim)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
                 fontFamily: 'var(--font-heading)',
-                marginBottom: '0.65rem',
+                marginBottom: '0.5rem',
               }}>
                 Tech Stack Utama
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                 {CORE_STACK.map((tech) => (
                   <span
                     key={tech}
                     style={{
-                      fontSize: '0.76rem',
+                      fontSize: '0.74rem',
                       fontWeight: '600',
                       fontFamily: 'var(--font-code)',
-                      padding: '0.25rem 0.65rem',
+                      padding: '0.22rem 0.6rem',
                       borderRadius: 'var(--radius-xs)',
                       background: 'var(--bg-surface)',
                       border: '1px solid var(--border-color)',
@@ -200,37 +202,35 @@ export const Hero = () => {
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
-              gap: '1rem',
+              gap: '0.85rem',
             }}>
-              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <a href="#contact" className="btn btn-primary">
-                  <MessageSquare size={15} /> Hubungi Saya <ArrowRight size={15} />
-                </a>
-                <button onClick={handleDownloadCV} className="btn btn-secondary">
-                  <Download size={15} /> Unduh CV
-                </button>
-              </div>
+              <a href="#contact" className="btn btn-primary">
+                <MessageSquare size={15} /> Hubungi Saya <ArrowRight size={15} />
+              </a>
+              <button onClick={handleDownloadCV} className="btn btn-secondary">
+                <Download size={15} /> Unduh CV
+              </button>
 
               {/* Social Row */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginLeft: '0.25rem' }}>
                 {profile.socials?.github && (
                   <SocialLink href={profile.socials.github} title="GitHub">
-                    <GithubIcon size={16} />
+                    <GithubIcon size={15} />
                   </SocialLink>
                 )}
                 {profile.socials?.linkedin && (
                   <SocialLink href={profile.socials.linkedin} title="LinkedIn">
-                    <LinkedinIcon size={16} />
+                    <LinkedinIcon size={15} />
                   </SocialLink>
                 )}
                 {profile.socials?.instagram && (
                   <SocialLink href={profile.socials.instagram} title="Instagram">
-                    <InstagramIcon size={16} />
+                    <InstagramIcon size={15} />
                   </SocialLink>
                 )}
                 {profile.socials?.twitter && (
                   <SocialLink href={profile.socials.twitter} title="Twitter / X">
-                    <TwitterIcon size={16} />
+                    <TwitterIcon size={15} />
                   </SocialLink>
                 )}
               </div>
@@ -238,22 +238,21 @@ export const Hero = () => {
 
           </div>
 
-          {/* ── Right Column: Grand Arch Photo Card & Highlights ── */}
+          {/* ── Column 2 (Center): Grand Arch Photo Card ── */}
           <div className="reveal-on-scroll" style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '1.75rem',
+            justifyContent: 'center',
             transitionDelay: '0.1s',
           }}>
-            {/* ── Grand Architectural Arch Card ── */}
             <div className="arch-card-wrapper">
               <div className="arch-card-backing" />
 
               <div className="arch-card-outer">
                 <div
                   className="arch-card-inner"
-                  style={{ width: 'min(300px, 68vw)', height: '375px' }}
+                  style={{ width: 'min(300px, 68vw)', height: '385px' }}
                 >
                   <div className="arch-top-badge">
                     ID // 01
@@ -299,68 +298,109 @@ export const Hero = () => {
                 <span>ESP32 & Laravel Engineer</span>
               </div>
             </div>
+          </div>
 
-            {/* Quick Highlights Bento Cards */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '0.75rem',
-              width: '100%',
-              maxWidth: '320px',
-              marginTop: '0.35rem',
-            }}>
-              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
-                  <Building2 size={13} /> Institusi
-                </div>
-                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
-                  Univ. Brawijaya
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  D3 IT (2024–Pres)
-                </div>
+          {/* ── Column 3 (Right): Technical Pillars & Command Highlights ── */}
+          <div className="hero-right-col reveal-on-scroll" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.85rem',
+            transitionDelay: '0.15s',
+          }}>
+            <div className="craft-card" style={{ padding: '1rem 1.15rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                <Server size={14} color="var(--text-main)" /> Backend Architecture
               </div>
-
-              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
-                  <Server size={13} /> Spesialisasi
-                </div>
-                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
-                  Backend & IoT
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  API & Microcontrollers
-                </div>
+              <div style={{ fontSize: '1rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.3rem' }}>
+                PHP & Laravel 10+
               </div>
-
-              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
-                  <Database size={13} /> Database
-                </div>
-                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
-                  MySQL & ERD
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  Relational Modeling
-                </div>
-              </div>
-
-              <div className="craft-card" style={{ padding: '0.9rem 1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
-                  <CheckCircle2 size={13} color="var(--accent-emerald)" /> Kesiapan
-                </div>
-                <div style={{ fontSize: '0.95rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.25rem' }}>
-                  Open for Work
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  Magang & Freelance
-                </div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.5', marginTop: '0.15rem' }}>
+                RESTful API modular, aman, dan berkinerja tinggi.
               </div>
             </div>
 
+            <div className="craft-card" style={{ padding: '1rem 1.15rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                <Database size={14} color="var(--text-main)" /> Database Modeling
+              </div>
+              <div style={{ fontSize: '1rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.3rem' }}>
+                MySQL Relational Schema
+              </div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.5', marginTop: '0.15rem' }}>
+                Normalisasi ERD, indexing, dan optimasi query data.
+              </div>
+            </div>
+
+            <div className="craft-card" style={{ padding: '1rem 1.15rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                <Cpu size={14} color="var(--text-main)" /> Embedded Systems & IoT
+              </div>
+              <div style={{ fontSize: '1rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.3rem' }}>
+                ESP32 & C++ Telemetry
+              </div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.5', marginTop: '0.15rem' }}>
+                Integrasi sensor cerdas dan komunikasi data hardware.
+              </div>
+            </div>
+
+            <div className="craft-card" style={{ padding: '1rem 1.15rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-dim)', fontSize: '0.72rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-heading)' }}>
+                <Building2 size={14} color="var(--text-main)" /> Institusi & Kesiapan
+              </div>
+              <div style={{ fontSize: '1rem', fontWeight: '750', color: 'var(--text-main)', marginTop: '0.3rem' }}>
+                Univ. Brawijaya (IT)
+              </div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--accent-emerald)', fontWeight: '600', marginTop: '0.15rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <CheckCircle2 size={12} /> Open for Internship & Freelance
+              </div>
+            </div>
           </div>
 
         </div>
+
+        {/* ── Horizontal Featured Highlights Strip (Full-Bleed Across Bottom) ── */}
+        <div className="hero-bottom-strip reveal-on-scroll" style={{ transitionDelay: '0.2s' }}>
+          <div className="craft-card" style={{ padding: '0.85rem 1.15rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: 'var(--radius-xs)', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-main)', flexShrink: 0 }}>
+              <Code2 size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '700' }}>Pengalaman</div>
+              <div style={{ fontSize: '0.98rem', fontWeight: '750', color: 'var(--text-main)' }}>Rekayasa Backend & IoT</div>
+            </div>
+          </div>
+
+          <div className="craft-card" style={{ padding: '0.85rem 1.15rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: 'var(--radius-xs)', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-main)', flexShrink: 0 }}>
+              <Layers size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '700' }}>Portofolio</div>
+              <div style={{ fontSize: '0.98rem', fontWeight: '750', color: 'var(--text-main)' }}>12+ Proyek Teruji</div>
+            </div>
+          </div>
+
+          <div className="craft-card" style={{ padding: '0.85rem 1.15rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: 'var(--radius-xs)', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-main)', flexShrink: 0 }}>
+              <Award size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '700' }}>Sertifikasi</div>
+              <div style={{ fontSize: '0.98rem', fontWeight: '750', color: 'var(--text-main)' }}>8+ Lisensi Terverifikasi</div>
+            </div>
+          </div>
+
+          <div className="craft-card" style={{ padding: '0.85rem 1.15rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: 'var(--radius-xs)', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-main)', flexShrink: 0 }}>
+              <MapPin size={18} />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '700' }}>Lokasi</div>
+              <div style={{ fontSize: '0.98rem', fontWeight: '750', color: 'var(--text-main)' }}>Surabaya / Malang, ID</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       {/* Down Scroll Indicator */}
@@ -369,7 +409,7 @@ export const Hero = () => {
         aria-label="Scroll ke bagian tentang saya"
         style={{
           position: 'absolute',
-          bottom: '1.25rem',
+          bottom: '1rem',
           left: '50%',
           transform: 'translateX(-50%)',
           color: 'var(--text-dim)',
@@ -392,9 +432,9 @@ const SocialLink = ({ href, title, children }) => (
     title={title}
     aria-label={title}
     style={{
-      width: '36px',
-      height: '36px',
-      borderRadius: 'var(--radius-sm)',
+      width: '34px',
+      height: '34px',
+      borderRadius: 'var(--radius-xs)',
       background: 'var(--bg-surface)',
       border: '1px solid var(--border-color)',
       display: 'flex',
