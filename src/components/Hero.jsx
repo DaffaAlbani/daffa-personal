@@ -199,45 +199,51 @@ export const Hero = () => {
             gap: '1.5rem',
             transitionDelay: '0.1s',
           }}>
-            {/* Clean Portrait Frame (No spinning rainbow conic slop) */}
-            <div className="portrait-frame">
-              <div
-                className="portrait-inner"
-                style={{ width: 'min(240px, 60vw)', aspectRatio: '1 / 1' }}
-              >
-                <img
-                  src={profile.avatar}
-                  alt={profile.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center top',
-                    display: 'block',
-                  }}
-                  onError={e => { e.target.onerror = null; e.target.src = '/avatar-default.png'; }}
-                />
+            {/* ── Architectural Arch / Geometric Capsule Card ── */}
+            <div className="arch-card-wrapper">
+              <div className="arch-card-outer">
+                <div
+                  className="arch-card-inner"
+                  style={{ width: 'min(230px, 58vw)', height: '280px' }}
+                >
+                  <img
+                    src={profile.avatar}
+                    alt={profile.name}
+                    onError={e => { e.target.onerror = null; e.target.src = '/avatar-default.png'; }}
+                  />
 
-                {isAdminLoggedIn && (
-                  <div
-                    onClick={() => setIsAdminPanelOpen(true)}
-                    style={{
-                      position: 'absolute', inset: 0,
-                      background: 'rgba(0,0,0,0.7)',
-                      display: 'flex', flexDirection: 'column',
-                      alignItems: 'center', justifyContent: 'center',
-                      color: '#FFF', cursor: 'pointer',
-                      opacity: 0, transition: 'opacity 0.15s ease',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-                    onMouseLeave={e => e.currentTarget.style.opacity = '0'}
-                  >
-                    <Camera size={22} />
-                    <span style={{ fontSize: '0.72rem', fontWeight: '600', marginTop: '0.3rem' }}>
-                      Ganti Foto
-                    </span>
-                  </div>
-                )}
+                  {/* Admin Edit Overlay */}
+                  {isAdminLoggedIn && (
+                    <div
+                      onClick={() => setIsAdminPanelOpen(true)}
+                      style={{
+                        position: 'absolute', inset: 0,
+                        background: 'rgba(0,0,0,0.7)',
+                        display: 'flex', flexDirection: 'column',
+                        alignItems: 'center', justifyContent: 'center',
+                        color: '#FFF', cursor: 'pointer',
+                        opacity: 0, transition: 'opacity 0.15s ease',
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                      onMouseLeave={e => e.currentTarget.style.opacity = '0'}
+                    >
+                      <Camera size={22} />
+                      <span style={{ fontSize: '0.72rem', fontWeight: '600', marginTop: '0.3rem' }}>
+                        Ganti Foto
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Floating Technical Badge */}
+              <div className="arch-floating-pill">
+                <span style={{
+                  width: '6px', height: '6px', borderRadius: '50%',
+                  background: 'var(--accent-emerald)',
+                  display: 'inline-block',
+                }} />
+                <span>ESP32 & Laravel</span>
               </div>
             </div>
 
