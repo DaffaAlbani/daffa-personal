@@ -5,6 +5,7 @@ import {
   Building2, Server, Database, Cpu, Layers, CheckCircle2, Award, Code2, MapPin
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
+import { InteractivePhotoCard } from './InteractivePhotoCard';
 
 const ROLES = [
   "Backend & Laravel Developer",
@@ -238,7 +239,7 @@ export const Hero = () => {
 
           </div>
 
-          {/* ── Column 2 (Center): Grand Arch Photo Card ── */}
+          {/* ── Column 2 (Center): 3D Interactive Tilt & Specular Sheen Card ── */}
           <div className="reveal-on-scroll" style={{
             display: 'flex',
             flexDirection: 'column',
@@ -246,58 +247,7 @@ export const Hero = () => {
             justifyContent: 'center',
             transitionDelay: '0.1s',
           }}>
-            <div className="arch-card-wrapper">
-              <div className="arch-card-backing" />
-
-              <div className="arch-card-outer">
-                <div
-                  className="arch-card-inner"
-                  style={{ width: 'min(300px, 68vw)', height: '385px' }}
-                >
-                  <div className="arch-top-badge">
-                    ID // 01
-                  </div>
-
-                  <img
-                    src={profile.avatar}
-                    alt={profile.name}
-                    onError={e => { e.target.onerror = null; e.target.src = '/avatar-default.png'; }}
-                  />
-
-                  {/* Admin Edit Overlay */}
-                  {isAdminLoggedIn && (
-                    <div
-                      onClick={() => setIsAdminPanelOpen(true)}
-                      style={{
-                        position: 'absolute', inset: 0,
-                        background: 'rgba(0,0,0,0.7)',
-                        display: 'flex', flexDirection: 'column',
-                        alignItems: 'center', justifyContent: 'center',
-                        color: '#FFF', cursor: 'pointer',
-                        opacity: 0, transition: 'opacity 0.15s ease',
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-                      onMouseLeave={e => e.currentTarget.style.opacity = '0'}
-                    >
-                      <Camera size={26} />
-                      <span style={{ fontSize: '0.78rem', fontWeight: '650', marginTop: '0.35rem' }}>
-                        Ganti Foto
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Floating Technical Badge */}
-              <div className="arch-floating-pill">
-                <span style={{
-                  width: '6px', height: '6px', borderRadius: '50%',
-                  background: 'var(--accent-emerald)',
-                  display: 'inline-block',
-                }} />
-                <span>ESP32 & Laravel Engineer</span>
-              </div>
-            </div>
+            <InteractivePhotoCard />
           </div>
 
           {/* ── Column 3 (Right): Technical Pillars & Command Highlights ── */}
