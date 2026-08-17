@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { Lock, Settings, LogOut, Sun, Moon, Menu, X } from 'lucide-react';
+import { Settings, LogOut, Sun, Moon, Menu, X, Terminal } from 'lucide-react';
 
 const NAV_LINKS = [
   { href: '#about',        label: 'Tentang' },
@@ -14,8 +14,6 @@ export const Navbar = () => {
   const {
     profile,
     isAdminLoggedIn,
-    hideLoginButton,
-    setIsLoginModalOpen,
     setIsAdminPanelOpen,
     logoutAdmin,
   } = useProfile();
@@ -31,7 +29,7 @@ export const Navbar = () => {
   }, [theme]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
+    const handleScroll = () => setScrolled(window.scrollY > 25);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -46,7 +44,7 @@ export const Navbar = () => {
       if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+        { rootMargin: '-35% 0px -55% 0px', threshold: 0 }
       );
       obs.observe(el);
       observers.push(obs);
@@ -65,10 +63,10 @@ export const Navbar = () => {
   return (
     <header style={{
       position: 'fixed',
-      top: scrolled ? '0.75rem' : '1.1rem',
+      top: scrolled ? '0.75rem' : '1.15rem',
       left: '50%',
       transform: 'translateX(-50%)',
-      width: 'min(1140px, calc(100% - 2rem))',
+      width: 'min(1180px, calc(100% - 2rem))',
       zIndex: 900,
       transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
       background: scrolled
@@ -79,21 +77,21 @@ export const Navbar = () => {
       border: '1px solid var(--border-color)',
       borderRadius: 'var(--radius-full)',
       boxShadow: scrolled
-        ? '0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 25px rgba(6, 182, 212, 0.15)'
+        ? '0 18px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(6, 182, 212, 0.15)'
         : '0 10px 30px -10px rgba(0, 0, 0, 0.4)',
-      padding: '0.5rem 1rem',
+      padding: '0.45rem 1.1rem',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
 
         {/* ── Brand Unit ── */}
-        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{
             width: '38px',
             height: '38px',
             borderRadius: '50%',
             overflow: 'hidden',
             flexShrink: 0,
-            boxShadow: '0 0 0 2px rgba(6, 182, 212, 0.4), 0 0 14px rgba(6, 182, 212, 0.25)',
+            boxShadow: '0 0 0 2px rgba(6, 182, 212, 0.45), 0 0 14px rgba(6, 182, 212, 0.3)',
             border: '2px solid var(--accent-cyan)',
             background: 'var(--bg-surface)',
             display: 'flex',
@@ -110,7 +108,7 @@ export const Navbar = () => {
           <div>
             <span style={{
               fontFamily: 'var(--font-heading)',
-              fontWeight: '800',
+              fontWeight: '850',
               fontSize: '1.02rem',
               color: 'var(--text-main)',
               letterSpacing: '-0.02em',
@@ -124,7 +122,7 @@ export const Navbar = () => {
                 display: 'block',
                 fontSize: '0.62rem',
                 color: 'var(--accent-emerald)',
-                fontWeight: '700',
+                fontWeight: '800',
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
               }}>
@@ -133,10 +131,11 @@ export const Navbar = () => {
             ) : (
               <span style={{
                 display: 'block',
-                fontSize: '0.64rem',
+                fontSize: '0.66rem',
                 color: 'var(--accent-cyan)',
-                fontWeight: '600',
+                fontWeight: '700',
                 letterSpacing: '0.04em',
+                fontFamily: 'var(--font-code)',
               }}>
                 Backend & IoT Engineer
               </span>
@@ -153,22 +152,23 @@ export const Navbar = () => {
                 key={href}
                 href={href}
                 style={{
-                  color: active ? 'var(--accent-cyan)' : 'var(--text-muted)',
+                  color: active ? '#FFF' : 'var(--text-muted)',
                   textDecoration: 'none',
                   fontSize: '0.84rem',
                   fontWeight: active ? '700' : '600',
                   fontFamily: 'var(--font-heading)',
-                  padding: '0.4rem 0.9rem',
-                  borderRadius: '9999px',
+                  padding: '0.42rem 0.95rem',
+                  borderRadius: 'var(--radius-full)',
                   transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
-                  background: active ? 'rgba(6, 182, 212, 0.12)' : 'transparent',
-                  border: active ? '1px solid rgba(6, 182, 212, 0.25)' : '1px solid transparent',
+                  background: active ? 'var(--gradient-brand)' : 'transparent',
+                  border: active ? 'none' : '1px solid transparent',
+                  boxShadow: active ? '0 4px 15px rgba(6, 182, 212, 0.35)' : 'none',
                   letterSpacing: '0.01em',
                 }}
                 onMouseEnter={e => {
                   if (!active) {
                     e.currentTarget.style.color = 'var(--text-main)';
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
                   }
                 }}
                 onMouseLeave={e => {
@@ -185,16 +185,16 @@ export const Navbar = () => {
         </nav>
 
         {/* ── Actions Unit ── */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <button
             onClick={toggleTheme}
             title={theme === 'dark' ? "Beralih ke Mode Terang" : "Beralih ke Mode Gelap"}
             aria-label={theme === 'dark' ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
             style={{
-              width: '36px',
-              height: '36px',
+              width: '38px',
+              height: '38px',
               borderRadius: '50%',
-              background: 'rgba(255,255,255,0.05)',
+              background: 'rgba(255,255,255,0.04)',
               border: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
@@ -209,18 +209,18 @@ export const Navbar = () => {
               e.currentTarget.style.color = 'var(--accent-cyan)';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
               e.currentTarget.style.borderColor = 'var(--border-color)';
               e.currentTarget.style.color = 'var(--text-muted)';
             }}
           >
             {theme === 'dark'
-              ? <Sun size={15} color="var(--accent-amber)" />
-              : <Moon size={15} color="var(--accent-cyan)" />
+              ? <Sun size={16} color="var(--accent-amber)" />
+              : <Moon size={16} color="var(--accent-cyan)" />
             }
           </button>
 
-          {/* Admin Controls (Only when logged in) */}
+          {/* Admin Controls */}
           {isAdminLoggedIn && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
               <button onClick={() => setIsAdminPanelOpen(true)} className="btn btn-primary btn-sm">
@@ -232,7 +232,7 @@ export const Navbar = () => {
             </div>
           )}
 
-          {/* Mobile Toggle */}
+          {/* Mobile Toggle Button */}
           <button
             className="mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -240,11 +240,14 @@ export const Navbar = () => {
             aria-expanded={mobileMenuOpen}
             style={{
               display: 'none',
-              background: 'none',
-              border: 'none',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid var(--border-color)',
+              borderRadius: 'var(--radius-sm)',
               color: 'var(--text-main)',
               cursor: 'pointer',
-              padding: '0.4rem',
+              padding: '0.5rem',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -255,23 +258,24 @@ export const Navbar = () => {
       {/* ── Mobile Drawer ── */}
       <div style={{
         position: 'absolute',
-        top: '100%',
+        top: 'calc(100% + 0.75rem)',
         left: 0,
         right: 0,
         background: 'var(--nav-scrolled-bg)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
-        borderBottom: mobileMenuOpen ? '1px solid var(--border-color)' : 'none',
-        padding: mobileMenuOpen ? '1.25rem 1.75rem' : '0 1.75rem',
+        borderRadius: 'var(--radius-lg)',
+        border: '1px solid var(--border-color)',
+        padding: mobileMenuOpen ? '1.25rem 1.5rem' : '0 1.5rem',
         display: 'flex',
         flexDirection: 'column',
-        gap: '0.25rem',
+        gap: '0.35rem',
         maxHeight: mobileMenuOpen ? '420px' : '0',
         opacity: mobileMenuOpen ? 1 : 0,
         visibility: mobileMenuOpen ? 'visible' : 'hidden',
         overflow: 'hidden',
         transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-        boxShadow: mobileMenuOpen ? '0 24px 40px -8px rgba(0,0,0,0.6)' : 'none',
+        boxShadow: mobileMenuOpen ? '0 24px 50px -8px rgba(0,0,0,0.7)' : 'none',
       }}>
         {NAV_LINKS.map(({ href, label }) => (
           <a
@@ -279,13 +283,13 @@ export const Navbar = () => {
             href={href}
             onClick={() => setMobileMenuOpen(false)}
             style={{
-              color: isActive(href) ? 'var(--accent-indigo)' : 'var(--text-main)',
+              color: isActive(href) ? 'var(--accent-cyan)' : 'var(--text-main)',
               textDecoration: 'none',
               fontSize: '1rem',
-              fontWeight: '600',
+              fontWeight: '700',
               fontFamily: 'var(--font-heading)',
-              padding: '0.75rem 0',
-              borderBottom: '1px solid var(--border-color)',
+              padding: '0.8rem 0',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -294,8 +298,9 @@ export const Navbar = () => {
             {label}
             {isActive(href) && (
               <span style={{
-                width: '6px', height: '6px', borderRadius: '50%',
-                background: 'var(--accent-indigo)',
+                width: '7px', height: '7px', borderRadius: '50%',
+                background: 'var(--accent-cyan)',
+                boxShadow: '0 0 8px var(--accent-cyan)',
               }} />
             )}
           </a>

@@ -1,29 +1,33 @@
 # PRODUCT.md — Impeccable Product Context
 
 ## Schema & Version
-- **Schema Version**: 1.0.0
+- **Schema Version**: 2.0.0
 - **Framework**: Impeccable AI Design System
-- **Last Updated**: 2026-08-10
+- **Last Updated**: 2026-08-17
 
 ## Product Vision & Surface Type
-- **Surface Category**: Brand Portfolio & Interactive Showcase (Hybrid: Editorial Presentation + Admin Management Product Surface)
-- **Core Purpose**: Present Daffa Albani's software engineering background (Backend, Database Architecture & IoT Embedded Systems) with interactive project showcases, verified credentials, and administrative content management capabilities.
+- **Surface Category**: Neo-Modern Bento Portfolio & Interactive Showcase (Hybrid: High-Impact Developer Showcase + Admin Management Suite)
+- **Core Purpose**: Present Daffa Albani's engineering expertise (Backend API Architecture, MySQL Modeling, and IoT Embedded Systems) with modular bento cards, verified credentials, and client-side administrative content management.
 
 ## Target Audience
-1. **Tech Recruiters & Engineering Managers**: Seeking backend (Laravel, MySQL) and IoT (ESP32, C++) developers for internships, freelance contracts, or junior positions.
-2. **Academic & Institutional Peers**: Faculty and student body at Universitas Brawijaya, organization partners.
-3. **Clients & Mentees**: Individuals looking for custom web/IoT solutions or AI/programming tutoring.
+1. **Tech Recruiters & Engineering Leads**: Seeking backend (Laravel, REST APIs, MySQL) and IoT (ESP32, C++) engineers.
+2. **Academic & Institutional Peers**: Faculty and students at Universitas Brawijaya.
+3. **Clients & Mentees**: Individuals seeking custom web/IoT solutions or programming mentorship.
 
 ## Key Value Propositions & Tone of Voice
-- **Tone**: Technical, Professional, Forward-Looking, Craft-Driven.
-- **Brand Personality**: High Tech x Practical Craftsmanship. Combines precise system architectural thinking with clean visual presentation.
-- **Key Differentiators**: Live client-side profile data management (via `ProfileContext` + hidden admin panel shortcut `Cmd/Ctrl + Shift + A`), interactive constellation particle backdrop, smooth light/dark theme switching, and scroll-driven reveal animations.
+- **Tone**: Technical, Confident, Modern, Craft-Driven.
+- **Brand Personality**: High Tech x Modular Bento Craftsmanship.
+- **Key Differentiators**:
+  - Modular Bento-grid layout with high visual density and clear hierarchy.
+  - Interactive constellation particle background.
+  - Full client-side profile state management via `ProfileContext` with hidden admin panel (`Cmd/Ctrl + Shift + A`).
+  - Seamless Light/Dark theme switching with persistent localStorage.
 
-## Product Features & Lanes
-- **Hero & Identity**: Interactive hero section with dynamic typing tagline, key metric stats badges, social links, and quick action CTAs.
-- **About & Technical Matrix**: Academic progression timeline, core specialization summary, and skill proficiency gauges with category filters.
-- **Projects Showcase**: Filterable project gallery with live demo links, repository badges, and tech stack tags.
-- **Certifications & Achievements**: Interactive modal/card preview of verified technical certifications and competitions (e.g., picoCTF, IoT engineering).
-- **Work & Leadership Experience**: Vertical timeline outlining organizational leadership, academic tutoring, and tech roles.
-- **Contact & Inquiries**: Functional contact gateway with email/WhatsApp direct links and dynamic availability status badge.
-- **Admin Control Suite**: Modal-based login and management interface for real-time portfolio data updates without external CMS overhead.
+## Product Lanes & Bento Architecture
+- **Hero Lane**: Dynamic typewriter role, availability status badge, avatar with glowing aura, quick stats bento tiles, and live stack highlights.
+- **About Matrix**: Tabbed bio view, core specialization cards (Backend, Database, IoT), and filterable skill competence matrix.
+- **Projects Showcase**: Bento project gallery with real-time text search, category filters, tech tags, and interactive detail modals.
+- **Certificates Lane**: Bento credential cards with verified badges, credential IDs, and zoomable lightbox preview.
+- **Experience Timeline**: Vertical cybernetic milestone timeline with organization highlights and achievement tags.
+- **Contact Gateway**: Dual-card layout with direct WhatsApp/Email gateways and responsive contact form.
+- **Admin Suite**: Secret shortcut activated modal for real-time CRUD data management.

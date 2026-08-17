@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProfile } from '../context/ProfileContext';
-import { ArrowUp, Lock, Heart, Code2, Zap, Sparkles } from 'lucide-react';
+import { ArrowUp, Lock, Heart, Sparkles, Terminal } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, InstagramIcon, TwitterIcon } from './SocialIcons';
 
 const NAV_COLUMNS = [
@@ -26,14 +26,14 @@ const NAV_COLUMNS = [
 ];
 
 const SOCIAL_MAP = {
-  github:    { icon: GithubIcon,    color: '#e6edf3' },
+  github:    { icon: GithubIcon,    color: '#06B6D4' },
   linkedin:  { icon: LinkedinIcon,  color: '#0A66C2' },
   instagram: { icon: InstagramIcon, color: '#E1306C' },
   twitter:   { icon: TwitterIcon,   color: '#1D9BF0' },
 };
 
 export const Footer = () => {
-  const { profile, hideLoginButton, setIsLoginModalOpen, isAdminLoggedIn } = useProfile();
+  const { profile, setIsLoginModalOpen, isAdminLoggedIn, setIsAdminPanelOpen } = useProfile();
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -56,18 +56,18 @@ export const Footer = () => {
       }} />
 
       {/* Main Footer Grid */}
-      <div className="container" style={{ padding: '3.5rem 1.75rem 2rem' }}>
+      <div className="container" style={{ padding: '3.5rem 1.5rem 2rem' }}>
         <div className="footer-grid">
 
           {/* ── Brand & Identity Column ── */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.1rem' }}>
               <div style={{
                 width: '42px', height: '42px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 flexShrink: 0,
-                boxShadow: '0 0 0 2px rgba(56,189,248,0.4), 0 4px 14px rgba(56,189,248,0.25)',
+                boxShadow: '0 0 0 2px rgba(6,182,212,0.4), 0 4px 14px rgba(6,182,212,0.25)',
                 border: '2px solid var(--accent-cyan)',
                 background: 'var(--bg-surface)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -82,7 +82,7 @@ export const Footer = () => {
               <div>
                 <div style={{
                   fontFamily: 'var(--font-heading)',
-                  fontWeight: '800',
+                  fontWeight: '850',
                   fontSize: '1.15rem',
                   color: 'var(--text-main)',
                   letterSpacing: '-0.02em',
@@ -91,9 +91,9 @@ export const Footer = () => {
                 </div>
                 <div style={{
                   fontSize: '0.72rem',
-                  color: 'var(--text-dim)',
-                  fontFamily: 'var(--font-heading)',
-                  fontWeight: '600',
+                  color: 'var(--accent-cyan)',
+                  fontFamily: 'var(--font-code)',
+                  fontWeight: '700',
                   letterSpacing: '0.04em',
                 }}>
                   BACKEND & IOT DEVELOPER
@@ -105,14 +105,14 @@ export const Footer = () => {
               color: 'var(--text-muted)',
               fontSize: '0.9rem',
               lineHeight: '1.75',
-              maxWidth: '360px',
+              maxWidth: '380px',
               marginBottom: '1.75rem',
             }}>
               Mahasiswa IT di Universitas Brawijaya yang berfokus pada arsitektur backend, basis data terstruktur, dan rekayasa sistem IoT embedded.
             </p>
 
             {/* Social Icons */}
-            <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
               {profile.socials && Object.entries(SOCIAL_MAP).map(([key, { icon: Icon, color }]) => {
                 if (!profile.socials[key]) return null;
                 return (
@@ -123,9 +123,9 @@ export const Footer = () => {
                     rel="noreferrer"
                     title={key.charAt(0).toUpperCase() + key.slice(1)}
                     style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '9px',
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '10px',
                       background: 'rgba(255,255,255,0.04)',
                       border: '1px solid var(--border-color)',
                       display: 'flex',
@@ -137,15 +137,17 @@ export const Footer = () => {
                     }}
                     onMouseEnter={e => {
                       e.currentTarget.style.color = color;
-                      e.currentTarget.style.borderColor = color + '50';
-                      e.currentTarget.style.background = color + '12';
+                      e.currentTarget.style.borderColor = color;
+                      e.currentTarget.style.background = color + '15';
                       e.currentTarget.style.transform = 'translateY(-3px)';
+                      e.currentTarget.style.boxShadow = `0 8px 18px ${color}30`;
                     }}
                     onMouseLeave={e => {
                       e.currentTarget.style.color = 'var(--text-dim)';
                       e.currentTarget.style.borderColor = 'var(--border-color)';
                       e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
                       e.currentTarget.style.transform = 'none';
+                      e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
                     <Icon size={16} />
@@ -160,16 +162,16 @@ export const Footer = () => {
             <div key={title}>
               <h4 style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '0.72rem',
-                fontWeight: '800',
+                fontSize: '0.74rem',
+                fontWeight: '850',
                 color: 'var(--text-dim)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.12em',
-                marginBottom: '1.15rem',
+                marginBottom: '1.25rem',
               }}>
                 {title}
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {links.map(({ label, href }) => (
                   href ? (
                     <a
@@ -178,16 +180,22 @@ export const Footer = () => {
                       style={{
                         color: 'var(--text-muted)',
                         textDecoration: 'none',
-                        fontSize: '0.88rem',
+                        fontSize: '0.9rem',
                         fontFamily: 'var(--font-heading)',
-                        fontWeight: '500',
-                        transition: 'color 0.18s ease',
+                        fontWeight: '600',
+                        transition: 'all 0.18s ease',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '0.3rem',
                       }}
-                      onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-cyan)'}
-                      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.color = 'var(--accent-cyan)';
+                        e.currentTarget.style.transform = 'translateX(4px)';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.color = 'var(--text-muted)';
+                        e.currentTarget.style.transform = 'none';
+                      }}
                     >
                       {label}
                     </a>
@@ -196,9 +204,9 @@ export const Footer = () => {
                       key={label}
                       style={{
                         color: 'var(--text-muted)',
-                        fontSize: '0.88rem',
+                        fontSize: '0.9rem',
                         fontFamily: 'var(--font-heading)',
-                        fontWeight: '500',
+                        fontWeight: '600',
                       }}
                     >
                       {label}
@@ -217,12 +225,12 @@ export const Footer = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '1rem',
-          paddingTop: '1.75rem',
+          paddingTop: '1.85rem',
           borderTop: '1px solid var(--border-color)',
         }}>
           {/* Copyright */}
           <div onClick={handleSecretClick} style={{ userSelect: 'none', cursor: 'default' }}>
-            <span style={{ fontSize: '0.82rem', color: 'var(--text-dim)' }}>
+            <span style={{ fontSize: '0.84rem', color: 'var(--text-dim)' }}>
               © {new Date().getFullYear()} {profile.name}. All rights reserved.
             </span>
           </div>
@@ -236,26 +244,28 @@ export const Footer = () => {
               fontSize: '0.78rem',
               color: 'var(--text-dim)',
               fontFamily: 'var(--font-heading)',
-              fontWeight: '500',
+              fontWeight: '600',
             }}>
               Built with <Heart size={12} color="var(--accent-rose)" fill="var(--accent-rose)" />
               <span style={{
-                background: 'rgba(56,189,248,0.12)',
-                border: '1px solid rgba(56,189,248,0.2)',
+                background: 'rgba(6,182,212,0.12)',
+                border: '1px solid rgba(6,182,212,0.25)',
                 color: 'var(--accent-cyan)',
-                padding: '0.12rem 0.5rem',
-                borderRadius: '5px',
+                padding: '0.15rem 0.55rem',
+                borderRadius: '6px',
                 fontSize: '0.72rem',
-                fontWeight: '700',
+                fontWeight: '800',
+                fontFamily: 'var(--font-code)',
               }}>React</span>
               <span style={{
-                background: 'rgba(251,191,36,0.1)',
-                border: '1px solid rgba(251,191,36,0.2)',
+                background: 'rgba(245,158,11,0.1)',
+                border: '1px solid rgba(245,158,11,0.25)',
                 color: 'var(--accent-amber)',
-                padding: '0.12rem 0.5rem',
-                borderRadius: '5px',
+                padding: '0.15rem 0.55rem',
+                borderRadius: '6px',
                 fontSize: '0.72rem',
-                fontWeight: '700',
+                fontWeight: '800',
+                fontFamily: 'var(--font-code)',
               }}>Vite</span>
             </div>
 
@@ -270,11 +280,11 @@ export const Footer = () => {
                   alignItems: 'center',
                   gap: '0.4rem',
                   fontSize: '0.75rem',
-                  fontWeight: '700',
+                  fontWeight: '750',
                   color: 'var(--accent-emerald)',
                   background: 'rgba(16, 185, 129, 0.1)',
-                  padding: '0.32rem 0.8rem',
-                  borderRadius: '9999px',
+                  padding: '0.35rem 0.85rem',
+                  borderRadius: 'var(--radius-full)',
                   border: '1px solid rgba(16, 185, 129, 0.3)',
                   cursor: 'pointer',
                   fontFamily: 'var(--font-heading)',
@@ -282,7 +292,7 @@ export const Footer = () => {
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(16, 185, 129, 0.25)';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(16, 185, 129, 0.3)';
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.transform = 'none';
@@ -301,11 +311,11 @@ export const Footer = () => {
                   alignItems: 'center',
                   gap: '0.35rem',
                   fontSize: '0.72rem',
-                  fontWeight: '600',
+                  fontWeight: '700',
                   color: 'var(--text-dim)',
                   background: 'var(--bg-card)',
-                  padding: '0.28rem 0.72rem',
-                  borderRadius: '9999px',
+                  padding: '0.3rem 0.75rem',
+                  borderRadius: 'var(--radius-full)',
                   border: '1px solid var(--border-color)',
                   cursor: 'pointer',
                   fontFamily: 'var(--font-heading)',
@@ -332,25 +342,25 @@ export const Footer = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                background: 'rgba(56,189,248,0.08)',
-                border: '1px solid rgba(56,189,248,0.25)',
-                borderRadius: '9999px',
+                background: 'rgba(6,182,212,0.08)',
+                border: '1px solid rgba(6,182,212,0.25)',
+                borderRadius: 'var(--radius-full)',
                 color: 'var(--accent-cyan)',
                 cursor: 'pointer',
                 padding: '0.42rem 0.95rem',
                 fontSize: '0.78rem',
                 fontFamily: 'var(--font-heading)',
-                fontWeight: '700',
+                fontWeight: '750',
                 transition: 'all 0.22s ease',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.background = 'var(--accent-cyan)';
                 e.currentTarget.style.color = '#FFF';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(56,189,248,0.3)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(6,182,212,0.4)';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'rgba(56,189,248,0.08)';
+                e.currentTarget.style.background = 'rgba(6,182,212,0.08)';
                 e.currentTarget.style.color = 'var(--accent-cyan)';
                 e.currentTarget.style.transform = 'none';
                 e.currentTarget.style.boxShadow = 'none';
